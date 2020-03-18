@@ -1,0 +1,31 @@
+﻿@model CryptoSelectorViewModel
+
+@{
+    var crypto = Html.GetActiveCrypto();
+    var cryptoName = Html.GetActiveCryptoName();
+    var cryptoCode = Html.GetActiveCryptoCode();
+}
+
+<div>
+    <div class="form__group mb-3">
+        <label class="form__label" for="crypto">@Resources.Site.SelectCrypto</label>
+
+        <form class="form__select select--crypto" method="get">
+            <select asp-for="Crypto" name="crypto" id="crypto">
+                <option value="bitcoin">Bitcoin</option>
+                <option value="bitcoincash">Bitcoin Cash</option>
+                <option value="ethereum">Ethereum</option>
+                <option value="litecoin">Litecoin</option>
+                <option value="lumen">Lumen</option>
+            </select>
+            <input hidden name="newaction" value="@Model.Action" />
+        </form>
+    </div>
+
+    @if (Model.ShowPrices)
+    {
+        <div class="white-opacity normal mb-2">@Resources.BuyPages.BuyingPrice <span class="buyPrice" data-crypto="@cryptoCode">...</span> @(Model.Currency)/@(cryptoName)</div>
+        <div class="white-opacity normal">@Resources.SellPages.SellingPrice <span class="sellPrice" data-crypto="@cryptoCode">...</span> @(Model.Currency)/@(cryptoName)</div>
+    }
+</div>
+

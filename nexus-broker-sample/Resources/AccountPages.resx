@@ -1,0 +1,709 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccountAdditionalAccount" xml:space="preserve">
+    <value>(account code of your existing active account)</value>
+  </data>
+  <data name="AccountAdditionalAddress" xml:space="preserve">
+    <value>(new address of your private wallet to receive {0})</value>
+  </data>
+  <data name="AccountAdditionalCreateButton" xml:space="preserve">
+    <value>Add address</value>
+  </data>
+  <data name="AccountAdditionalCreatedTabTitle" xml:space="preserve">
+    <value>Additional Account Created</value>
+  </data>
+  <data name="AccountAdditionalCreatedText1" xml:space="preserve">
+    <value>Your additional account has successfully been created. In a few minutes you will receive an email with an activation link.</value>
+  </data>
+  <data name="AccountAdditionalCreatedTitle" xml:space="preserve">
+    <value>Additional Account Created</value>
+  </data>
+  <data name="AccountAdditionalInfoText" xml:space="preserve">
+    <value>You can create additional accounts with the same bank account and trust status as an existing active account. This enables you to use multiple digital currency wallet addresses.</value>
+  </data>
+  <data name="AccountAdditionalPlaceholderAccount" xml:space="preserve">
+    <value>Your existing active account code</value>
+  </data>
+  <data name="AccountAdditionalPlaceholderAddress" xml:space="preserve">
+    <value>A new extra {0} address</value>
+  </data>
+  <data name="AccountAdditionalTabTitle" xml:space="preserve">
+    <value>Create Additional Account</value>
+  </data>
+  <data name="AccountAdditionalTitle" xml:space="preserve">
+    <value>Add address</value>
+  </data>
+  <data name="AccountAdditionalTitleFail" xml:space="preserve">
+    <value>Account creation is temporary disabled, please check back later to create additional accounts</value>
+  </data>
+  <data name="AccountAsideAddress" xml:space="preserve">
+    <value>Your {0} address; to receive {0}</value>
+  </data>
+  <data name="AccountAsideBusiness" xml:space="preserve">
+    <value>Business</value>
+  </data>
+  <data name="AccountAsideCreateAccount" xml:space="preserve">
+    <value>Create a new Account</value>
+  </data>
+  <data name="AccountAsideCreateButton" xml:space="preserve">
+    <value>Create account</value>
+  </data>
+  <data name="AccountAsideEmail" xml:space="preserve">
+    <value>Your email address; to receive email confirmations</value>
+  </data>
+  <data name="AccountAsideIBAN" xml:space="preserve">
+    <value>Your IBAN bank account; to receive payments</value>
+  </data>
+  <data name="AccountAsideName" xml:space="preserve">
+    <value>Your name; as used on your bank account</value>
+  </data>
+  <data name="AccountAsidePersonal" xml:space="preserve">
+    <value>Personal</value>
+  </data>
+  <data name="AccountAsidePlaceholderAddress" xml:space="preserve">
+    <value>A {0} address of your private wallet</value>
+  </data>
+  <data name="AccountAsidePlaceholderEmail" xml:space="preserve">
+    <value>Your email address</value>
+  </data>
+  <data name="AccountAsidePlaceholderIBAN" xml:space="preserve">
+    <value>Your bank account</value>
+  </data>
+  <data name="AccountAsidePlaceholderName" xml:space="preserve">
+    <value>Your name</value>
+  </data>
+  <data name="AccountAsideReferralCode" xml:space="preserve">
+    <value>Referral Code:</value>
+  </data>
+  <data name="AccountAsideTermsAgree" xml:space="preserve">
+    <value>I agree to the privacy policy and to the </value>
+  </data>
+  <data name="AccountAsideTermsLink" xml:space="preserve">
+    <value>Terms of use</value>
+  </data>
+  <data name="AccountAsideWarningText" xml:space="preserve">
+    <value>&lt;br /&gt;Account creation is temporary disabled, please check back later to create your new account</value>
+  </data>
+  <data name="AccountCreatedTabTitle" xml:space="preserve">
+    <value>Account Created</value>
+  </data>
+  <data name="AccountCreatedText1" xml:space="preserve">
+    <value>Your account has successfully been created.</value>
+  </data>
+  <data name="AccountCreatedTitle" xml:space="preserve">
+    <value>New Account Created</value>
+  </data>
+  <data name="AccountDeleteAccount" xml:space="preserve">
+    <value>(account code of active account to delete)</value>
+  </data>
+  <data name="AccountDeleteConfirmButton" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="AccountDeleteConfirmIBAN" xml:space="preserve">
+    <value>(bank account)</value>
+  </data>
+  <data name="AccountDeleteConfirmName" xml:space="preserve">
+    <value>(name of bank account holder)</value>
+  </data>
+  <data name="AccountDeleteConfirmReceiveAddress" xml:space="preserve">
+    <value>(your address to receive {0})</value>
+  </data>
+  <data name="AccountDeleteConfirmSellAddress" xml:space="preserve">
+    <value>(address to sell {0})</value>
+  </data>
+  <data name="AccountDeleteConfirmTabTitle" xml:space="preserve">
+    <value>Confirm Account Delete</value>
+  </data>
+  <data name="AccountDeleteConfirmTextFail" xml:space="preserve">
+    <value>This account is not active, it is either invalid or already deleted.</value>
+  </data>
+  <data name="AccountDeleteConfirmTitle" xml:space="preserve">
+    <value>Confirm the deletion of account</value>
+  </data>
+  <data name="AccountDeleteConfirmTitleFail" xml:space="preserve">
+    <value>Cannot delete Account</value>
+  </data>
+  <data name="AccountDeletedTabTitle" xml:space="preserve">
+    <value>Account Deleted</value>
+  </data>
+  <data name="AccountDeletedText1" xml:space="preserve">
+    <value>A confirmation email has beent sent to:</value>
+  </data>
+  <data name="AccountDeletedText2" xml:space="preserve">
+    <value>Fail reason:</value>
+  </data>
+  <data name="AccountDeletedTitle" xml:space="preserve">
+    <value>Account Succesfully Deleted</value>
+  </data>
+  <data name="AccountDeletedTitleFail" xml:space="preserve">
+    <value>Failed to delete your account</value>
+  </data>
+  <data name="AccountDeleteEmail" xml:space="preserve">
+    <value>(email address connected to this account)</value>
+  </data>
+  <data name="AccountDeleteInfoText" xml:space="preserve">
+    <value>Enter your email address and an account code to request for deletion of an active account. You will recieve an email with a confirmation link to delete the account.</value>
+  </data>
+  <data name="AccountDeletePlaceholderAccount" xml:space="preserve">
+    <value>Your account code</value>
+  </data>
+  <data name="AccountDeletePlaceholderEmail" xml:space="preserve">
+    <value>Your email address</value>
+  </data>
+  <data name="AccountDeleteRequestButton" xml:space="preserve">
+    <value>Request delete</value>
+  </data>
+  <data name="AccountDeleteRequestedFailed" xml:space="preserve">
+    <value>Delete request failed:</value>
+  </data>
+  <data name="AccountDeleteRequestedTabTitle" xml:space="preserve">
+    <value>Account Delete Requested</value>
+  </data>
+  <data name="AccountDeleteRequestedText1" xml:space="preserve">
+    <value>In a few minutes you will receive an email with a delete confirmation link at the submitted email address:</value>
+  </data>
+  <data name="AccountDeleteRequestedText2" xml:space="preserve">
+    <value>(if the requested account is known and active and uses this email address)</value>
+  </data>
+  <data name="AccountDeleteRequestedTitle" xml:space="preserve">
+    <value>Account Delete Requested</value>
+  </data>
+  <data name="AccountDeleteTabTitle" xml:space="preserve">
+    <value>Delete Account</value>
+  </data>
+  <data name="AccountDeleteTitle" xml:space="preserve">
+    <value>Delete an Account</value>
+  </data>
+  <data name="AccountInfoEmail" xml:space="preserve">
+    <value>(email address to recieve your account details)</value>
+  </data>
+  <data name="AccountInfoInfoText" xml:space="preserve">
+    <value>You can request to receive an email with the details of your currently active accounts.</value>
+  </data>
+  <data name="AccountInfoPlaceholderEmail" xml:space="preserve">
+    <value>Your email address</value>
+  </data>
+  <data name="AccountInfoRequestButton" xml:space="preserve">
+    <value>Request email</value>
+  </data>
+  <data name="AccountInfoRequestedTabTitle" xml:space="preserve">
+    <value>Account Info Requested</value>
+  </data>
+  <data name="AccountInfoRequestedText11" xml:space="preserve">
+    <value>In a few minutes you will receive an email with active account information at the submitted email address:</value>
+  </data>
+  <data name="AccountInfoRequestedText12" xml:space="preserve">
+    <value>(if at least one active account exists using this email address)</value>
+  </data>
+  <data name="AccountInfoRequestedText21" xml:space="preserve">
+    <value>Fail reason:</value>
+  </data>
+  <data name="AccountInfoRequestedTitle" xml:space="preserve">
+    <value>Account Info Email Requested</value>
+  </data>
+  <data name="AccountInfoRequestedTitleFail" xml:space="preserve">
+    <value>Account Info Request Failed</value>
+  </data>
+  <data name="AccountInfoTabTitle" xml:space="preserve">
+    <value>Request Account Info</value>
+  </data>
+  <data name="AccountInfoTitle" xml:space="preserve">
+    <value>Request Account Info</value>
+  </data>
+  <data name="AccountPageAdditionalLink" xml:space="preserve">
+    <value>Additional Account</value>
+  </data>
+  <data name="AccountPageBusinessAccount" xml:space="preserve">
+    <value>Business Accounts</value>
+  </data>
+  <data name="AccountPageBusinessInfo1" xml:space="preserve">
+    <value>For Business Accounts verification is required.</value>
+  </data>
+  <data name="AccountPageBusinessInfo2" xml:space="preserve">
+    <value>&lt;b&gt;NEW&lt;/b&gt;: Only test transactions available</value>
+  </data>
+  <data name="AccountPageBusinessInfo3" xml:space="preserve">
+    <value>&lt;b&gt;VERIFIED&lt;/b&gt;: multiple buy transactions per day up to a maximum of 5000 euro per transaction. To request for business verification procedure:</value>
+  </data>
+  <data name="AccountPageExtraInfo1" xml:space="preserve">
+    <value>&lt;b&gt;Forgotten your Account?&lt;/b&gt; You can request for an email with the Account info of all your active Accounts:</value>
+  </data>
+  <data name="AccountPageExtraInfo2" xml:space="preserve">
+    <value>You can add new {0} wallet addresses by creating &lt;b&gt;Additional Accounts&lt;/b&gt; using the same details and trust level of an exisiting account:</value>
+  </data>
+  <data name="AccountPageExtraInfo3" xml:space="preserve">
+    <value>An &lt;b&gt;IBAN bank account number&lt;/b&gt; contains a maximum of 34 alphanumerical characters and begins with the country code, like NL01RABO0123456789. To translate your normal bank account number to an IBAN code, you can use a tool like &lt;a href="http://www.ibancalculator.com" target="_blank"&gt;IBAN Calculator&lt;/a&gt;</value>
+  </data>
+  <data name="AccountPageFastTrackLink" xml:space="preserve">
+    <value>Need fast track?</value>
+  </data>
+  <data name="AccountPageInfo1" xml:space="preserve">
+    <value>You can buy {0} and sell {0} directly after creating a Account. HERMESworks with Accounts to provide you with additional security. It also gives you a 'one-click' ordering method, which speeds up the process and helps you avoiding errors. Your account is only used for these purposes. HERMES does not keep or manage any Crypto wallets and/or Euro deposits.</value>
+  </data>
+  <data name="AccountPageInfo2" xml:space="preserve">
+    <value>The bank account you use when creating a Account determines the type of your Account. If you use a personal bank account, select 'Personal' when creating a New Account. However, if you intend to use a business bank account, you need to select 'Business'.</value>
+  </data>
+  <data name="AccountPageInfoLink" xml:space="preserve">
+    <value>Request Account Info</value>
+  </data>
+  <data name="AccountPageManageAccount" xml:space="preserve">
+    <value>Manage your Account</value>
+  </data>
+  <data name="AccountPagePersonalAccount" xml:space="preserve">
+    <value>Personal Accounts</value>
+  </data>
+  <data name="AccountPagePersonalInfo1" xml:space="preserve">
+    <value>&lt;b&gt;NEW&lt;/b&gt;: during first week after your first buy transaction (not test transaction). To bypass the one week transaction limit for New Accounts, HERMES offers a 'fast track' confirmation procedure:</value>
+  </data>
+  <data name="AccountPagePersonalInfo3" xml:space="preserve">
+    <value>&lt;b&gt;TRUSTED&lt;/b&gt;: automatic upgrade from New Account one week after the first buy transaction (not test transaction).</value>
+  </data>
+  <data name="AccountPagePersonalInfo4" xml:space="preserve">
+    <value>&lt;b&gt;VERIFIED&lt;/b&gt;: on request - authenticity of identity and proof of residence required. To request for personal verification procedure:</value>
+  </data>
+  <data name="AccountPageTabBuyHeader" xml:space="preserve">
+    <value>Buy limits (per day / per month)</value>
+  </data>
+  <data name="AccountPageTabBuyText11" xml:space="preserve">
+    <value>Account status</value>
+  </data>
+  <data name="AccountPageTabBuyText12" xml:space="preserve">
+    <value>Personal</value>
+  </data>
+  <data name="AccountPageTabBuyText13" xml:space="preserve">
+    <value>Business</value>
+  </data>
+  <data name="AccountPageTabBuyText21" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="AccountPageTabBuyText41" xml:space="preserve">
+    <value>Trusted</value>
+  </data>
+  <data name="AccountPageTabBuyText51" xml:space="preserve">
+    <value>Verified</value>
+  </data>
+  <data name="AccountPageTabBuyTitle" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="AccountPageTabSellHeader" xml:space="preserve">
+    <value>Sell limits (per day / per month)</value>
+  </data>
+  <data name="AccountPageTabSellText11" xml:space="preserve">
+    <value>Account status</value>
+  </data>
+  <data name="AccountPageTabSellText12" xml:space="preserve">
+    <value>Personal</value>
+  </data>
+  <data name="AccountPageTabSellText13" xml:space="preserve">
+    <value>Business</value>
+  </data>
+  <data name="AccountPageTabSellText21" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="AccountPageTabSellText23" xml:space="preserve">
+    <value>Not allowed</value>
+  </data>
+  <data name="AccountPageTabSellText41" xml:space="preserve">
+    <value>Trusted</value>
+  </data>
+  <data name="AccountPageTabSellText51" xml:space="preserve">
+    <value>Verified</value>
+  </data>
+  <data name="AccountPageTabSellTitle" xml:space="preserve">
+    <value>Sell</value>
+  </data>
+  <data name="AccountPageTabTitle" xml:space="preserve">
+    <value>Create New Account</value>
+  </data>
+  <data name="AccountPageTitle" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="AccountPageVerificationLink" xml:space="preserve">
+    <value>Need verification?</value>
+  </data>
+  <data name="CONTROLMESSAGE001" xml:space="preserve">
+    <value>Succesfully activated your account</value>
+  </data>
+  <data name="CONTROLMESSAGE002" xml:space="preserve">
+    <value>Your business account {0} is now activated. Within a few minutes you will receive an email with your account details. Before you can use a business account to buy and sell, it needs to be verified.</value>
+  </data>
+  <data name="CONTROLMESSAGE003" xml:space="preserve">
+    <value>Your personal account {0} is now activated. Within a few minutes you will receive an email with your account details.</value>
+  </data>
+  <data name="CONTROLMESSAGE004" xml:space="preserve">
+    <value>Before you can use this account to buy and sell {0}, it needs to be verified.</value>
+  </data>
+  <data name="CONTROLMESSAGE005" xml:space="preserve">
+    <value>Failed to activate your account</value>
+  </data>
+  <data name="CONTROLMESSAGE006" xml:space="preserve">
+    <value>Reason:</value>
+  </data>
+  <data name="CONTROLMESSAGE007" xml:space="preserve">
+    <value>Account code and email fields must both have a value</value>
+  </data>
+  <data name="CONTROLMESSAGE008" xml:space="preserve">
+    <value>Invalid email address</value>
+  </data>
+  <data name="ERRORMESSAGE001" xml:space="preserve">
+    <value>This link has already been used. Did you activate your account already?</value>
+  </data>
+  <data name="ERRORMESSAGE002" xml:space="preserve">
+    <value>Creation of accounts currently disabled</value>
+  </data>
+  <data name="ERRORMESSAGE003" xml:space="preserve">
+    <value>This account is already in use, do you want to add an extra {0} address? &lt;br /&gt;&lt;a href="/en/account/createadditional"&gt;&gt; Additional account&lt;/a&gt;</value>
+  </data>
+  <data name="ERRORMESSAGE004" xml:space="preserve">
+    <value>Unknown or not active account</value>
+  </data>
+  <data name="ERRORMESSAGE005" xml:space="preserve">
+    <value>Cannot create additional account: missing active bank account</value>
+  </data>
+  <data name="ERRORMESSAGE006" xml:space="preserve">
+    <value>Your {0} address is required</value>
+  </data>
+  <data name="ERRORMESSAGE007" xml:space="preserve">
+    <value>Invalid {0} address</value>
+  </data>
+  <data name="ERRORMESSAGE008" xml:space="preserve">
+    <value>{0} address already used before</value>
+  </data>
+  <data name="ERRORMESSAGE009" xml:space="preserve">
+    <value>Account not found</value>
+  </data>
+  <data name="ERRORMESSAGE010" xml:space="preserve">
+    <value>Account is already active</value>
+  </data>
+  <data name="ERRORMESSAGE011" xml:space="preserve">
+    <value>Account is not a valid account (probably it is outdated or it was invalidated by requesting a newer account)</value>
+  </data>
+  <data name="ERRORMESSAGE012" xml:space="preserve">
+    <value>Account is not active</value>
+  </data>
+  <data name="ERRORMESSAGE013" xml:space="preserve">
+    <value>Email is required</value>
+  </data>
+  <data name="ERRORMESSAGE014" xml:space="preserve">
+    <value>Invalid email address</value>
+  </data>
+  <data name="ERRORMESSAGE015" xml:space="preserve">
+    <value>IBAN is required</value>
+  </data>
+  <data name="ERRORMESSAGE016" xml:space="preserve">
+    <value>Invalid IBAN code</value>
+  </data>
+  <data name="ERRORMESSAGE017" xml:space="preserve">
+    <value>This IBAN is in a range that cannot be served</value>
+  </data>
+  <data name="ERRORMESSAGE018" xml:space="preserve">
+    <value>Undefined country in IBAN code</value>
+  </data>
+  <data name="ERRORMESSAGE019" xml:space="preserve">
+    <value>Country is not associated with this labelpartner</value>
+  </data>
+  <data name="ERRORMESSAGE020" xml:space="preserve">
+    <value>Bank account holder name is required</value>
+  </data>
+  <data name="ERRORMESSAGE022" xml:space="preserve">
+    <value>You did not agree to the Terms of Use</value>
+  </data>
+  <data name="ERRORMESSAGE023" xml:space="preserve">
+    <value>Unknown or Inactive referral code</value>
+  </data>
+  <data name="AccountPageActivateTabTitle" xml:space="preserve">
+    <value>Activate Account</value>
+  </data>
+  <data name="AccountPageTabBuyExtra" xml:space="preserve">
+    <value>* Sofort Banking, GiroPay and MyBank are limited to 1000 EUR equivalent per day.</value>
+  </data>
+  <data name="ERRORMESSAGE024" xml:space="preserve">
+    <value>Too many accounts, please wait 24 hours</value>
+  </data>
+  <data name="AccountAsideCanadaAccount" xml:space="preserve">
+    <value>Your bank account; to receive payments</value>
+  </data>
+  <data name="AccountAsideSWIFT" xml:space="preserve">
+    <value>SWIFT</value>
+  </data>
+  <data name="AccountAsideNonSWIFT" xml:space="preserve">
+    <value>IBAN</value>
+  </data>
+  <data name="AccountAsidePlaceholderSwiftAccount" xml:space="preserve">
+    <value>Your bank account</value>
+  </data>
+  <data name="AccountAsidePlaceholderSwiftCode" xml:space="preserve">
+    <value>Your bank SWIFT code</value>
+  </data>
+  <data name="AccountAsideSwiftCode" xml:space="preserve">
+    <value>Your bank SWIFT code; to receive payments</value>
+  </data>
+  <data name="ERRORMESSAGE065" xml:space="preserve">
+    <value>SWIFT code required</value>
+  </data>
+  <data name="ERRORMESSAGE066" xml:space="preserve">
+    <value>Invalid SWIFT code</value>
+  </data>
+  <data name="ERRORMESSAGE067" xml:space="preserve">
+    <value>This SWIFT code is in a range that cannot be served</value>
+  </data>
+  <data name="ERRORMESSAGE068" xml:space="preserve">
+    <value>Undefined country in SWIFT code</value>
+  </data>
+  <data name="AccountPageExtraInfo4" xml:space="preserve">
+    <value>A &lt;b&gt;SWIFT or BIC code &lt;/b&gt; contains 8 or 11 alphanumeric characters and is a standard format of Bank Identifier Code (BIC). The SWIFT code is an unique identification code for a particular bank. Please consult your bank or online services
+such as &lt;a href="http://www.theswiftcodes.com/"&gt;The SWIFT Codes &lt;/a&gt;  for your bank SWIFT code.</value>
+  </data>
+  <data name="AccountAsideSwiftOptionHelp" xml:space="preserve">
+    <value>Currently only Canada supported.</value>
+  </data>
+  <data name="ERRORMESSAGE069" xml:space="preserve">
+    <value>Bank account is required</value>
+  </data>
+  <data name="ERRORMESSAGE070" xml:space="preserve">
+    <value>Invalid Bank Account</value>
+  </data>
+  <data name="AccountNameUpdatedTabTitle" xml:space="preserve">
+    <value>Account Name Updated</value>
+  </data>
+  <data name="AccountNameUpdatedTitle" xml:space="preserve">
+    <value>Account Name Updated</value>
+  </data>
+  <data name="AccountNameUpdateFail" xml:space="preserve">
+    <value>Your account name has not been updated, failure reason:</value>
+  </data>
+  <data name="AccountNameUpdateSuccess" xml:space="preserve">
+    <value>Your account name has been updated successful.</value>
+  </data>
+  <data name="AccountUpdateCurrentName" xml:space="preserve">
+    <value>Your current name:</value>
+  </data>
+  <data name="AccountUpdateNameButton" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="AccountUpdateNameInfo1a" xml:space="preserve">
+    <value>Please update your account name. It was marked by our system as incomplete or unlikely.</value>
+  </data>
+  <data name="AccountUpdateNameInfo1b" xml:space="preserve">
+    <value>Only when we have the same full name as you use with your bank account, we can successfully payout your sell transactions.</value>
+  </data>
+  <data name="AccountUpdateTabTitle" xml:space="preserve">
+    <value>Update Account Details</value>
+  </data>
+  <data name="AccountUpdateNameTextFail" xml:space="preserve">
+    <value>The requested account is unknown or invalid or the account name has already been updated.</value>
+  </data>
+  <data name="AccountUpdateNameTitle" xml:space="preserve">
+    <value>Update Account Name</value>
+  </data>
+  <data name="AccountUpdateNewName" xml:space="preserve">
+    <value>Your new account name</value>
+  </data>
+  <data name="CONTROLMESSAGE009" xml:space="preserve">
+    <value>Invalid or empty account name</value>
+  </data>
+  <data name="AccountPageWantVerificationLink" xml:space="preserve">
+    <value>Want account verification?</value>
+  </data>
+  <data name="AccountAsideCurencySelectHelp" xml:space="preserve">
+    <value>Select the currency of your bank account</value>
+  </data>
+  <data name="AccountUpdateAddress" xml:space="preserve">
+    <value>Your address (street + number)</value>
+  </data>
+  <data name="AccountUpdateCity" xml:space="preserve">
+    <value>Your city</value>
+  </data>
+  <data name="AccountUpdateCountryName" xml:space="preserve">
+    <value>Your country</value>
+  </data>
+  <data name="AccountUpdateInfo1" xml:space="preserve">
+    <value>Please update your account details as they are marked by our system as incomplete or unlikely. Only when we have the same full name and address details as you use with your bank account, we can successfully payout your sell transactions.</value>
+  </data>
+  <data name="AccountUpdateName" xml:space="preserve">
+    <value>Your full name</value>
+  </data>
+  <data name="AccountUpdateTitle" xml:space="preserve">
+    <value>Update Account Details</value>
+  </data>
+  <data name="AccountUpdateZipCode" xml:space="preserve">
+    <value>Your zipcode</value>
+  </data>
+  <data name="AccountAsideWallet" xml:space="preserve">
+    <value>What is a </value>
+  </data>
+  <data name="AccountAsideWalletLink" xml:space="preserve">
+    <value>{0} Wallet</value>
+  </data>
+  <data name="AccountAsideCountryName" xml:space="preserve">
+    <value>Your nationality</value>
+  </data>
+  <data name="AccountAsidePlaceholderCountryName" xml:space="preserve">
+    <value>Please select your nationality</value>
+  </data>
+  <data name="ERRORMESSAGE_HC_COUNTRYREQUIRED" xml:space="preserve">
+    <value>Country name is required</value>
+  </data>
+  <data name="AccountAsideBankAccountName" xml:space="preserve">
+    <value>Your name</value>
+  </data>
+  <data name="AccountAsideBankAccountNameDesc" xml:space="preserve">
+    <value>As used on your bank account</value>
+  </data>
+  <data name="AccountAsideBankAccountNumber" xml:space="preserve">
+    <value>IBAN bank account</value>
+  </data>
+  <data name="AccountAsideCountryCode" xml:space="preserve">
+    <value>Your nationality</value>
+  </data>
+  <data name="AccountAsideCustomerCryptoAddress" xml:space="preserve">
+    <value>Wallet address</value>
+  </data>
+  <data name="AccountAsideCustomerCryptoAddressPlaceholder" xml:space="preserve">
+    <value>A {0} address of your private wallet</value>
+  </data>
+  <data name="AccountAsideIsBusiness" xml:space="preserve">
+    <value>Type account</value>
+  </data>
+  <data name="AccountAsideMail" xml:space="preserve">
+    <value>Your email address</value>
+  </data>
+  <data name="AccountAdditionalDesc" xml:space="preserve">
+    <value>You can create additional accounts with the same bank account and trust status as an existing active account. This enables you to use multiple digital currency wallet addresses.</value>
+  </data>
+  <data name="AccountAsideDesc" xml:space="preserve">
+    <value>You can buy crypto and sell crypto directly after creating a Account. You can link multiple crypto addresses to one account.</value>
+  </data>
+  <data name="AccountAsideTitle" xml:space="preserve">
+    <value>Let’s get started!</value>
+  </data>
+  <data name="AccountAsideBankAccountNumberHelp" xml:space="preserve">
+    <value>What is IBAN?</value>
+  </data>
+  <data name="AccountAsideCustomerCryptoAddressHelp" xml:space="preserve">
+    <value>What is a wallet?</value>
+  </data>
+  <data name="AccountAsideIsBusinessHelp" xml:space="preserve">
+    <value>Explanation</value>
+  </data>
+  <data name="CustomerExists" xml:space="preserve">
+    <value>IBAN already in use</value>
+  </data>
+</root>

@@ -1,0 +1,110 @@
+﻿@page
+@model Nexus.Samples.Broker.Pages.Buy.InitiateModel
+
+@{
+    ViewBag.Title = Resources.BuyPages.InitiatePageTabTitle;
+    string dcCode = Html.GetActiveCryptoName();
+}
+
+<div class="page">
+    <div class="page__content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-10 col-lg-8">
+                    <h1>@Resources.BuyPages.InitiatePageTitle <img src="@Model.InitiateBuyModel.PaymentMethodLogoURL" alt="@Model.InitiateBuyModel.PaymentMethodName" align="right" /></h1>
+
+                    <p>@Resources.BuyPages.InitiateCheckDetailsMessage</p>
+                    <p>
+                        <b>@Resources.BuyPages.InitiateDetailsTitle</b><br />
+                        @Resources.BuyPages.InitiateAccountCodeLabel @Model.InitiateBuyModel.AccountCode<br />
+                        @String.Format(Resources.BuyPages.InitiateWalletAddressLabel, dcCode) @Model.InitiateBuyModel.BtcAddress<br />
+                        @Resources.BuyPages.InitiateEmailLabel @Html.ObfuscateEmail(Model.InitiateBuyModel.Email)<br />
+                        @Resources.BuyPages.InitiateBankAccountLabel @Html.Obfuscate(Model.InitiateBuyModel.IBAN, 4, 4)<br />
+                        @if (!String.IsNullOrWhiteSpace(Model.InitiateBuyModel.BicCode))
+                        {
+                            @:@Resources.BuyPages.InitiateYourBICCodeLabel @Model.InitiateBuyModel.BicCode<br />
+                        }
+                    </p>
+                    <p>
+                        <b>@Resources.BuyPages.InitiateTransactionDetailsTitle </b><br />
+                        @if ((Model.InitiateBuyModel.PaymentMethodCode.Trim() != "SEPA") && (Model.InitiateBuyModel.PaymentMethodCode.Trim() != "SWISS_BANK"))
+                        {
+                            @Resources.BuyPages.InitiateTransactionTimeLabel <span class="localtimeShort">@Model.InitiateBuyModel.TransactionTimestamp.ToString("u")</span> <br />
+                            @Resources.BuyPages.InitiateTransactionCodeLabel <span>@Model.InitiateBuyModel.TransactionCode</span><br />
+                        }
+                        @if ((Model.InitiateBuyModel.PaymentMethodCode.Trim() != "SEPA") && (Model.InitiateBuyModel.PaymentMethodCode.Trim() != "SWISS_BANK") && (Model.InitiateBuyModel.TransactionFixedMinutes > 0))
+                        {
+                            @Resources.BuyPages.InitiateTransactionValueLabel <span>@Model.InitiateBuyModel.Amount @Model.InitiateBuyModel.Currency</span><br />
+                            @Resources.BuyPages.InitiatePurchaseAmountLabel <span>@Model.InitiateBuyModel.EstimateBTC @Model.InitiateBuyModel.DCCode</span><br />
+                        }
+                        else
+                        {
+                            @Resources.BuyPages.InitiateTransactionValueLabel <span>@Model.InitiateBuyModel.Amount @Model.InitiateBuyModel.Currency</span><br />
+                            @Resources.BuyPages.InitiateEstimatedPurchaseLabel <span>@Model.InitiateBuyModel.EstimateBTC @Model.InitiateBuyModel.DCCode</span><br />
+                        }
+                    </p>
+
+                    @if (Model.InitiateBuyModel.SendDelayHours > 0)
+                    {
+                        <p>
+                            @String.Format(Resources.BuyPages.InitiateSendDelayInfo1, dcCode, Model.InitiateBuyModel.SendDelayHours)
+                        </p>
+                    }
+                    @if (Model.InitiateBuyModel.SendDelayHours == -1)
+                    {
+                        <p>
+                            @String.Format(Resources.BuyPages.InitiateSendDelayInfo2, dcCode)
+                        </p>
+                    }
+
+                    @if ((Model.InitiateBuyModel.PaymentMethodCode.Trim() == "SEPA") || (Model.InitiateBuyModel.PaymentMethodCode.Trim() == "SWISS_BANK") || (Model.InitiateBuyModel.PaymentMethodCode.Trim() == "BANK_TRANSFER"))
+                    {
+                        <p>
+                            <b>@Resources.BuyPages.InitiateSEPAPaymentTitle</b><br />
+                            @Resources.BuyPages.InitiateAccountNameLabel @Model.InitiateBuyModel.BankName<br />
+                            @Resources.BuyPages.InitiateSEPABankAccountLabel @Model.InitiateBuyModel.BankIBAN<br />
+                            @Resources.BuyPages.InitiateBICCodeLabel @Model.InitiateBuyModel.BankBIC<br />
+                            @Resources.BuyPages.InitiateAddressLabel @Model.InitiateBuyModel.BankAddress<br />
+                            @Resources.BuyPages.InitiatePaymentReferenceLabel @Model.InitiateBuyModel.AccountCode<br />
+                        </p>
+                        <div class="content-box">
+                            <b>@Resources.BuyPages.InitiateSEPAConditionsTitle</b>
+                            <br />
+                            <p>
+                                @String.Format(Resources.BuyPages.InitiateSEPAConditionsMessage, dcCode)
+                            </p>
+                            <ul>
+                                <li>@Resources.BuyPages.InitiateSEPACondition1</li>
+                                <li>@Resources.BuyPages.InitiateSEPACondition2</li>
+                                <li>@Resources.BuyPages.InitiateSEPACondition3</li>
+                                <li>@Resources.BuyPages.InitiateSEPACondition4</li>
+                                <li>@Resources.BuyPages.InitiateSEPACondition5</li>
+                                <li>@String.Format(Resources.BuyPages.InitiateSEPACondition6, dcCode)</li>
+                                <li>@String.Format(Resources.BuyPages.InitiateSEPACondition7, dcCode)</li>
+                                <li>@String.Format(Resources.BuyPages.InitiateSEPACondition9, dcCode)</li>
+                                <li>@Resources.BuyPages.InitiateSEPACondition10</li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="content-box">
+
+                            <p><b>@Resources.BuyPages.InitiateTransactionBankAccountWarning</b></p>
+
+                            @if (Model.InitiateBuyModel.TransactionFixedMinutes > 0)
+                            {
+                                <p><b>@String.Format(Resources.BuyPages.InitiateTransactionTimeText1, dcCode, Model.InitiateBuyModel.TransactionFixedMinutes)</b></p>
+                                <p>@String.Format(Resources.BuyPages.InitiateTransactionTimeText2, Model.InitiateBuyModel.TransactionFixedMinutes, dcCode)</p>
+                            }
+                            else
+                            {
+                                @String.Format(Resources.BuyPages.InitiateTransactionTimeText3, dcCode)
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

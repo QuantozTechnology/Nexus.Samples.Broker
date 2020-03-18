@@ -1,0 +1,87 @@
+﻿@using Newtonsoft.Json
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- set the encoding of your site -->
+    <meta charset="utf-8">
+    <!-- set the viewport width and initial-scale on mobile devices  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- bing -->
+    <meta name="msvalidate.01" content="8DE88312D2FDF5FB6B9F1805078E976B" />
+    <meta http-equiv="expires" content="0" />
+
+    @RenderSection("header", required: false)
+    <title>@ViewBag.Title - HERMES</title>
+    <meta name="description" content="@Html.GetPageDescription()">
+
+    <!-- include the site stylesheet -->
+    @*@Styles.Render("~/bundles/css")*@
+    <link rel="stylesheet" href="~/css/site.min.css">
+    @RenderSection("styles", required: false)
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/Images/Favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/Images/Favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/Images/Favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/Images/Favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/Images/Favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/Images/Favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/Images/Favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/Images/Favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/Images/Favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/Images/Favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Images/Favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/Images/Favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Images/Favicon/favicon-16x16.png">
+    <link rel="manifest" href="/Images/Favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/Images/Favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body style="padding-top: 121px;">
+    <partial name="_Header" />
+
+    @RenderBody()
+
+    <partial name="_Footer" />
+
+    <script>
+        var cryptoCode = '@Html.GetActiveCryptoCode()';
+    </script>
+
+    @*@Scripts.Render("~/bundles/js")
+        @Scripts.Render("~/bundles/template")*@
+
+    <script src="~/js/jquery-2.1.4.min.js"></script>
+    <script src="~/js/jquery.selectric.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/marketprices.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+    <script>
+
+        $(".submit select").change(function () {
+            $(this).closest('form').trigger('submit');
+        });
+    </script>
+
+    <script>
+        (function () {
+            $("select[name=crypto]").change(function () {
+                var option = $(this).val();
+
+                let url = window.location.href;
+                let strippedCrypto = url.substr(0, url.lastIndexOf('/') + 1);
+                let newUrl = strippedCrypto + option;
+
+                console.log("Redirecting: " + newUrl);
+                window.location.href = newUrl;
+
+                //$(this).closest('form').trigger('submit');
+            });
+        })();
+    </script>
+</body>
+</html>

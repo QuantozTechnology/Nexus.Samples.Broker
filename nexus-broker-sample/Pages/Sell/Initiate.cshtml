@@ -1,0 +1,81 @@
+﻿@page
+@model Nexus.Samples.Broker.Pages.Sell.InitiateModel
+
+@{
+    string cryptoName = Html.GetActiveCryptoName();
+    ViewData["Title"] = @String.Format(Resources.SellPages.SellInitiateTabTitle, cryptoName);
+}
+
+<div class="page">
+    <div class="page__content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-10 col-lg-8">
+
+                    <h1>@String.Format(Resources.SellPages.SellInitiateTitle, cryptoName)</h1>
+
+                    <p>
+                        <b>@Resources.SellPages.SellInitiateAccountTitle</b><br />
+                        @Resources.SellPages.SellInitiateAccountCode @Model.InitiateSellModel.AccountCode<br />
+                        @Resources.SellPages.SellInitiateAccountEmail @Html.ObfuscateEmail(Model.InitiateSellModel.Email)<br />
+                        @Resources.SellPages.SellInitiateAccountBank @Html.Obfuscate(Model.InitiateSellModel.BankAccountNumber, 4, 4)<br />
+                    </p>
+                    <p>
+                        <b>@Resources.SellPages.SellInitiateTransactionTitle</b><br />
+                        @if (Model.InitiateSellModel.TransactionFixedMinutes > 0)
+                        {
+                            @:@Resources.SellPages.SellInitiateTransactionTimestamp <span class="localtimeShort">@Model.InitiateSellModel.TransactionTimestamp.ToString("u")</span> <br />
+                            @:@Resources.SellPages.SellInitiateTransactionCode @Model.InitiateSellModel.TransactionCode<br />
+                            @:@Resources.SellPages.SellInitiateTransactionAmount @Model.InitiateSellModel.BtcAmount.ToString("F8") @cryptoName<br />
+                            @:@Resources.SellPages.SellInitiateTransactionPayout @Model.InitiateSellModel.AfterFee.ToString("F2") @Model.InitiateSellModel.Currency<br />
+                        }
+                        else
+                        {
+                            @:@Resources.SellPages.SellInitiateTransactionAmount @Model.InitiateSellModel.BtcAmount.ToString("F8") @cryptoName<br />
+                            @:@Resources.SellPages.SellInitiateTransactionEstimate @Model.InitiateSellModel.AfterFee.ToString("F2") @Model.InitiateSellModel.Currency<br />
+                        }
+                    </p>
+
+                    <fieldset class="buyinitiated-form mb-5">
+                        <div class="display-label">
+                            @Resources.SellPages.SellInitiateSendTextA @Model.InitiateSellModel.BtcAmount.ToString("F8") @String.Format(Resources.SellPages.SellInitiateSendTextB, cryptoName)
+                        </div>
+                        <strong>@Model.InitiateSellModel.BtcAddress</strong>
+                        @if (cryptoName.ToUpper() == "LUMEN")
+                        {
+                            <div class="form-box">
+                                <b>@String.Format(Resources.SellPages.SellInitiateLumenWarning, Model.InitiateSellModel.AccountCode)</b>
+                            </div>
+                        }
+                    </fieldset>
+
+                    <div class="mb-5">
+                        @if (cryptoName.ToUpper() == "LUMEN" || cryptoName.ToUpper() == "ETHEREUM")
+                        {
+                            @Resources.SellPages.SellInitiateQRCodeAddress<br />
+                        }
+                        else
+                        {
+                            @Resources.SellPages.SellInitiateQRCode<br />
+                        }
+
+                        <a href="@ViewData["QRCodeData"]">@Html.Raw(ViewData["QRCode"])</a>
+                    </div>
+                    <p>
+                        <b>@Html.Raw(@String.Format(Resources.SellPages.SellInitiateTextNetworkFee, cryptoName))</b>
+                    </p>
+                    @if (Model.InitiateSellModel.TransactionFixedMinutes > 0)
+                    {
+                        <p>@string.Format(Resources.SellPages.SellInitiateText1, cryptoName, Model.InitiateSellModel.TransactionFixedMinutes)</p>
+                        <p>@string.Format(Resources.SellPages.SellInitiateText2, cryptoName, Model.InitiateSellModel.TransactionFixedMinutes)</p>
+                    }
+                    else
+                    {
+                        <p>@String.Format(Resources.SellPages.SellInitiateText3, cryptoName)</p>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

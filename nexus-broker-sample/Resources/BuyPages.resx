@@ -1,0 +1,657 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BuyBankTransferText1" xml:space="preserve">
+    <value>European Account holders in the Single Euro Payments Area (SEPA) without access to an instant payment method can buy {0} by bank transfer. The {0} price is equal to the actual market price at the time your transaction is processed after receiving confirmation from our bank of your transfer.</value>
+  </data>
+  <data name="BuyBankTransferText2" xml:space="preserve">
+    <value>Make sure to initiate your bank transfer from the same bank account as is connected to your Account and to put your Account code in the comment field of the bank transaction! The bank account details for initiating a bank transfer are displayed when reviewing your order.</value>
+  </data>
+  <data name="BuyBankTransferTitle" xml:space="preserve">
+    <value>Buy {0} by European bank transfer (SEPA)</value>
+  </data>
+  <data name="BuyFormAccountLabel" xml:space="preserve">
+    <value>Account code</value>
+  </data>
+  <data name="BuyFormAccountPlaceHolder" xml:space="preserve">
+    <value>Your Account code</value>
+  </data>
+  <data name="BuyFormAmountHelp" xml:space="preserve">
+    <value>Available maximum amount depends on your Account status.</value>
+  </data>
+  <data name="BuyFormAmountLabel" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="BuyFormCheckAccountButton" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="BuyFormLimitedBusinessMessage" xml:space="preserve">
+    <value>Limited business account</value>
+  </data>
+  <data name="BuyFormLimitedPersonalMessage" xml:space="preserve">
+    <value>Limited personal account</value>
+  </data>
+  <data name="BuyFormNeedFastTrackLink" xml:space="preserve">
+    <value>Need fast-track upgrade?</value>
+  </data>
+  <data name="BuyFormNeedVerificationLink" xml:space="preserve">
+    <value>Need account verification?</value>
+  </data>
+  <data name="BuyFormLimitedInfoLink" xml:space="preserve">
+    <value>Why is this account limited?</value>
+  </data>
+  <data name="BuyFormNewBusiness" xml:space="preserve">
+    <value>Unverified Business Account.</value>
+  </data>
+  <data name="BuyFormNewPersonal" xml:space="preserve">
+    <value>New Personal Account.</value>
+  </data>
+  <data name="BuyFormNoActiveAccountLink" xml:space="preserve">
+    <value>No code?</value>
+  </data>
+  <data name="BuyFormNonActiveAccount" xml:space="preserve">
+    <value>Not an active Account!</value>
+  </data>
+  <data name="BuyFormReviewButton" xml:space="preserve">
+    <value>Review order</value>
+  </data>
+  <data name="BuyFormTrustedPersonal" xml:space="preserve">
+    <value>Trusted Personal Account.</value>
+  </data>
+  <data name="BuyFormVerifiedBusiness" xml:space="preserve">
+    <value>Verified Business Account.</value>
+  </data>
+  <data name="BuyFormVerifiedPersonal" xml:space="preserve">
+    <value>Verified Personal Account.</value>
+  </data>
+  <data name="BuyFormBankFeeLabel" xml:space="preserve">
+    <value>Bank fee</value>
+  </data>
+  <data name="BuyFormNewPersonalMessage" xml:space="preserve">
+    <value>New personal account</value>
+  </data>
+  <data name="BuyFormPurchaseLabel" xml:space="preserve">
+    <value>Purchase</value>
+  </data>
+  <data name="BuyFormServiceFeeLabel" xml:space="preserve">
+    <value>Service fee</value>
+  </data>
+  <data name="BuyFormSubTotalLabel" xml:space="preserve">
+    <value>Subtotal</value>
+  </data>
+  <data name="BuyInstantPaymentText1" xml:space="preserve">
+    <value>Account holders can almost instantly buy {0} using the applicable online instant payment method (iDeal, Bancontact Mister Cash, GiroPay, MyBank, Sofort and Interac). Within a few minutes you will automatically receive the {0} you ordered in your private {0} wallet. Note: some transactions may have a send delay.</value>
+  </data>
+  <data name="BuyInstantPaymentText2" xml:space="preserve">
+    <value>The exact amount of {0} you can puchase for the selected amount of money is dynamically updated above (refreshes every minute) according to the real-time buy price. When you click the Review Order button, the {0} buy price will be locked and the lock in period is displayed. This way you know exactly how many {0} you will receive in your wallet. After clicking the Review Order button we advise you to continue your checkout without delay. If your payment takes more than the lock in period to finalise, your {0} price will be updated with the actual buy price at the time of receiving your payment signal. In that case the final amount of {0} sent to your wallet may differ slightly.</value>
+  </data>
+  <data name="BuyInstantPaymentTitle" xml:space="preserve">
+    <value>Buy {0} with online instant payment method</value>
+  </data>
+  <data name="BuyPageErrorText" xml:space="preserve">
+    <value>Buy service temporary not available.</value>
+  </data>
+  <data name="BuyPageTabTitle" xml:space="preserve">
+    <value>Buy {0}</value>
+  </data>
+  <data name="BuyPageTitle" xml:space="preserve">
+    <value>Let's buy</value>
+  </data>
+  <data name="BuyTransactionCostText1" xml:space="preserve">
+    <value>The transaction costs consist of a service fee, a miners (network) fee and a bank fee. You will receive a confirmation email with the transaction details after the {0} have been sent to your wallet.</value>
+  </data>
+  <data name="InitiateAccountCodeLabel" xml:space="preserve">
+    <value>Account code:</value>
+  </data>
+  <data name="InitiateAccountNameLabel" xml:space="preserve">
+    <value>Account name:</value>
+  </data>
+  <data name="InitiateBankAccountLabel" xml:space="preserve">
+    <value>Your bank account:</value>
+  </data>
+  <data name="InitiateBICCodeLabel" xml:space="preserve">
+    <value>BIC code:</value>
+  </data>
+  <data name="InitiateCheckDetailsMessage" xml:space="preserve">
+    <value>- please check the account details -</value>
+  </data>
+  <data name="InitiateDetailsTitle" xml:space="preserve">
+    <value>Your details</value>
+  </data>
+  <data name="InitiateEmailLabel" xml:space="preserve">
+    <value>Your email:</value>
+  </data>
+  <data name="InitiateEstimatedPurchaseLabel" xml:space="preserve">
+    <value>Estimated purchase amount:</value>
+  </data>
+  <data name="InitiateAddressLabel" xml:space="preserve">
+    <value>Address:</value>
+  </data>
+  <data name="InitiatePageTabTitle" xml:space="preserve">
+    <value>Initiate Payment</value>
+  </data>
+  <data name="InitiatePageTitle" xml:space="preserve">
+    <value>Initiate Payment</value>
+  </data>
+  <data name="InitiatePaymentReferenceLabel" xml:space="preserve">
+    <value>Payment comment:</value>
+  </data>
+  <data name="InitiatePaymentSubmitButton" xml:space="preserve">
+    <value>Initiate bank transaction</value>
+  </data>
+  <data name="InitiatePurchaseAmountLabel" xml:space="preserve">
+    <value>Purchase amount:</value>
+  </data>
+  <data name="InitiateSelectedExchageLabel" xml:space="preserve">
+    <value>Selected exchange:</value>
+  </data>
+  <data name="InitiateSEPABankAccountLabel" xml:space="preserve">
+    <value>Bank account:</value>
+  </data>
+  <data name="InitiateSEPACondition1" xml:space="preserve">
+    <value>Initiate your bank transfer from the bank account connected to your Account.</value>
+  </data>
+  <data name="InitiateSEPACondition10" xml:space="preserve">
+    <value>Bank transfers not in line with these terms will be returned (after deduction of bank costs).</value>
+  </data>
+  <data name="InitiateSEPACondition2" xml:space="preserve">
+    <value>Put your Account code in the 'comment' (sometimes called 'label' or 'reference') field of the bank transaction.</value>
+  </data>
+  <data name="InitiateSEPACondition3" xml:space="preserve">
+    <value>Only transfer Euro amounts within the limits of your Account trust level.</value>
+  </data>
+  <data name="InitiateSEPACondition4" xml:space="preserve">
+    <value>Transactions using New Account are limited to {0} Euro equivalent per day.</value>
+  </data>
+  <data name="InitiateSEPACondition5" xml:space="preserve">
+    <value>After your SEPA bank transfer, it takes 1-3 working days to show on our bank account.</value>
+  </data>
+  <data name="InitiateSEPACondition6" xml:space="preserve">
+    <value>Once our bank confirms your transfer, we initiate a buy transaction and the {0} will be sent to your wallet.</value>
+  </data>
+  <data name="InitiateSEPACondition7" xml:space="preserve">
+    <value>The estimated purchase amount of {0} is based on the current buy price. The final amount of {0} you receive will differ from the estimate as the {0} price is determined when your order is actually traded.</value>
+  </data>
+  <data name="InitiateSEPACondition9" xml:space="preserve">
+    <value>When your {0} are sent to your wallet you will receive a confirmation email with the financial transaction details.</value>
+  </data>
+  <data name="InitiateSEPAConditionsMessage" xml:space="preserve">
+    <value>When buying {0} by SEPA bank transfer, you acknowledge and agree to accept:</value>
+  </data>
+  <data name="InitiateSEPAConditionsTitle" xml:space="preserve">
+    <value>CONDITIONS</value>
+  </data>
+  <data name="InitiateSEPAPaymentTitle" xml:space="preserve">
+    <value>bank details for SEPA bank transfer</value>
+  </data>
+  <data name="InitiateTransactionCodeLabel" xml:space="preserve">
+    <value>Transaction code:</value>
+  </data>
+  <data name="InitiateTransactionDetailsTitle" xml:space="preserve">
+    <value>Transaction details</value>
+  </data>
+  <data name="InitiateTransactionTimeLabel" xml:space="preserve">
+    <value>Transaction timestamp:</value>
+  </data>
+  <data name="InitiateTransactionTimeText1" xml:space="preserve">
+    <value>Your {0} price for this transaction has been locked in for the next {1} minutes, so you know exactly how many {0} you will receive (purchase amount). We advise you to continue your checkout without delay. You will receive a confirmation email with the financial transaction details after your {0} are sent to your wallet.</value>
+  </data>
+  <data name="InitiateTransactionTimeText2" xml:space="preserve">
+    <value>If your payment takes more than {0} minutes, your {1} price will be updated with the actual buy price at the time of receiving your payment signal. In that case the final amount of {1} sent to your wallet may differ slightly.</value>
+  </data>
+  <data name="InitiateTransactionTimeText3" xml:space="preserve">
+    <value>The estimated purchase amount is based on the current buy price. The final amount of {0} sent to your wallet may differ slightly. You will receive a confirmation email with the financial transaction details after your {0} are sent to your wallet.</value>
+  </data>
+  <data name="InitiateTransactionValueLabel" xml:space="preserve">
+    <value>Transaction value:</value>
+  </data>
+  <data name="InitiateWalletAddressLabel" xml:space="preserve">
+    <value>{0} wallet address:</value>
+  </data>
+  <data name="ReturnContactLabel" xml:space="preserve">
+    <value>For questions or additional information you can contact:</value>
+  </data>
+  <data name="ReturnMessageError" xml:space="preserve">
+    <value>Your payment was not completed with the following reason:</value>
+  </data>
+  <data name="ReturnMessageSuccess" xml:space="preserve">
+    <value>Your payment was &lt;b&gt;successfully&lt;/b&gt; completed. In a few minutes you will receive your {0} and an email with the financial details.</value>
+  </data>
+  <data name="ReturnPageTabTitle" xml:space="preserve">
+    <value>Payment Result</value>
+  </data>
+  <data name="ReturnPageTitle" xml:space="preserve">
+    <value>{0} payment response</value>
+  </data>
+  <data name="BUYERRORCODE001" xml:space="preserve">
+    <value>Unknown or inactive account</value>
+  </data>
+  <data name="BUYERRORCODE002" xml:space="preserve">
+    <value>No Payment method available for this account</value>
+  </data>
+  <data name="BUYERRORCODE003" xml:space="preserve">
+    <value>No Payment method available</value>
+  </data>
+  <data name="BUYERRORCODE004" xml:space="preserve">
+    <value>Payment method type unknown</value>
+  </data>
+  <data name="BUYERRORCODE005" xml:space="preserve">
+    <value>The exchange service is currently not active</value>
+  </data>
+  <data name="BUYERRORCODE006" xml:space="preserve">
+    <value>The exchange service is currently not active</value>
+  </data>
+  <data name="BUYERRORCODE007" xml:space="preserve">
+    <value>Transaction buy value too small</value>
+  </data>
+  <data name="BUYERRORCODE008" xml:space="preserve">
+    <value>Transaction buy value too large</value>
+  </data>
+  <data name="BUYERRORCODE009" xml:space="preserve">
+    <value>Aggregated transaction buy value exceeding daily limit</value>
+  </data>
+  <data name="BUYERRORCODE010" xml:space="preserve">
+    <value>Transaction currently not possible, buying transactions have been disabled</value>
+  </data>
+  <data name="BUYERRORCODE011" xml:space="preserve">
+    <value>Could not save transaction record</value>
+  </data>
+  <data name="BUYERRORCODE012" xml:space="preserve">
+    <value>Could not save payment information</value>
+  </data>
+  <data name="InitiateYourBICCodeLabel" xml:space="preserve">
+    <value>Your bank BIC code:</value>
+  </data>
+  <data name="BankInfoAccountDetail01" xml:space="preserve">
+    <value>account:</value>
+  </data>
+  <data name="BankInfoAccountDetail02" xml:space="preserve">
+    <value>Bank country:</value>
+  </data>
+  <data name="BankInfoAccountDetail03" xml:space="preserve">
+    <value>Bank account:</value>
+  </data>
+  <data name="BankInfoAccountDetail04" xml:space="preserve">
+    <value>Bank account holder:</value>
+  </data>
+  <data name="BankInfoAccountDetails" xml:space="preserve">
+    <value>Your account details</value>
+  </data>
+  <data name="BankInfoBicAttention" xml:space="preserve">
+    <value>Attention: The BIC code of your bank should be 8 or 11 characters long and contains your bank country code!</value>
+  </data>
+  <data name="BankInfoBicInfoLine01" xml:space="preserve">
+    <value>The BIC code of your bank is:</value>
+  </data>
+  <data name="BankInfoBicInfoLine02" xml:space="preserve">
+    <value>Please update also the following bank details:</value>
+  </data>
+  <data name="BankInfoBicMessage01" xml:space="preserve">
+    <value>To initiate your first buy transaction we need to know the BIC/SWIFT code of your bank. This code is an unique identification code for a particular bank and are used when transferring money between banks, particularly for international wire transfers. The BIC/SWIFT codes consist of 8 or 11 characters. You can find the BIC code of your bank on the homepage of your bank or by using an online tool like &lt;a href="http://www.ibancalculator.com/iban_validieren.html" target="_blank"&gt;IBAN Calculator&lt;/a&gt;.</value>
+  </data>
+  <data name="BankInfoBicMessage02" xml:space="preserve">
+    <value>We can only process payments where the BIC code of your bank is consistent with the IBAN code of your bank account.</value>
+  </data>
+  <data name="BankInfoButtonCheck" xml:space="preserve">
+    <value>CHECK</value>
+  </data>
+  <data name="BankInfoButtonSave" xml:space="preserve">
+    <value>SAVE</value>
+  </data>
+  <data name="BankInfoEditSpanBank" xml:space="preserve">
+    <value>Bank name</value>
+  </data>
+  <data name="BankInfoEditSpanBic" xml:space="preserve">
+    <value>BIC code of your bank</value>
+  </data>
+  <data name="BankInfoEditSpanCity" xml:space="preserve">
+    <value>Bank city or region</value>
+  </data>
+  <data name="BankInfoPageTabTitle" xml:space="preserve">
+    <value>Update Bank Information</value>
+  </data>
+  <data name="BankInfoPageTitle" xml:space="preserve">
+    <value>Update Bank Information</value>
+  </data>
+  <data name="BankInfoPlaceHolderBank" xml:space="preserve">
+    <value>Bank name</value>
+  </data>
+  <data name="BankInfoPlaceHolderCity" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="InitiateTransactionBankAccountWarning" xml:space="preserve">
+    <value>Only payments that origin from the same bank account as stated in your account details can be processed. Please create a new account if you want to use a different bank account.</value>
+  </data>
+  <data name="BuyFormPayMethodHelp" xml:space="preserve">
+    <value>When using instant payment methods like iDEAL, Bancontact Mister Cash, GiroPay, Sofort or Interac you will receive {0} within minutes. SEPA banktransfers take at least one working day.</value>
+  </data>
+  <data name="BuyFormPayMethodLabel" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="BUYINFOCODE01" xml:space="preserve">
+    <value>Payment method</value>
+  </data>
+  <data name="BUYERRORCODE013" xml:space="preserve">
+    <value>This payment method is limited. Please try another payment method for larger amounts.</value>
+  </data>
+  <data name="BUYERRORCODE014" xml:space="preserve">
+    <value>The selected payment method failed to initiate a transaction, please contact support</value>
+  </data>
+  <data name="InitiateSEPACondition8" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BuyInitiatedCheckboxText1a" xml:space="preserve">
+    <value>I hereby expressly acknowledge that {0} is a digital non-returnable and non-refundable product for which right of withdrawal is not applicable. I have checked the details above and confirm that these are correct. Also I agree to the {1}.</value>
+  </data>
+  <data name="BuyInitiatedCheckboxText1b" xml:space="preserve">
+    <value>Terms of Use</value>
+  </data>
+  <data name="BuyFormPaymentPending" xml:space="preserve">
+    <value>At this moment you can only initiate test transactions, because we did not receive the payment of at least one earlier buy transaction. Please contact your bank; probably your payment order was not fulfilled by your bank or your bank performed a refund. For questions you can contact the support team.</value>
+  </data>
+  <data name="BUYERRORCODE015" xml:space="preserve">
+    <value>You can only initiate one test transaction per day</value>
+  </data>
+  <data name="BuyFormCoolDown" xml:space="preserve">
+    <value>You have successfully completed your first buy transaction. As soon as your payment has arrived on our bank account your limit will be increased. This will typically take one working-day. Thanks for your understanding.</value>
+  </data>
+  <data name="BuyFormGermanyNotice" xml:space="preserve">
+    <value>Sofort-Payment Service is currently not available for German Sparkassen accounts. GiroPay and SEPA are both available.</value>
+  </data>
+  <data name="InitiateSendDelayInfo1" xml:space="preserve">
+    <value>Attention: For this payment method our payment processor requires a holding period before we can send the {0} to you. The {0} will therefor be automatically sent to your wallet {1} hours after you finish the payment.</value>
+  </data>
+  <data name="ReturnMessageSuccessWithDelay" xml:space="preserve">
+    <value>Your payment was &lt;b&gt;successfully&lt;/b&gt; completed. In a few minutes you will receive an email with the financial details.</value>
+  </data>
+  <data name="InitiateSendDelayInfo2" xml:space="preserve">
+    <value>Attention: For this payment method our payment processor requires a holding period before we can send the {0} to you. The {0} will therefor be automatically sent to your wallet after your payment is settled with our bank (typically 1 or 2 working days).</value>
+  </data>
+  <data name="ReturnMessageSuccessWithOptionalDelay" xml:space="preserve">
+    <value>Your payment was &lt;b&gt;successfully&lt;/b&gt; completed. In a few minutes you will receive an email with the financial details.</value>
+  </data>
+  <data name="BuyFormNewBusinessMessage" xml:space="preserve">
+    <value>New business account</value>
+  </data>
+  <data name="BUYERRORCODE016" xml:space="preserve">
+    <value>Aggregated transaction buy value exceeding monthy limit</value>
+  </data>
+  <data name="BuyFormNeedFotoID" xml:space="preserve">
+    <value>Currently you can only initiate test transactions. To increase your limits you need to upload your FotoID. After it has been checked your limit will be increased. This will typically take one working-day. Thanks for your understanding.</value>
+  </data>
+  <data name="BUYERRORCODE017" xml:space="preserve">
+    <value>To use GiroPay our payment processor requires us to collect an Id of the clients. To activate this payment option please send a photo of your passport, id-card or drivers license.</value>
+  </data>
+  <data name="BuyPageTestTransactionNotice" xml:space="preserve">
+    <value>&lt;h4&gt;Welcome to Hermes!&lt;/h4&gt;
+
+&lt;p&gt;To raise your buy and sell limits, we require a first (test) transaction.&lt;/p&gt;</value>
+  </data>
+  <data name="BuyFormNetworkFeeLabel" xml:space="preserve">
+    <value>Miner fee</value>
+  </data>
+  <data name="BuyFormNetworkFeeHelp" xml:space="preserve">
+    <value>This is the fee that’s paid to the crypto miners to confirm your transaction</value>
+    <comment>This is the fee that’s paid to the Bitcoin miners to confirm your transaction</comment>
+  </data>
+  <data name="BuyFormLimitReasonTitle" xml:space="preserve">
+    <value>Maximum buy amount is limited due to:</value>
+  </data>
+  <data name="BuyFormDailyLimitMessage" xml:space="preserve">
+    <value>The daily buy limit.</value>
+  </data>
+  <data name="BuyFormLowBalanceMessage" xml:space="preserve">
+    <value>Low {0} reserves.</value>
+  </data>
+  <data name="BuyFormMonthlyLimitMessage" xml:space="preserve">
+    <value>The monthly buy limit.</value>
+  </data>
+  <data name="BuyFormWrongCoinAccount" xml:space="preserve">
+    <value>Please enter a valid {0} account</value>
+  </data>
+  <data name="FotoIdentificationRequired" xml:space="preserve">
+    <value>To use this payment method our payment processor requires us to collect an Id of the clients. To activate this payment option please send a photo of your passport, id-card or drivers license. Please also provide your account code. Thanks for your understanding.</value>
+  </data>
+  <data name="BuyFormAccount" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="BuyPageAddAddressDescription" xml:space="preserve">
+    <value>Follow steps to add a new {0} address to an existing account.</value>
+  </data>
+  <data name="BuyPageAddAddressLink" xml:space="preserve">
+    <value>Add address</value>
+  </data>
+  <data name="BuyPageAddAddressTitle" xml:space="preserve">
+    <value>Add {0} address</value>
+  </data>
+  <data name="BuyPageCreateAccountDescription" xml:space="preserve">
+    <value>In 2 minutes you can create and activate your first account.</value>
+  </data>
+  <data name="BuyPageCreateAccountLink" xml:space="preserve">
+    <value>Get started</value>
+  </data>
+  <data name="BuyPageCreateAccountTitle" xml:space="preserve">
+    <value>Create new account</value>
+  </data>
+  <data name="BuyingPrice" xml:space="preserve">
+    <value>Buying price</value>
+  </data>
+  <data name="RegisterCreditCardButton" xml:space="preserve">
+    <value>Register creditcard</value>
+  </data>
+  <data name="RegisterCreditCardText" xml:space="preserve">
+    <value>Credit Card registration</value>
+  </data>
+  <data name="BuyFormTestTransactionNeeded" xml:space="preserve">
+    <value>Before you can start to buy {0}, you first need to complete the small test buy transaction below. This is to verify your banking details.</value>
+  </data>
+  <data name="AccountNotActivated" xml:space="preserve">
+    <value>Unknown or inactive account</value>
+  </data>
+  <data name="AccountNotFound" xml:space="preserve">
+    <value>Unknown or inactive account</value>
+  </data>
+  <data name="BuyTransactionsAreDisabled" xml:space="preserve">
+    <value>Transaction currently not possible, buying transactions have been disabled</value>
+  </data>
+  <data name="CustomerBuyLimitPerDayExceeded" xml:space="preserve">
+    <value>Aggregated transaction buy value exceeding daily limit</value>
+  </data>
+  <data name="CustomerBuyLimitPerMonthExceeded" xml:space="preserve">
+    <value>Aggregated transaction buy value exceeding monthy limit</value>
+  </data>
+  <data name="ExchangeInactive" xml:space="preserve">
+    <value>The exchange service is currently not active</value>
+  </data>
+  <data name="FiatAmountAboveMaximumBuyLimit" xml:space="preserve">
+    <value>Transaction buy value too large</value>
+  </data>
+  <data name="FiatAmountAboveMaximumPaymentMethodBuyLimit" xml:space="preserve">
+    <value>This payment method is limited. Please try another payment method for larger amounts.</value>
+  </data>
+  <data name="FiatAmountBelowMinimumBuyAmount" xml:space="preserve">
+    <value>Transaction buy value too small</value>
+  </data>
+  <data name="MaximumNumberOfTestTransactionExceeded" xml:space="preserve">
+    <value>You can only initiate one test transaction per day</value>
+  </data>
+  <data name="PaymentMethodNotFound" xml:space="preserve">
+    <value>No Payment method available</value>
+  </data>
+  <data name="PSP3DSecureNotAvailable" xml:space="preserve">
+    <value>Could not save payment information</value>
+  </data>
+  <data name="PSPClientIdNotFound" xml:space="preserve">
+    <value>Could not save payment information</value>
+  </data>
+  <data name="PSPInformationNotSaved" xml:space="preserve">
+    <value>Could not save payment service provider information</value>
+  </data>
+  <data name="PSPInitiateURLNotFound" xml:space="preserve">
+    <value>Payment service provider misses initiation URL</value>
+  </data>
+  <data name="PSPInvalidChecksum" xml:space="preserve">
+    <value>Payment service provider sent invalid checksum</value>
+  </data>
+  <data name="PSPInvalidPaymentResponse" xml:space="preserve">
+    <value>The selected payment method failed to initiate a transaction, please contact support</value>
+  </data>
+  <data name="PSPInvalidStatusCode" xml:space="preserve">
+    <value>Payment service provider sent invalid status code</value>
+  </data>
+  <data name="PSPMissingParameters" xml:space="preserve">
+    <value>Payment service provider received a request with missing parameters</value>
+  </data>
+  <data name="PSPRedirectURLNotAvailable" xml:space="preserve">
+    <value>Payment service provider initiation URL is not available</value>
+  </data>
+  <data name="BuyFormHighRisk" xml:space="preserve">
+    <value>Is high risk customer.</value>
+  </data>
+  <data name="BuyFormIncasso" xml:space="preserve">
+    <value>Is incasso customer.</value>
+  </data>
+  <data name="BuyFormMissingBuyTransaction" xml:space="preserve">
+    <value>Customer has not initiated a Buy transaction.</value>
+  </data>
+  <data name="BuyFormNewCustomerNoFotoId" xml:space="preserve">
+    <value>NEW customers must provide a photo id.</value>
+  </data>
+  <data name="BuyFormNewUnsettled" xml:space="preserve">
+    <value>First buy transaction is still unsettled.</value>
+  </data>
+  <data name="BuyFormNoBalance" xml:space="preserve">
+    <value>No balance available.</value>
+  </data>
+  <data name="BuyFormNoReferencePrice" xml:space="preserve">
+    <value>No reference price available.</value>
+  </data>
+  <data name="BuyFormRequestedHigherThanAvailableAmount" xml:space="preserve">
+    <value>Requested amount is higher than available reserve.</value>
+  </data>
+  <data name="BuyFormRequestedHigherThanMaximum" xml:space="preserve">
+    <value>Requested amount is higher than maximum.</value>
+  </data>
+  <data name="BuyFormRequestedLowerThanMinimum" xml:space="preserve">
+    <value>Requested amount is lower than minimum.</value>
+  </data>
+  <data name="BuyFormUnidentifiedBusiness" xml:space="preserve">
+    <value>Business in unidentified.</value>
+  </data>
+</root>

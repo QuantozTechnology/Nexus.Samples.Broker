@@ -1,0 +1,114 @@
+﻿@model Nexus.Samples.Broker.Pages.Account.IndexModel
+
+@{
+    string dcCode = Html.GetActiveCryptoName();
+    string dc = Html.GetActiveCryptoCode();
+    string language = Html.GetLanguage()?.ToLower();
+}
+
+@if (ViewBag.CreateEnabled == false)
+{
+    <div class="form-sidebar">
+        <aside id="sidebar">
+            <h2 class="account-aside-warning-text">@Html.Raw(Resources.AccountPages.AccountAsideWarningText)</h2>
+        </aside>
+    </div>
+}
+else
+{
+    <form method="post" class="form">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <input type="hidden" asp-for="CryptoCode" value="@dc" />
+
+        <div class="form__group">
+            <label class="form__label" for="Email">@Resources.AccountPages.AccountAsideMail</label>
+            @Html.TextBoxFor(model => model.Email, new { @class = "form__control", @placeholder = "..." })
+
+            <div class="form__error">
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+
+        <div class="form__group">
+            <label class="form__label" for="BankAccountNumber">@Resources.AccountPages.AccountAsideBankAccountNumber</label>
+            <a href="@Url.Action("General", "About", new { index = 111 })" class="form__help">@Resources.AccountPages.AccountAsideBankAccountNumberHelp</a>
+
+            @Html.TextBoxFor(model => model.BankAccountNumber, new { @class = "form__control", placeholder = "..." })
+
+            <div class="form__error">
+                <span asp-validation-for="BankAccountNumber"></span>
+            </div>
+        </div>
+
+        @*<div class="form__group">
+                <label class="form__label" for="IsBusiness">@Resources.AccountPages.AccountAsideIsBusiness</label>
+                <a href="@Url.Action("General", "About", new { index = 305 })" class="form__help">@Resources.AccountPages.AccountAsideIsBusinessHelp</a>
+
+                <div class="form__check">
+                    @Html.RadioButtonFor(model => model.IsBusiness, false, new { id = "personal" })
+                    @Html.Label("personal", @Resources.AccountPages.AccountAsidePersonal)
+                </div>
+
+                <div class="form__check">
+                    @Html.RadioButtonFor(model => model.IsBusiness, true, new { id = "business" })
+                    @Html.Label("business", @Resources.AccountPages.AccountAsideBusiness)
+                </div>
+            </div>*@
+
+        <div class="form__group">
+            <label class="form__label" for="BankAccountName">@Resources.AccountPages.AccountAsideBankAccountName</label>
+
+            @Html.TextBoxFor(model => model.BankAccountName, new { @class = "form__control", placeholder = "..." })
+
+            <div class="form__description">@Resources.AccountPages.AccountAsideBankAccountNameDesc</div>
+
+            <div class="form__error">
+                @Html.ValidationMessageFor(model => model.BankAccountName)
+            </div>
+        </div>
+
+        @*<div class="form__group">
+                <label class="form__label" for="nationality">@Resources.AccountPages.AccountAsideCountryCode</label>
+
+                <div class="form__select select--form">
+                    @Html.DropDownListFor(m => m.CountryCode, ViewBag.AvailableCountries as SelectList, @Resources.AccountPages.AccountAsidePlaceholderCountryName, new { @class = "select" })
+                </div>
+
+                <div class="form__error">
+                    @Html.ValidationMessageFor(model => model.CountryCode)
+                </div>
+            </div>*@
+
+        <div class="form__group">
+            <label class="form__label" for="CustomerCryptoAddress">@Resources.AccountPages.AccountAsideCustomerCryptoAddress</label>
+            <a href="@Url.Action("General", "About", new { index = 101 })" class="form__help">@string.Format(Resources.AccountPages.AccountAsideCustomerCryptoAddressHelp, dcCode)</a>
+
+            @Html.TextBoxFor(model => model.CustomerCryptoAddress, new { @class = "form__control", placeholder = "..." })
+
+            <div class="form__description">@string.Format(Resources.AccountPages.AccountAsideCustomerCryptoAddressPlaceholder, dcCode)</div>
+
+            <div class="form__error">
+                @Html.ValidationMessageFor(model => model.CustomerCryptoAddress)
+            </div>
+        </div>
+
+        <div class="form__group">
+            <div class="form__check">
+                <input asp-for="HasAcceptedTOS" type="checkbox" />
+                <label for="@Html.IdFor(model => model.HasAcceptedTOS)">
+                    @Resources.AccountPages.AccountAsideTermsAgree
+                    @* @(Html.ActionLink<InfoController>(@Resources.AccountPages.AccountAsideTermsLink, c => c.Terms(), null, htmlAttributes: new { target = "_blank" }))*@
+                </label>
+            </div>
+
+            <div class="form__error">
+                @Html.ValidationMessageFor(model => model.HasAcceptedTOS)
+            </div>
+        </div>
+
+        <button type="submit" class="form__submit btn btn-primary">
+            @Resources.AccountPages.AccountAsideCreateButton
+        </button>
+    </form>
+}

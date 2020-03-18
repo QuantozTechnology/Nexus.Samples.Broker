@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FooterAMLPolicyLink" xml:space="preserve">
+    <value>AML Policy</value>
+  </data>
+  <data name="FooterContactLink" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="FooterCopyRight" xml:space="preserve">
+    <value>© copyright 2018 Digital Currency Services B.V</value>
+  </data>
+  <data name="FooterCreateAccountLink" xml:space="preserve">
+    <value>Create account</value>
+  </data>
+  <data name="FooterHomeLink" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="FooterHowToBuyLink" xml:space="preserve">
+    <value>How to buy  digital currencies</value>
+  </data>
+  <data name="FooterHowToSellLink" xml:space="preserve">
+    <value>How to sell  digital currencies</value>
+  </data>
+  <data name="FooterLinksLink" xml:space="preserve">
+    <value>Links</value>
+  </data>
+  <data name="FooterMarketPricesChartsLink" xml:space="preserve">
+    <value>Market price charts</value>
+  </data>
+  <data name="FooterPoweredBy" xml:space="preserve">
+    <value>Powered by &lt;a href="http://www.quantoz.com/" target="_blank"&gt;Quantoz&lt;/a&gt;</value>
+  </data>
+  <data name="FooterPrivacyPolicyLink" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="FooterReviewsLink" xml:space="preserve">
+    <value>Reviews</value>
+  </data>
+  <data name="FooterTermsOfUseLink" xml:space="preserve">
+    <value>Terms of Use</value>
+  </data>
+  <data name="MenuAccount" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="MenuAccountAdditional" xml:space="preserve">
+    <value>Additional</value>
+  </data>
+  <data name="MenuAccountCreate" xml:space="preserve">
+    <value>Create New</value>
+  </data>
+  <data name="MenuAccountDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="MenuAccountForgotten" xml:space="preserve">
+    <value>Forgotten</value>
+  </data>
+  <data name="MenuBlog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
+  <data name="MenuBuy" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="MenuHome" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="MenuPrice" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="MenuSell" xml:space="preserve">
+    <value>Sell</value>
+  </data>
+  <data name="MenuContact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="MenuFAQ" xml:space="preserve">
+    <value>FAQ</value>
+  </data>
+  <data name="SideBarMarketPricesBuy" xml:space="preserve">
+    <value>BUY</value>
+  </data>
+  <data name="SideBarMarketPricesSell" xml:space="preserve">
+    <value>SELL</value>
+  </data>
+  <data name="SideBarMarketPricesTitle" xml:space="preserve">
+    <value>REFERENCE PRICE</value>
+  </data>
+  <data name="SideBarNewsFeedTitle" xml:space="preserve">
+    <value>NEWS FEED</value>
+  </data>
+  <data name="SideBarReviewsTitle" xml:space="preserve">
+    <value>REVIEWS</value>
+  </data>
+  <data name="HomePageDescription" xml:space="preserve">
+    <value>HERMES offers a safe, fast, transparent and cheap exchange service for individuals and businesses who wish to buy and/or sell  digital currencies.</value>
+  </data>
+  <data name="BuyPageDescription" xml:space="preserve">
+    <value>With HERMES you can instantly buy  digital currencies using an online payment method, such as iDeal, Bancontact Mister Cash, Sofort or Interac. </value>
+  </data>
+  <data name="SellPageDescription" xml:space="preserve">
+    <value>Use HERMES to sell your  digital currencies. Within a minute after receiving your digital currencies, HERMES trades them and sends the euros to your bank account.</value>
+  </data>
+  <data name="AccountPageDescription" xml:space="preserve">
+    <value>Create an Account and start buying and selling digital currencies. Your account facilitates the use of the service and offers a one click ordering method.</value>
+  </data>
+  <data name="AditionalAccountPageDescription" xml:space="preserve">
+    <value>You can create additional accounts which enables you to use multiple wallet addresses to receive your  digital currencies.</value>
+  </data>
+  <data name="RequestInfoPageDescription" xml:space="preserve">
+    <value>Upon request we will send you an email with the Account info of all your active Accounts.</value>
+  </data>
+  <data name="RequestDeletePageDescription" xml:space="preserve">
+    <value>You have full control over your Account. If required, simply request deletion of your Account and your details will be removed from our system.</value>
+  </data>
+  <data name="VerificationPageDescription" xml:space="preserve">
+    <value>To upgrade the trust status of your Account, please use the request form. You will receive an email with required documents for verification.</value>
+  </data>
+  <data name="InfoPageDescription" xml:space="preserve">
+    <value>A short introduction and some links to help you get started.</value>
+  </data>
+  <data name="ChartsPageDescription" xml:space="preserve">
+    <value>Interactive charts with real-time prices, market depth and spread across multiple exchanges, including Bitstamp, BTC-e, Paymium, Kraken and ItBit.</value>
+  </data>
+  <data name="ReviewsPageDescription" xml:space="preserve">
+    <value>HERMES values transparency and encourages clients to share opinions openly and contribute to the community. Reviews build credibility and reputation.</value>
+  </data>
+  <data name="SupportPageDescription" xml:space="preserve">
+    <value>Please browse the HERMES FAQ for general bitcoin topics as well as specific content related to the HERMES services.</value>
+  </data>
+  <data name="ContactPageDescription" xml:space="preserve">
+    <value>If you have any questions or comments, please contact HERMES through our online contact form or alternatively by email.</value>
+  </data>
+  <data name="PrivacyPageDescription" xml:space="preserve">
+    <value>The HERMES Privacy Policy informs you about which personal information is collected and how it may be used.</value>
+  </data>
+  <data name="TermsPageDescription" xml:space="preserve">
+    <value>By using this Site, and further by registering to use our Services, you agree to accept and comply with the Terms of Use.</value>
+  </data>
+  <data name="AMLPolicyPageDescription" xml:space="preserve">
+    <value>Although the services provided by HERMES are currently unregulated in The Netherlands, it is the Company's policy to comply with AML regulation.</value>
+  </data>
+  <data name="ErrorNotFoundTabTitle" xml:space="preserve">
+    <value>Not Found</value>
+  </data>
+  <data name="ErrorNotFoundText" xml:space="preserve">
+    <value>Sorry, but you are looking for something that isn't here.</value>
+  </data>
+  <data name="ErrorNotFoundTitle" xml:space="preserve">
+    <value>Not Found</value>
+  </data>
+  <data name="ErrorTabTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="FooterInvestorsLink" xml:space="preserve">
+    <value>Investors</value>
+  </data>
+  <data name="FooterPartnersLink" xml:space="preserve">
+    <value>Partners</value>
+  </data>
+  <data name="MenuLimit" xml:space="preserve">
+    <value>Limit</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>Get started</value>
+  </data>
+  <data name="ChooseLanguage" xml:space="preserve">
+    <value>Please choose your language.</value>
+  </data>
+  <data name="AboutLink" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="SelectCrypto" xml:space="preserve">
+    <value>Select a crypto</value>
+  </data>
+  <data name="FooterForgotAccount" xml:space="preserve">
+    <value>Forgot account</value>
+  </data>
+  <data name="FooterTradeMark" xml:space="preserve">
+    <value>HERMES® is a Community Trade Mark of Digital Currency Services B.V.</value>
+  </data>
+  <data name="FooterUnderApplication" xml:space="preserve">
+    <value>Under application of the Dutch National Bank</value>
+  </data>
+  <data name="PressLink" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="FooterAddAddress" xml:space="preserve">
+    <value>Add address</value>
+  </data>
+  <data name="FooterDeleteAccount" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
+  <data name="FooterPressPage" xml:space="preserve">
+    <value>News</value>
+  </data>
+  <data name="FooterAccount" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="FooterCrypto" xml:space="preserve">
+    <value>Crypto</value>
+  </data>
+  <data name="NoAccountCode" xml:space="preserve">
+    <value>No code?</value>
+  </data>
+</root>

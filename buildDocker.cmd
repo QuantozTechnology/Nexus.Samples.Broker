@@ -1,0 +1,1 @@
+docker build -t registry.gitlab.com/quantoz-public/nexus-samples-broker -f .\nexus-broker-sample\Dockerfile .

@@ -1,0 +1,123 @@
+﻿@page "{crypto}"
+@model Nexus.Samples.Broker.Pages.Sell.IndexModel
+
+@{
+    string dcCode = Html.GetActiveCryptoName();
+    ViewData["Title"] = @String.Format(Resources.SellPages.SellPageTabTitle, dcCode);
+    string language = Html.GetLanguage()?.ToLower();
+    var cryptoSelectorModel = new CryptoSelectorViewModel(Model.Currency, "/Sell/Index", RouteData.Values["crypto"].ToString());
+}
+
+@if (ViewBag.SellServiceAvailable == false)
+{
+    <div class="content-box">
+        <h1>@String.Format(Resources.SellPages.SellPageTitle, dcCode)</h1>
+        <p><strong>@Resources.SellPages.SellPageServiceNotAvailable</strong></p>
+    </div>
+}
+else
+{
+    <div class="page page--grey">
+        <div class="intro intro--dark intro--card">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-8">
+                        <div class="intro__content">
+                            <h1 class="intro__title">@Resources.SellPages.SellPageTitle</h1>
+
+                            <partial name="_CryptoSelector" model="cryptoSelectorModel" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-lg-8">
+
+                    <form asp-page="Initiate" method="post" class="form form-box validate-form" autocomplete="off">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="CryptoCode" value="@RouteData.Values["crypto"]" />
+
+                        <div class="form__header">
+                            <div class="hide message" id="sell-notice-needsuccessfulbuytransaction-beforefirstsell">
+                                <p>@Html.Raw(String.Format(Resources.SellPages.SellFormStatusNotice1, dcCode))</p>
+                                @*<a href="@Url.Action("Index", "Buy", new { id = Model.AccountCode })" class="btn btn-primary btn-sm">@string.Format(Resources.HomeIndex.BannerBuyButton, dcCode)</a>*@
+                            </div>
+
+                            <div class="hide message" id="sell-notice-successfulbuytransaction-pending">@String.Format(Resources.SellPages.SellFormStatusNotice2, dcCode)</div>
+                            <div class="hide message" id="sell-notice-need-fotoid">@String.Format(Resources.SellPages.SellFormStatusNotice3, dcCode)</div>
+                        </div>
+
+                        <div class="form__group">
+                            <label class="form__label" for="AccountCode">@Resources.SellPages.SellFormAccountLabel</label>
+                            <a href="@Url.Action("Index", "Account")" class="form__help">@Resources.Site.NoAccountCode</a>
+                            @Html.TextBoxFor(model => model.AccountCode, new { @class = "form__control", placeholder = @Resources.SellPages.SellFormAccountPlaceHolder })
+
+                            <div class="form__error">
+                                @Html.ValidationMessageFor(model => model.AccountCode)
+
+                                <div class="hide" id="wrong-coin">@string.Format(Resources.SellPages.SellFormWrongCoinAccount, dcCode)</div>
+                                <div class="hide" id="non-active">@Resources.SellPages.SellFormNotActiveAccount</div>
+                                <div class="hide form__extra" id="new-personal">@Resources.SellPages.SellFormNewPersonal</div>
+                                <div class="hide form__extra" id="trusted-personal">@Resources.SellPages.SellFormTrustedPersonal</div>
+                                <div class="hide form__extra" id="verified-personal">@Resources.SellPages.SellFormVerifiedPersonal</div>
+                                <div class="hide form__extra" id="new-business">@Resources.SellPages.SellFormNewBusiness</div>
+                                <div class="hide form__extra" id="verified-business">@Resources.SellPages.SellFormVerifiedBusiness</div>
+                            </div>
+                        </div>
+
+                        <div class="form__group">
+                            <label class="form__label" for="BTCstr">@Resources.SellPages.SellFormAmountLabel</label>
+                            <div class="form__info">@Html.GetActiveCryptoCode()</div>
+
+                            @Html.TextBoxFor(model => model.BTCstr, new { @class = "form__control required-number updateEur", disabled = "disabled" })
+
+                            <div class="form__error">
+                                @Html.ValidationMessageFor(model => model.BTCstr)
+
+                                <div class="hide" id="btcAmountLimit"></div>
+                            </div>
+                        </div>
+
+                        <div class="form__items">
+                            <div class="form__item">
+                                <div>@Resources.SellPages.SellFormSubTotalLabel</div>
+                                <div><span id="EuroAmountBeforeFee">0.00</span>&nbsp;@ViewBag.CurrencyCode</div>
+                            </div>
+
+                            <div class="form__item">
+                                <div>@Resources.SellPages.SellFormServiceFeeLabel</div>
+                                <div>-&nbsp;<span id="EuroServiceFee">0.00</span>&nbsp;@ViewBag.CurrencyCode</div>
+                            </div>
+
+                            <div class="form__item">
+                                <div>@Resources.SellPages.SellFormBankFeeLabel</div>
+                                <div>-&nbsp;<span id="EuroBankFee">0.00</span>&nbsp;@ViewBag.CurrencyCode</div>
+                            </div>
+
+                            <div class="form__item form__item--alt">
+                                <div>@Resources.SellPages.SellFormPayoutLabel</div>
+                                <div><span id="EuroAmountAfterFee">0.00</span>&nbsp;@ViewBag.CurrencyCode</div>
+                            </div>
+                        </div>
+
+                        <div class="form__footer">
+                            <div class="hide message" id="trusted-accounts-verification">@Resources.SellPages.SellFormTrustedPersonalMessage - @*@(Html.ActionLink<AccountVerificationController>(Resources.SellPages.SellFormNeedVerificationLink, c => c.Index()))*@</div>
+                            <div class="hide message" id="new-business-verification">@Resources.SellPages.SellFormNewBusinessMessage - @*@(Html.ActionLink<AccountVerificationController>(Resources.SellPages.SellFormNeedVerificationLink, c => c.Index()))*@</div>
+                            <div class="hide message" id="personal-limited">@Resources.SellPages.SellFormLimitedPersonalMessage - @*@(Html.ActionLink<AccountVerificationController>(Resources.SellPages.SellFormLimitedInfoLink, c => c.Limited()))*@</div>
+                            <div class="hide message" id="business-limited">@Resources.SellPages.SellFormLimitedBusinessMessage - @*@(Html.ActionLink<AccountVerificationController>(Resources.SellPages.SellFormLimitedInfoLink, c => c.Limited()))*@</div>
+                        </div>
+
+                        <button class="form__submit btn btn-rusty-orange submit btn-send" disabled="disabled">@String.Format(Resources.SellPages.SellFormReviewButton, dcCode)</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script src="~/js/sell.js"></script>
+}

@@ -1,0 +1,26 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = Resources.Site.MenuHome;
+
+    string currencyCode = Request.Cookies["currency"] == null ? "EUR" : Request.Cookies["currency"];
+    string language = Html.GetLanguage()?.ToLower();
+    string controllerName = Html.GetControllerName();
+}
+
+<div class="home">
+    <section class="section section--first">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-lg-7 text-center">
+                    <h1>@Resources.LandingPage.LandingTitle</h1>
+                    <p class="large">@Resources.LandingPage.LandingDescription</p>
+
+                    <a href="@Url.Action("Index", "Buy")" class="btn btn-emerald">@Resources.Site.MenuBuy</a>
+                    <a href="@Url.Action("Index", "Sell")" class="btn btn-rusty-orange">@Resources.Site.MenuSell</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

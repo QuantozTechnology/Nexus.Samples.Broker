@@ -1,0 +1,134 @@
+﻿@{
+    string controllerName = Html.GetControllerName()?.ToLower();
+    var lang = Html.GetLanguageFromCookie();
+
+    if (string.IsNullOrWhiteSpace(lang))
+    {
+        lang = Html.GetLanguage();
+    }
+
+    var bloglang = (lang == "en") ? "" : lang;
+    var crypto = Html.GetActiveCrypto();
+}
+
+<header class="header">
+    <div class="header__body">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="d-flex align-items-center">
+                        <a href="/" class="header__brand">
+                            <img src="~/img/logo.jpg" alt="Hermes">
+                            <img src="~/img/logo-small.svg" alt="Hermes">
+                        </a>
+
+                        <div class="header__menu">
+                            <ul class="menu">
+                                <li class="menu__item @(controllerName == "buy" ? "menu__item--active" : String.Empty) menu__item--buy menu__item--dropdown">
+                                    <a href="" class="menu__link">@Resources.Site.MenuBuy</a>
+
+                                    <div class="dropdown">
+                                        <ul class="dropdown__menu">
+                                            <li class="dropdown__item">
+                                                <a asp-page="/Buy/Index" asp-route-crypto="bitcoin" class="dropdown__link @(crypto == "bitcoin" ? "dropdown__link--active" : String.Empty)">
+                                                    <img src="~/img/coins/btc.svg" alt="Bitcoin">
+                                                    Bitcoin
+                                                </a>
+                                            </li>
+
+                                            <li class="dropdown__item">
+                                                <a asp-page="/Buy/Index" asp-route-crypto="bitcoincash" class="dropdown__link @(crypto == "bitcoincash" ? "dropdown__link--active" : String.Empty)">
+                                                    <img src="~/img/coins/bch.svg" alt="Bitcoin Cash">
+                                                    Bitcoin Cash
+                                                </a>
+                                            </li>
+
+                                            <li class="dropdown__item">
+                                                <a asp-page="/Buy/Index" asp-route-crypto="ethereum" class="dropdown__link @(crypto == "ethereum" ? "dropdown__link--active" : String.Empty)">
+                                                    <img src="~/img/coins/eth.svg" alt="Ethereum">
+                                                    Ethereum
+                                                </a>
+                                            </li>
+
+                                            <li class="dropdown__item">
+                                                <a asp-page="/Buy/Index" asp-route-crypto="litecoin" class="dropdown__link @(crypto == "litecoin" ? "dropdown__link--active" : String.Empty)">
+                                                    <img src="~/img/coins/ltc.svg" alt="Litecoin">
+                                                    Litecoin
+                                                </a>
+                                            </li>
+
+                                            <li class="dropdown__item">
+                                                <a asp-page="/Buy/Index" asp-route-crypto="lumen" class="dropdown__link @(crypto == "xlm" ? "dropdown__link--active" : String.Empty)">
+                                                    <img src="~/img/coins/xlm.svg" alt="Lumen">
+                                                    Lumen
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="menu__item @(controllerName == "sell" ? "menu__item--active" : String.Empty) menu__item--sell menu__item--dropdown">
+                                    <a href="" class="menu__link">@Resources.Site.MenuSell</a>
+
+                                    <div class="dropdown">
+                                        <ul class="dropdown__menu">
+                                            <li class="dropdown__item">
+                                                <a asp-page="/Sell/Index" asp-route-crypto="bitcoin" class="dropdown__link @(crypto == "bitcoin" ? "dropdown__link--active" : String.Empty)">
+                                                    <img src="~/img/coins/btc.svg" alt="Bitcoin">
+                                                    Bitcoin
+                                                </a>
+                                            </li>
+
+                                            <li class="dropdown__item">
+                                                <a asp-page="/Sell/Index" asp-route-crypto="bitcoincash" class="dropdown__link @(crypto == "bitcoincash" ? "dropdown__link--active" : String.Empty)">
+                                                    <img src="~/img/coins/bch.svg" alt="Bitcoin Cash">
+                                                    Bitcoin Cash
+                                                </a>
+                                            </li>
+
+                                            <li class="dropdown__item">
+                                                <a asp-page="/Sell/Index" asp-route-crypto="ethereum" class="dropdown__link @(crypto == "ethereum" ? "dropdown__link--active" : String.Empty)">
+                                                    <img src="~/img/coins/eth.svg" alt="Ethereum">
+                                                    Ethereum
+                                                </a>
+                                            </li>
+
+                                            <li class="dropdown__item">
+                                                <a  asp-page="/Sell/Index" asp-route-crypto="litecoin" class="dropdown__link @(crypto == "litecoin" ? "dropdown__link--active" : String.Empty)">
+                                                    <img src="~/img/coins/ltc.svg" alt="Litecoin">
+                                                    Litecoin
+                                                </a>
+                                            </li>
+
+                                            <li class="dropdown__item">
+                                                <a  asp-page="/Sell/Index" asp-route-crypto="lumen" class="dropdown__link @(crypto == "xlm" ? "dropdown__link--active" : String.Empty)">
+                                                    <img src="~/img/coins/xlm.svg" alt="Lumen">
+                                                    Lumen
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="menu__item @(controllerName == "account" ? "menu__item--active" : String.Empty)">
+                                    <a asp-page="/Account/Index" asp-route-crypto="bitcoin" class="menu__item @(controllerName == "" ? "menu__item--active" : String.Empty) menu__item--btn btn btn-primary">@Resources.Site.GetStarted</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <div class="header__mobile">
+                            <a asp-page="/Account/Index" class="btn btn-primary">@Resources.Site.GetStarted</a>
+
+                            <button class="header__toggle">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
