@@ -7,26 +7,29 @@
     var cryptoSelector = new CryptoSelectorViewModel("", "/Account/Index", RouteData.Values["crypto"].ToString(), false);
 }
 
-<div class="page page--grey">
-    <div class="intro">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-6 col-lg-8">
-                    <div class="intro__content">
-                        <h1 class="intro__title">@Resources.AccountPages.AccountAsideTitle</h1>
-                        <div class="intro__content">@Resources.AccountPages.AccountAsideDesc</div>
-
-                        <partial name="_CryptoSelector" model="cryptoSelector" />
+<div class="page page--grey container-fluid">
+    <div class="row">
+        <div class="col-md-6 intro py-5 d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-lg-10">
+                        <div class="intro__content">
+                            <h1 class="intro__title">@Resources.AccountPages.AccountAsideTitle</h1>
+                            <div class="intro__content">@Resources.AccountPages.AccountAsideDesc</div>
+                            <partial name="_CryptoSelector" model="cryptoSelector" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-6 col-lg-8">
-                <partial name="CreateAccountPartial" model="Model" />
+        <div class="col-md-6 py-5">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-xl-8 col-lg-10">
+                        <partial name="CreateAccountPartial" model="Model" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -34,7 +37,7 @@
 
 @section Scripts {
     @*@Scripts.Render("~/Scripts/jquery.tabs.js")
-    @Scripts.Render("~/Scripts/tabs.js")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/Page/accountLimits.js")*@
+        @Scripts.Render("~/Scripts/tabs.js")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/Scripts/Page/accountLimits.js")*@
 }

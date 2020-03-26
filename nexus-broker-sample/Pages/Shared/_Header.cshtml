@@ -18,14 +18,13 @@
                 <div class="col-lg-12">
                     <div class="d-flex align-items-center">
                         <a href="/" class="header__brand">
-                            <img src="~/img/logo.jpg" alt="Hermes">
-                            <img src="~/img/logo-small.svg" alt="Hermes">
+                            <img src="~/img/logo_transparent.png" alt="Hermes logo">
                         </a>
 
                         <div class="header__menu">
                             <ul class="menu">
                                 <li class="menu__item @(controllerName == "buy" ? "menu__item--active" : String.Empty) menu__item--buy menu__item--dropdown">
-                                    <a href="" class="menu__link">@Resources.Site.MenuBuy</a>
+                                    <a href="" class="menu__link btn">@Resources.Site.MenuBuy</a>
 
                                     <div class="dropdown">
                                         <ul class="dropdown__menu">
@@ -68,7 +67,7 @@
                                 </li>
 
                                 <li class="menu__item @(controllerName == "sell" ? "menu__item--active" : String.Empty) menu__item--sell menu__item--dropdown">
-                                    <a href="" class="menu__link">@Resources.Site.MenuSell</a>
+                                    <a href="" class="menu__link btn">@Resources.Site.MenuSell</a>
 
                                     <div class="dropdown">
                                         <ul class="dropdown__menu">
@@ -111,7 +110,7 @@
                                 </li>
 
                                 <li class="menu__item @(controllerName == "account" ? "menu__item--active" : String.Empty)">
-                                    <a asp-page="/Account/Index" asp-route-crypto="bitcoin" class="menu__item @(controllerName == "" ? "menu__item--active" : String.Empty) menu__item--btn btn btn-primary">@Resources.Site.GetStarted</a>
+                                    <a asp-page="/Account/Index" asp-route-crypto="bitcoin" class="menu__item @(controllerName == "" ? "menu__item--active" : String.Empty) menu__item--btn btn btn-brand-color">@Resources.Site.GetStarted</a>
                                 </li>
                             </ul>
                         </div>

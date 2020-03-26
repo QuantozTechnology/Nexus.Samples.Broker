@@ -18,140 +18,145 @@
 }
 else
 {
-    <div class="page page--grey">
-        <div class="intro intro--dark intro--card">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-6 col-lg-8">
-                        <div class="intro__content">
-                            <h1 class="intro__title">@Resources.BuyPages.BuyPageTitle</h1>
+    <div class="page page--grey container-fluid">
+        <div class="row">
+            <div class="col-md-6 intro py-5 d-flex align-items-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-8 col-lg-10">
+                            <div class="intro__content">
+                                <h1 class="intro__title">@Resources.BuyPages.BuyPageTitle</h1>
 
-                            <partial name="_CryptoSelector" model="cryptoSelectorModel" />
+                                <partial name="_CryptoSelector" model="cryptoSelectorModel" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-6 col-lg-8">
-                    <form asp-page="Initiate" method="post" class="form form-box validate-form" autocomplete="off">
-                        @Html.AntiForgeryToken()
 
-                        <div class="form__header">
-                            <div class="hide message" id="sell-notice-needsuccessfulbuytransaction-beforefirstsell">@Html.Raw(String.Format(Resources.BuyPages.BuyPageTestTransactionNotice, dcCode))</div>
-                            <div class="hide message" id="buy-notice-payment-pending">@Resources.BuyPages.BuyFormPaymentPending</div>
-                            <div class="hide message" id="buy-notice-cooldown">@Resources.BuyPages.BuyFormCoolDown</div>
-                            <div class="hide message" id="buy-notice-need-fotoid">@Resources.BuyPages.BuyFormNeedFotoID</div>
+            <div class="col-md-6 py-5">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-xl-8 col-lg-10">
+                            <form asp-page="Initiate" method="post" class="form form-box validate-form" autocomplete="off">
+                                @Html.AntiForgeryToken()
+
+                                <div class="form__header">
+                                    <div class="hide message" id="sell-notice-needsuccessfulbuytransaction-beforefirstsell">@Html.Raw(String.Format(Resources.BuyPages.BuyPageTestTransactionNotice, dcCode))</div>
+                                    <div class="hide message" id="buy-notice-payment-pending">@Resources.BuyPages.BuyFormPaymentPending</div>
+                                    <div class="hide message" id="buy-notice-cooldown">@Resources.BuyPages.BuyFormCoolDown</div>
+                                    <div class="hide message" id="buy-notice-need-fotoid">@Resources.BuyPages.BuyFormNeedFotoID</div>
+                                </div>
+
+                                <div class="form__group">
+                                    <label class="form__label" for="AccountCode">@Resources.BuyPages.BuyFormAccountLabel</label>
+                                    <a href="@Url.Action("Index", "Account")" class="form__help">@Resources.Site.NoAccountCode</a>
+
+                                    @Html.TextBoxFor(model => model.AccountCode, new { @class = "form__control", placeholder = @Resources.BuyPages.BuyFormAccountPlaceHolder })
+
+                                    <div class="form__error">
+                                        @Html.ValidationMessageFor(model => model.AccountCode)
+
+                                        <div class="hide" id="wrong-coin">@string.Format(@Resources.BuyPages.BuyFormWrongCoinAccount, dcCode)</div>
+                                        <div class="hide" id="non-active">@Resources.BuyPages.BuyFormNonActiveAccount</div>
+                                        <div class="hide form__extra" id="new-personal">@Resources.BuyPages.BuyFormNewPersonal</div>
+                                        <div class="hide form__extra" id="trusted-personal">@Resources.BuyPages.BuyFormTrustedPersonal</div>
+                                        <div class="hide form__extra" id="verified-personal">@Resources.BuyPages.BuyFormVerifiedPersonal</div>
+                                        <div class="hide form__extra" id="new-business">@Resources.BuyPages.BuyFormNewBusiness</div>
+                                        <div class="hide form__extra" id="verified-business">@Resources.BuyPages.BuyFormVerifiedBusiness</div>
+                                    </div>
+                                </div>
+
+                                <div class="form__group">
+                                    <label class="form__label" for="PaymentMethodCode">@Resources.BuyPages.BuyFormPayMethodLabel</label>
+
+                                    <div class="form__select select--form">
+                                        <select name="PaymentMethodCode" id="PaymentMethodCode" class="updateBitcoin">
+                                            <option value="" disabled selected>- Select -</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form__error">
+                                        @Html.ValidationMessageFor(model => model.PaymentMethodCode)
+                                    </div>
+                                </div>
+
+                                <div class="form__group">
+                                    <label class="form__label" for="Amount">@Resources.BuyPages.BuyFormAmountLabel</label>
+                                    <div class="form__info">
+                                        @ViewBag.CurrencyCode
+                                    </div>
+
+                                    @Html.TextBoxFor(model => model.Amount, new { @class = "form__control updateBitcoin", type = "number", step = "1", min = "0" })
+
+                                    <div class="form__description">
+                                        <div id="curAmountLimit"></div>
+                                    </div>
+
+                                    <div class="form__error">
+                                        @Html.ValidationMessageFor(model => model.Amount)
+
+                                        <div id="limit-reason-title" class="limit-reason-title">@Resources.BuyPages.BuyFormLimitReasonTitle</div>
+                                        <div id="low-balance" class="limit-reason">@String.Format(Resources.BuyPages.BuyFormLowBalanceMessage, dcCode)</div>
+                                        <div id="daily-limit" class="limit-reason">@Resources.BuyPages.BuyFormDailyLimitMessage</div>
+                                        <div id="monthly-limit" class="limit-reason">@Resources.BuyPages.BuyFormMonthlyLimitMessage</div>
+                                        <div id="reference-price" class="limit-reason">@Resources.BuyPages.BuyFormNoReferencePrice</div>
+                                        <div id="no-balance" class="limit-reason">@Resources.BuyPages.BuyFormNoBalance</div>
+                                        <div id="unidentified-business" class="limit-reason">@Resources.BuyPages.BuyFormUnidentifiedBusiness</div>
+                                        <div id="new-customer-no-foto" class="limit-reason">@Resources.BuyPages.BuyFormNewCustomerNoFotoId</div>
+                                        <div id="new-unsettled" class="limit-reason">@Resources.BuyPages.BuyFormNewUnsettled</div>
+                                        <div id="incasso" class="limit-reason">@Resources.BuyPages.BuyFormIncasso</div>
+                                        <div id="high-risk" class="limit-reason">@Resources.BuyPages.BuyFormHighRisk</div>
+                                        <div id="missing-buy" class="limit-reason">@Resources.BuyPages.BuyFormMissingBuyTransaction</div>
+                                        <div id="high-request" class="limit-reason">@Resources.BuyPages.BuyFormRequestedHigherThanMaximum</div>
+                                        <div id="low-request" class="limit-reason">@Resources.BuyPages.BuyFormRequestedLowerThanMinimum</div>
+                                        <div id="available-lower-than-request" class="limit-reason">@Resources.BuyPages.BuyFormRequestedHigherThanAvailableAmount</div>
+                                    </div>
+                                </div>
+
+                                <div class="form__items">
+                                    <div class="form__item">
+                                        <div>@Resources.BuyPages.BuyFormServiceFeeLabel</div>
+                                        <div><span id="EuroServiceFee">@((0).ToString("F2"))</span>&nbsp;@ViewBag.CurrencyCode</div>
+                                    </div>
+
+                                    <div class="form__item">
+                                        <div>@Resources.BuyPages.BuyFormNetworkFeeLabel</div>
+                                        <div><span id="EuroNetworkFee">@((0).ToString("F2"))</span>&nbsp;@ViewBag.CurrencyCode</div>
+                                    </div>
+
+                                    <div class="form__item">
+                                        <div>@Resources.BuyPages.BuyFormBankFeeLabel</div>
+                                        <div><span id="EuroBankFee">@((0).ToString("F2"))</span>&nbsp;@ViewBag.CurrencyCode</div>
+                                    </div>
+
+                                    <div class="form__item form__item--alt">
+                                        <div>@Resources.BuyPages.BuyFormSubTotalLabel</div>
+                                        <div><span id="TotalEuro">@((0).ToString("F2"))</span>&nbsp;@ViewBag.CurrencyCode</div>
+                                    </div>
+
+                                    <div class="form__item form__item--alt">
+                                        <div>@Resources.BuyPages.BuyFormPurchaseLabel</div>
+                                        <div><span id="BTCAmount">@((0).ToString("F8"))</span>&nbsp;@(Html.GetActiveCryptoCode())</div>
+                                    </div>
+                                </div>
+
+                                @*<div class="form__footer">
+                                        <div class="hide message" id="new-accounts-fasttrack">@Resources.BuyPages.BuyFormNewPersonalMessage - @(Html.ActionLink<AccountVerificationController>(@Resources.BuyPages.BuyFormNeedFastTrackLink, c => c.Index()))</div>
+                                        <div class="hide message" id="new-business-verification">@Resources.BuyPages.BuyFormNewBusinessMessage - @(Html.ActionLink<AccountVerificationController>(@Resources.BuyPages.BuyFormNeedVerificationLink, c => c.Index()))</div>
+                                        <div class="hide message" id="personal-limited">@Resources.BuyPages.BuyFormLimitedPersonalMessage - @(Html.ActionLink<AccountVerificationController>(@Resources.BuyPages.BuyFormLimitedInfoLink, c => c.Limited()))</div>
+                                        <div class="hide message" id="business-limited">@Resources.BuyPages.BuyFormLimitedBusinessMessage - @(Html.ActionLink<AccountVerificationController>(@Resources.BuyPages.BuyFormLimitedInfoLink, c => c.Limited()))</div>
+
+                                        <div class="hide message" id="buy-notice-germany">@Resources.BuyPages.BuyFormGermanyNotice</div>
+                                    </div>*@
+
+                                @Html.HiddenFor(model => model.Currency)
+                                <button class="form__submit btn btn-emerald submit btn-send" disabled="disabled">@String.Format(Resources.BuyPages.BuyFormReviewButton, dcCode)</button>
+                            </form>
+
                         </div>
-
-                        <div class="form__group">
-                            <label class="form__label" for="AccountCode">@Resources.BuyPages.BuyFormAccountLabel</label>
-                            <a href="@Url.Action("Index", "Account")" class="form__help">@Resources.Site.NoAccountCode</a>
-
-                            @Html.TextBoxFor(model => model.AccountCode, new { @class = "form__control", placeholder = @Resources.BuyPages.BuyFormAccountPlaceHolder })
-
-                            <div class="form__error">
-                                @Html.ValidationMessageFor(model => model.AccountCode)
-
-                                <div class="hide" id="wrong-coin">@string.Format(@Resources.BuyPages.BuyFormWrongCoinAccount, dcCode)</div>
-                                <div class="hide" id="non-active">@Resources.BuyPages.BuyFormNonActiveAccount</div>
-                                <div class="hide form__extra" id="new-personal">@Resources.BuyPages.BuyFormNewPersonal</div>
-                                <div class="hide form__extra" id="trusted-personal">@Resources.BuyPages.BuyFormTrustedPersonal</div>
-                                <div class="hide form__extra" id="verified-personal">@Resources.BuyPages.BuyFormVerifiedPersonal</div>
-                                <div class="hide form__extra" id="new-business">@Resources.BuyPages.BuyFormNewBusiness</div>
-                                <div class="hide form__extra" id="verified-business">@Resources.BuyPages.BuyFormVerifiedBusiness</div>
-                            </div>
-                        </div>
-
-                        <div class="form__group">
-                            <label class="form__label" for="PaymentMethodCode">@Resources.BuyPages.BuyFormPayMethodLabel</label>
-
-                            <div class="form__select select--form">
-                                <select name="PaymentMethodCode" id="PaymentMethodCode" class="updateBitcoin">
-                                    <option value="" disabled selected>- Select -</option>
-                                </select>
-                            </div>
-
-                            <div class="form__error">
-                                @Html.ValidationMessageFor(model => model.PaymentMethodCode)
-                            </div>
-                        </div>
-
-                        <div class="form__group">
-                            <label class="form__label" for="Amount">@Resources.BuyPages.BuyFormAmountLabel</label>
-                            <div class="form__info">
-                                @ViewBag.CurrencyCode
-                            </div>
-
-                            @Html.TextBoxFor(model => model.Amount, new { @class = "form__control updateBitcoin", type = "number", step = "1", min = "0" })
-
-                            <div class="form__description">
-                                <div id="curAmountLimit"></div>
-                            </div>
-
-                            <div class="form__error">
-                                @Html.ValidationMessageFor(model => model.Amount)
-
-                                <div id="limit-reason-title" class="limit-reason-title">@Resources.BuyPages.BuyFormLimitReasonTitle</div>
-                                <div id="low-balance" class="limit-reason">@String.Format(Resources.BuyPages.BuyFormLowBalanceMessage, dcCode)</div>
-                                <div id="daily-limit" class="limit-reason">@Resources.BuyPages.BuyFormDailyLimitMessage</div>
-                                <div id="monthly-limit" class="limit-reason">@Resources.BuyPages.BuyFormMonthlyLimitMessage</div>
-                                <div id="reference-price" class="limit-reason">@Resources.BuyPages.BuyFormNoReferencePrice</div>
-                                <div id="no-balance" class="limit-reason">@Resources.BuyPages.BuyFormNoBalance</div>
-                                <div id="unidentified-business" class="limit-reason">@Resources.BuyPages.BuyFormUnidentifiedBusiness</div>
-                                <div id="new-customer-no-foto" class="limit-reason">@Resources.BuyPages.BuyFormNewCustomerNoFotoId</div>
-                                <div id="new-unsettled" class="limit-reason">@Resources.BuyPages.BuyFormNewUnsettled</div>
-                                <div id="incasso" class="limit-reason">@Resources.BuyPages.BuyFormIncasso</div>
-                                <div id="high-risk" class="limit-reason">@Resources.BuyPages.BuyFormHighRisk</div>
-                                <div id="missing-buy" class="limit-reason">@Resources.BuyPages.BuyFormMissingBuyTransaction</div>
-                                <div id="high-request" class="limit-reason">@Resources.BuyPages.BuyFormRequestedHigherThanMaximum</div>
-                                <div id="low-request" class="limit-reason">@Resources.BuyPages.BuyFormRequestedLowerThanMinimum</div>
-                                <div id="available-lower-than-request" class="limit-reason">@Resources.BuyPages.BuyFormRequestedHigherThanAvailableAmount</div>
-                            </div>
-                        </div>
-
-                        <div class="form__items">
-                            <div class="form__item">
-                                <div>@Resources.BuyPages.BuyFormServiceFeeLabel</div>
-                                <div><span id="EuroServiceFee">@((0).ToString("F2"))</span>&nbsp;@ViewBag.CurrencyCode</div>
-                            </div>
-
-                            <div class="form__item">
-                                <div>@Resources.BuyPages.BuyFormNetworkFeeLabel</div>
-                                <div><span id="EuroNetworkFee">@((0).ToString("F2"))</span>&nbsp;@ViewBag.CurrencyCode</div>
-                            </div>
-
-                            <div class="form__item">
-                                <div>@Resources.BuyPages.BuyFormBankFeeLabel</div>
-                                <div><span id="EuroBankFee">@((0).ToString("F2"))</span>&nbsp;@ViewBag.CurrencyCode</div>
-                            </div>
-
-                            <div class="form__item form__item--alt">
-                                <div>@Resources.BuyPages.BuyFormSubTotalLabel</div>
-                                <div><span id="TotalEuro">@((0).ToString("F2"))</span>&nbsp;@ViewBag.CurrencyCode</div>
-                            </div>
-
-                            <div class="form__item form__item--alt">
-                                <div>@Resources.BuyPages.BuyFormPurchaseLabel</div>
-                                <div><span id="BTCAmount">@((0).ToString("F8"))</span>&nbsp;@(Html.GetActiveCryptoCode())</div>
-                            </div>
-                        </div>
-
-                        @*<div class="form__footer">
-                                <div class="hide message" id="new-accounts-fasttrack">@Resources.BuyPages.BuyFormNewPersonalMessage - @(Html.ActionLink<AccountVerificationController>(@Resources.BuyPages.BuyFormNeedFastTrackLink, c => c.Index()))</div>
-                                <div class="hide message" id="new-business-verification">@Resources.BuyPages.BuyFormNewBusinessMessage - @(Html.ActionLink<AccountVerificationController>(@Resources.BuyPages.BuyFormNeedVerificationLink, c => c.Index()))</div>
-                                <div class="hide message" id="personal-limited">@Resources.BuyPages.BuyFormLimitedPersonalMessage - @(Html.ActionLink<AccountVerificationController>(@Resources.BuyPages.BuyFormLimitedInfoLink, c => c.Limited()))</div>
-                                <div class="hide message" id="business-limited">@Resources.BuyPages.BuyFormLimitedBusinessMessage - @(Html.ActionLink<AccountVerificationController>(@Resources.BuyPages.BuyFormLimitedInfoLink, c => c.Limited()))</div>
-
-                                <div class="hide message" id="buy-notice-germany">@Resources.BuyPages.BuyFormGermanyNotice</div>
-                            </div>*@
-
-                        @Html.HiddenFor(model => model.Currency)
-                        <button class="form__submit btn btn-emerald submit btn-send" disabled="disabled">@String.Format(Resources.BuyPages.BuyFormReviewButton, dcCode)</button>
-                    </form>
-
+                    </div>
                 </div>
             </div>
         </div>
