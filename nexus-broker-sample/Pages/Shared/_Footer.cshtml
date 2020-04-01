@@ -24,26 +24,26 @@
                 </p>
             </div>
 
-            <div class="col-lg-2"></div>
+            <div class="col-lg-4"></div>
 
             <div class="col-lg-2 col-md-4">
                 <div class="footer__title">HERMES</div>
 
                 <ul class="menu-list menu-list--white">
                     <li class="menu-list__item">
-                        <a href="@Url.Action("Index", "Contact")" class="menu-list__link">@Resources.Site.FooterContactLink</a>
+                        <a asp-page="Contact" class="menu-list__link">@Resources.Site.FooterContactLink</a>
                     </li>
 
                     <li class="menu-list__item">
-                        <a href="@Url.Action("Privacy", "Info")" class="menu-list__link">@Resources.Site.FooterPrivacyPolicyLink</a>
+                        <a asp-page="Privacy" class="menu-list__link">@Resources.Site.FooterPrivacyPolicyLink</a>
                     </li>
 
                     <li class="menu-list__item">
-                        <a href="@Url.Action("Terms", "Info")" class="menu-list__link">@Resources.Site.FooterTermsOfUseLink</a>
+                        <a asp-page="Terms" class="menu-list__link">@Resources.Site.FooterTermsOfUseLink</a>
                     </li>
 
                     <li class="menu-list__item">
-                        <a href="@Url.Action("amlpolicy", "Info")" class="menu-list__link">@Resources.Site.FooterAMLPolicyLink</a>
+                        <a asp-page="amlpolicy" class="menu-list__link">@Resources.Site.FooterAMLPolicyLink</a>
                     </li>
                 </ul>
             </div>
@@ -53,24 +53,24 @@
 
                 <ul class="menu-list menu-list--white">
                     <li class="menu-list__item">
-                        <a href="@Url.Action("Index", "Account")" class="menu-list__link">@Resources.Site.FooterCreateAccountLink</a>
+                        <a asp-page="/Account/Index" class="menu-list__link">@Resources.Site.FooterCreateAccountLink</a>
                     </li>
 
                     <li class="menu-list__item">
-                        <a href="@Url.Action("CreateAdditional", "Account")" class="menu-list__link">@Resources.Site.FooterAddAddress</a>
+                        <a asp-page="/Account/Extra" class="menu-list__link">@Resources.Site.FooterAddAddress</a>
                     </li>
 
                     <li class="menu-list__item">
-                        <a href="@Url.Action("RequestInfo", "Account")" class="menu-list__link">@Resources.Site.FooterForgotAccount</a>
+                        <a asp-page="/Account/Request" class="menu-list__link">@Resources.Site.FooterForgotAccount</a>
                     </li>
 
                     <li class="menu-list__item">
-                        <a href="@Url.Action("RequestDelete", "Account")" class="menu-list__link">@Resources.Site.FooterDeleteAccount</a>
+                        <a asp-page="/Account/Delete" class="menu-list__link">@Resources.Site.FooterDeleteAccount</a>
                     </li>
                 </ul>
             </div>
 
-            <div class="col-lg-2 col-md-4">
+            @*<div class="col-lg-2 col-md-4">
                 <div class="footer__title">@Resources.Site.FooterCrypto</div>
 
                 <ul class="menu-list menu-list--white menu-list--crypto">
@@ -94,7 +94,7 @@
                         <a href="@Url.Action("Index", "Home", new { crypto = "lumen" })" class="menu-list__link"><img src="~/img/coins/xlm-diap.svg" alt="Lumen">Lumen</a>
                     </li>
                 </ul>
-            </div>
+            </div>*@
         </div>
     </div>
 </footer>
