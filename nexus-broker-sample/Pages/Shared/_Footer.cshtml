@@ -53,11 +53,11 @@
 
                 <ul class="menu-list menu-list--white">
                     <li class="menu-list__item">
-                        <a asp-page="/Account/Index" class="menu-list__link">@Resources.Site.FooterCreateAccountLink</a>
+                        <a asp-page="/Account/Index" asp-route-crypto="bitcoin" class="menu-list__link">@Resources.Site.FooterCreateAccountLink</a>
                     </li>
 
                     <li class="menu-list__item">
-                        <a asp-page="/Account/Extra" class="menu-list__link">@Resources.Site.FooterAddAddress</a>
+                        <a asp-page="/Account/Extra" asp-route-crypto="bitcoin" class="menu-list__link">@Resources.Site.FooterAddAddress</a>
                     </li>
 
                     <li class="menu-list__item">

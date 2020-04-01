@@ -129,6 +129,13 @@ namespace Nexus.Samples.Sdk
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<CreateCustomerResponse>>();
         }
 
+        public async Task<DefaultResponseTemplate<GetAccountResponse>> CreateAccount(string customerCode, CreateAccountRequest request)
+        {
+            var response = await PostRequest12Async($"customer/{customerCode}/accounts", request);
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetAccountResponse>>();
+        }
+
         public async Task<DefaultResponseTemplate<SimulateBuyBrokerResponse>> SimulateBuyBroker(SimulateBuyBrokerRequest request)
         {
             var response = await PostRequest12Async("buy/broker/simulate", request);
