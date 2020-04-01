@@ -33,7 +33,6 @@ namespace Nexus.Samples.Broker.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
-
             var getAccountResponse = await nexusClient.GetAccount(AccountCode);
 
             if (!getAccountResponse.IsSuccess)
@@ -60,7 +59,7 @@ namespace Nexus.Samples.Broker.Pages.Account
                 IP = "::1"
             });
 
-            if (response.Errors == null || response.Errors.Length == 0)
+            if (response.IsSuccess)
             {
                 return RedirectToPage("/Account/Created");
             }

@@ -32,29 +32,13 @@ else
 
         <div class="form__group">
             <label class="form__label" for="BankAccountNumber">@Resources.AccountPages.AccountAsideBankAccountNumber</label>
-            <a href="@Url.Action("General", "About", new { index = 111 })" class="form__help">@Resources.AccountPages.AccountAsideBankAccountNumberHelp</a>
 
-            @Html.TextBoxFor(model => model.BankAccountNumber, new { @class = "form__control", placeholder = "..." })
+            <input asp-for="BankAccountNumber" class="form__control" placeholder="..." />
 
             <div class="form__error">
                 <span asp-validation-for="BankAccountNumber"></span>
             </div>
         </div>
-
-        @*<div class="form__group">
-                <label class="form__label" for="IsBusiness">@Resources.AccountPages.AccountAsideIsBusiness</label>
-                <a href="@Url.Action("General", "About", new { index = 305 })" class="form__help">@Resources.AccountPages.AccountAsideIsBusinessHelp</a>
-
-                <div class="form__check">
-                    @Html.RadioButtonFor(model => model.IsBusiness, false, new { id = "personal" })
-                    @Html.Label("personal", @Resources.AccountPages.AccountAsidePersonal)
-                </div>
-
-                <div class="form__check">
-                    @Html.RadioButtonFor(model => model.IsBusiness, true, new { id = "business" })
-                    @Html.Label("business", @Resources.AccountPages.AccountAsideBusiness)
-                </div>
-            </div>*@
 
         <div class="form__group">
             <label class="form__label" for="BankAccountName">@Resources.AccountPages.AccountAsideBankAccountName</label>
@@ -82,7 +66,6 @@ else
 
         <div class="form__group">
             <label class="form__label" for="CustomerCryptoAddress">@Resources.AccountPages.AccountAsideCustomerCryptoAddress</label>
-            <a href="@Url.Action("General", "About", new { index = 101 })" class="form__help">@string.Format(Resources.AccountPages.AccountAsideCustomerCryptoAddressHelp, dcCode)</a>
 
             @Html.TextBoxFor(model => model.CustomerCryptoAddress, new { @class = "form__control", placeholder = "..." })
 

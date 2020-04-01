@@ -3,9 +3,10 @@
 @model Nexus.Samples.Broker.Pages.Account.ExtraModel
 @{
     string dcCode = Html.GetActiveCryptoName();
+    string dc = Html.GetActiveCryptoCode();
+
     var cryptoSelector = new CryptoSelectorViewModel("", "/Account/Extra", RouteData.Values["crypto"].ToString(), false);
     ViewData["Title"] = Resources.AccountPages.AccountAdditionalTabTitle;
-
 }
 
 <div class="page page--grey container-fluid">
@@ -30,6 +31,8 @@
                     <div class="col-xl-8 col-lg-10">
                         <form method="post" class="form frends-form create">
                             @Html.AntiForgeryToken()
+
+                            <input type="hidden" asp-for="CryptoCode" value="@dc" />
 
                             <div class="form__group">
                                 <label class="form__label" asp-for="AccountCode">@Resources.AccountPages.AccountDeletePlaceholderAccount</label>
