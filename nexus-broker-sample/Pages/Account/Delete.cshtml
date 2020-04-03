@@ -1,0 +1,35 @@
+﻿@page
+@model Nexus.Samples.Broker.Pages.Account.DeleteModel
+@{
+    ViewData["Title"] = Resources.AccountPages.AccountDeleteTabTitle;
+}
+
+<div class="page">
+    <div class="page__content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-10 col-lg-8">
+                    <h1>@Resources.AccountPages.AccountDeleteTitle</h1>
+
+                    <form method="post" class="form frends-form create">
+                        @Html.AntiForgeryToken()
+
+                        <div class="form__group">
+                            <label class="form__label" asp-for="AccountCode">@Resources.AccountPages.AccountDeletePlaceholderAccount</label>
+
+                            <input asp-for="AccountCode" class="form__control" placeholder="@Resources.AccountPages.AccountAdditionalPlaceholderAccount" />
+
+                            <div class="form__error">
+                                <span asp-validation-for="AccountCode"></span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="form__submit btn btn-primary">
+                            @Resources.AccountPages.AccountDeleteConfirmButton
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

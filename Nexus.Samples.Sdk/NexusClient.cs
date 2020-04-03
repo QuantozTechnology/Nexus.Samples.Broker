@@ -157,6 +157,20 @@ namespace Nexus.Samples.Sdk
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetAccountResponse>>();
         }
 
+        public async Task<DefaultResponseTemplate<EmptyResponse>> DeleteAccount(string accountCode)
+        {
+            var response = await DeleteRequest12Async($"accounts/{accountCode}");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<EmptyResponse>>();
+        }
+
+        public async Task<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>> GetTransactions(string customerCode)
+        {
+            var response = await GetRequest12Async($"transaction?customer={customerCode}");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>>();
+        }
+
         public async Task<DefaultResponseTemplate<GetCustomerResponse>> GetCustomer(string customerCode)
         {
             var response = await GetRequest12Async($"customer/{customerCode}");
@@ -177,6 +191,13 @@ namespace Nexus.Samples.Sdk
             await PotentialTokenRefresh();
 
             return await client12.GetAsync(url);
+        }
+
+        public async Task<HttpResponseMessage> DeleteRequest12Async(string url)
+        {
+            await PotentialTokenRefresh();
+
+            return await client12.DeleteAsync(url);
         }
 
         public async Task<T> GetRequest12<T>(string url)

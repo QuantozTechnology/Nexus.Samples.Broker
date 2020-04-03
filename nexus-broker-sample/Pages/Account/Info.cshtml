@@ -1,0 +1,68 @@
+﻿@page
+@model Nexus.Samples.Broker.Pages.Account.InfoModel
+@{
+    ViewData["Title"] = "Get Info";
+}
+
+<div class="page">
+    <div class="page__content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-10 col-lg-8">
+                    <h1>Get Info</h1>
+
+                    <form method="get" class="form frends-form create">
+                        <div class="form__group">
+                            <label class="form__label" asp-for="AccountCode">@Resources.AccountPages.AccountDeletePlaceholderAccount</label>
+
+                            <input asp-for="AccountCode" class="form__control" placeholder="@Resources.AccountPages.AccountAdditionalPlaceholderAccount" />
+
+                            <div class="form__error">
+                                <span asp-validation-for="AccountCode"></span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="form__submit btn btn-primary">
+                            Get Info
+                        </button>
+                    </form>
+                </div>
+            </div>
+            @if (Model.Transactions.Length > 0)
+            {
+                <div class="row justify-content-center">
+                    <h2>Transactions</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Date
+                                </th>
+                                <th>Code</th>
+                                <th>Type</th>
+                                <th>Crypto</th>
+                                <th>Amount</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Transactions)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Created
+                                    </td>
+                                    <td>@item.TransactionCode</td>
+                                    <td>@item.Type</td>
+                                    <td>@item.CryptoCurrencyCode</td>
+                                    <td>@item.CryptoAmount</td>
+                                    <td>@item.Payout?.ToString("F2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

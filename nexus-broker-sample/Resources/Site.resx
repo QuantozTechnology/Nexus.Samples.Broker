@@ -291,8 +291,8 @@
   <data name="SelectCrypto" xml:space="preserve">
     <value>Select a crypto</value>
   </data>
-  <data name="FooterForgotAccount" xml:space="preserve">
-    <value>Forgot account</value>
+  <data name="FooterAccountInfo" xml:space="preserve">
+    <value>Account info</value>
   </data>
   <data name="FooterTradeMark" xml:space="preserve">
     <value>HERMES® is a Community Trade Mark of Digital Currency Services B.V.</value>

@@ -187,6 +187,15 @@ namespace Nexus.Samples.Broker.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account info.
+        /// </summary>
+        public static string FooterAccountInfo {
+            get {
+                return ResourceManager.GetString("FooterAccountInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add address.
         /// </summary>
         public static string FooterAddAddress {
@@ -246,15 +255,6 @@ namespace Nexus.Samples.Broker.Resources {
         public static string FooterDeleteAccount {
             get {
                 return ResourceManager.GetString("FooterDeleteAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Forgot account.
-        /// </summary>
-        public static string FooterForgotAccount {
-            get {
-                return ResourceManager.GetString("FooterForgotAccount", resourceCulture);
             }
         }
         
