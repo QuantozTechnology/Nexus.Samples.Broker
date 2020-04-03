@@ -21663,3 +21663,8 @@ select {
 .page {
     flex: 1 1 auto !important;
 }
+
+.table .thead-light th {
+    background-color: #fb8a8b !important;
+    color: #0f102a;
+}
