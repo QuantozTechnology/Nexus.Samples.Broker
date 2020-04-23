@@ -80,7 +80,7 @@ else
             <div class="form__check">
                 <input asp-for="HasAcceptedTOS" type="checkbox" />
                 <label for="@Html.IdFor(model => model.HasAcceptedTOS)">
-                    @Resources.AccountPages.AccountAsideTermsAgree
+                    @Html.Raw(string.Format(@Resources.AccountPages.AccountAsideTermsAgree, new object[] { @Resources.Site.FooterPrivacyPolicyLink, @Resources.Site.FooterPrivacyPolicyLink }))
                     @* @(Html.ActionLink<InfoController>(@Resources.AccountPages.AccountAsideTermsLink, c => c.Terms(), null, htmlAttributes: new { target = "_blank" }))*@
                 </label>
             </div>
