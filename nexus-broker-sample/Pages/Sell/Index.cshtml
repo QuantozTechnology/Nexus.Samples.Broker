@@ -45,7 +45,7 @@ else
                                 <div class="form__header">
                                     <div class="hide message" id="sell-notice-needsuccessfulbuytransaction-beforefirstsell">
                                         <p>@Html.Raw(String.Format(Resources.SellPages.SellFormStatusNotice1, dcCode))</p>
-                                        @*<a href="@Url.Action("Index", "Buy", new { id = Model.AccountCode })" class="btn btn-primary btn-sm">@string.Format(Resources.HomeIndex.BannerBuyButton, dcCode)</a>*@
+                                        @*<a href="@Url.Action("Index", "Buy", new { id = Model.AccountCode })" class="btn btn-brand-color btn-sm">@string.Format(Resources.HomeIndex.BannerBuyButton, dcCode)</a>*@
                                     </div>
 
                                     <div class="hide message" id="sell-notice-successfulbuytransaction-pending">@String.Format(Resources.SellPages.SellFormStatusNotice2, dcCode)</div>
@@ -112,7 +112,7 @@ else
                                     <div class="hide message" id="business-limited">@Resources.SellPages.SellFormLimitedBusinessMessage - @*@(Html.ActionLink<AccountVerificationController>(Resources.SellPages.SellFormLimitedInfoLink, c => c.Limited()))*@</div>
                                 </div>
 
-                                <button class="form__submit btn btn-rusty-orange submit btn-send" disabled="disabled">@String.Format(Resources.SellPages.SellFormReviewButton, dcCode)</button>
+                                <button class="form__submit btn btn-brand-color submit btn-send" disabled="disabled">@String.Format(Resources.SellPages.SellFormReviewButton, dcCode)</button>
                             </form>
                         </div>
                     </div>

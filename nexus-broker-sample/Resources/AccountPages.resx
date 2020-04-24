@@ -193,7 +193,7 @@
     <value>Referral Code:</value>
   </data>
   <data name="AccountAsideTermsAgree" xml:space="preserve">
-    <value>I agree to the privacy policy and to the </value>
+    <value>I agree to the <a href="{0}">privacy policy</a> and to the <a href="{1}">terms of use</a></value>
   </data>
   <data name="AccountAsideTermsLink" xml:space="preserve">
     <value>Terms of use</value>
@@ -692,7 +692,7 @@ such as &lt;a href="http://www.theswiftcodes.com/"&gt;The SWIFT Codes &lt;/a&gt;
     <value>You can buy crypto and sell crypto directly after creating a Account. You can link multiple crypto addresses to one account.</value>
   </data>
   <data name="AccountAsideTitle" xml:space="preserve">
-    <value>Let’s get started!</value>
+    <value>Add a new address to your existing account</value>
   </data>
   <data name="AccountAsideBankAccountNumberHelp" xml:space="preserve">
     <value>What is IBAN?</value>
