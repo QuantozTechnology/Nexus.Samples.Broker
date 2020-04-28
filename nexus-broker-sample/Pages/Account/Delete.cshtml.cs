@@ -27,6 +27,11 @@ namespace Nexus.Samples.Broker.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             var deleteResult = await nexusClient.DeleteAccount(AccountCode);
 
             if (!deleteResult.IsSuccess)
