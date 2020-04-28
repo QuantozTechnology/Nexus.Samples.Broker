@@ -5,44 +5,46 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nexus.Samples.Sdk;
-using Nexus.Samples.Sdk.Models.Response;
 
 namespace Nexus.Samples.Broker.Pages.Account
 {
-    public class CreatedModel : PageModel
+    public class ActivateModel : PageModel
     {
         private readonly NexusClient nexusClient;
 
         [BindProperty(SupportsGet = true)]
         public string AccountCode { get; set; }
 
-        public GetAccountResponse AccountResponse { get; private set; }
+        public bool Successful { get; set; }
 
-        public CreatedModel(NexusClient nexusClient)
+        public ActivateModel(NexusClient nexusClient)
         {
             this.nexusClient = nexusClient;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGet()
         {
-            var accountResponse = await nexusClient.GetAccount(AccountCode);
+            var activateAccountResponse = await nexusClient.ActivateAccount(AccountCode);
 
-            if (accountResponse.IsSuccess)
+            if (activateAccountResponse.IsSuccess)
             {
-                AccountResponse = accountResponse.Values;
+                Successful = true;
 
                 return Page();
             }
             else
             {
-                foreach (var error in accountResponse.Errors)
+                foreach (var error in activateAccountResponse.Errors)
                 {
                     switch (error)
                     {
                         case "AccountNotFound": return NotFound();
-                        default: return Page();
+                        default:
+                            break;
                     }
                 }
+
+                Successful = false;
 
                 return Page();
             }

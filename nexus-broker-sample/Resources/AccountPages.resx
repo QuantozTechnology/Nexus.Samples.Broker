@@ -193,7 +193,7 @@
     <value>Referral Code:</value>
   </data>
   <data name="AccountAsideTermsAgree" xml:space="preserve">
-    <value>I agree to the <a href="{0}">privacy policy</a> and to the <a href="{1}">terms of use</a></value>
+    <value>I agree to the {0} and to the {1}</value>
   </data>
   <data name="AccountAsideTermsLink" xml:space="preserve">
     <value>Terms of use</value>

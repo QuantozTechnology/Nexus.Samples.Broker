@@ -1,0 +1,31 @@
+﻿@page
+@model Nexus.Samples.Broker.Pages.Account.ActivateModel
+@{
+    ViewData["Title"] = "Activate Account";
+}
+
+<div class="page">
+    <div class="page__content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-10 col-lg-8">
+                    @if (Model.Successful)
+                    {
+                        <h1>Successfuly activated account</h1>
+                        <p>
+                            You can now start buying using @(Model.AccountCode).
+                        </p>
+                    }
+                    else
+                    {
+                        <h1>Failed to activate account</h1>
+                        <p>
+                            There was an issue, please try again later.
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

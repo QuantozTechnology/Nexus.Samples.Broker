@@ -16,8 +16,10 @@ namespace Nexus.Samples.Broker.Pages.Account
 
         [Required]
         public string AccountCode { get; set; }
+
         [Required]
         public string CustomerCryptoAddress { get; set; }
+
         public string CryptoCode { get; set; }
 
         public ExtraModel(NexusClient nexusClient, ILogger<ExtraModel> logger)
@@ -33,6 +35,11 @@ namespace Nexus.Samples.Broker.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             var getAccountResponse = await nexusClient.GetAccount(AccountCode);
 
             if (!getAccountResponse.IsSuccess)

@@ -51,7 +51,7 @@ else
 
                                 <div class="form__group">
                                     <label class="form__label" for="AccountCode">@Resources.BuyPages.BuyFormAccountLabel</label>
-                                    <a href="@Url.Action("Index", "Account")" class="form__help">@Resources.Site.NoAccountCode</a>
+                                    <a asp-page="/Account/Index" asp-route-crypto="@RouteData.Values["crypto"].ToString()" class="form__help">@Resources.Site.NoAccountCode</a>
 
                                     @Html.TextBoxFor(model => model.AccountCode, new { @class = "form__control", placeholder = @Resources.BuyPages.BuyFormAccountPlaceHolder })
 

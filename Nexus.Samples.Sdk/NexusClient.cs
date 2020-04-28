@@ -157,6 +157,13 @@ namespace Nexus.Samples.Sdk
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetAccountResponse>>();
         }
 
+        public async Task<DefaultResponseTemplate<EmptyResponse>> ActivateAccount(string accountCode)
+        {
+            var response = await GetRequest12Async($"accounts/activate/{accountCode}");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<EmptyResponse>>();
+        }
+
         public async Task<DefaultResponseTemplate<EmptyResponse>> DeleteAccount(string accountCode)
         {
             var response = await DeleteRequest12Async($"accounts/{accountCode}");

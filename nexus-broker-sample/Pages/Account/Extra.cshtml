@@ -36,7 +36,7 @@
 
                             <div class="form__group">
                                 <label class="form__label" asp-for="AccountCode">@Resources.AccountPages.AccountDeletePlaceholderAccount</label>
-                                <a asp-page="/Account/Index" asp-route-crypto="dcCode" class="form__help">@Resources.Site.NoAccountCode</a>
+                                <a asp-page="/Account/Index" asp-route-crypto="@dcCode" class="form__help">@Resources.Site.NoAccountCode</a>
 
                                 <input asp-for="AccountCode" class="form__control" placeholder="@String.Format(Resources.AccountPages.AccountAdditionalPlaceholderAccount, dcCode)" />
 

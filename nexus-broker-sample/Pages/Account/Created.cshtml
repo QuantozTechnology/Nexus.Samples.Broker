@@ -13,6 +13,35 @@
                     <h1>@Resources.AccountPages.AccountCreatedTitle</h1>
 
                     <p>@Resources.AccountPages.AccountCreatedText1</p>
+
+                    <fieldset>
+                        <dl>
+                            <dt>CustomerCode / Bank Account Number</dt>
+                            <dd>@Model.AccountResponse.CustomerCode</dd>
+                        </dl>
+                        <dl>
+                            <dt>AccountCode</dt>
+                            <dd>@Model.AccountResponse.AccountCode</dd>
+                        </dl>
+                    </fieldset>
+
+                    <p>
+                        Remember this AccountCode, as it is needed to initiate transactions.
+                    </p>
+
+                    @* Only show the activation if InstantAccountActivation is turned off *@
+                    @if (Model.AccountResponse.AccountStatus == "NEW")
+                    {
+                        <p>
+                            Before you can start using the account, you have to activate it by clicking the button below.
+
+                        </p>
+
+                        <form asp-page="Activate" method="get">
+                            <input type="hidden" name="AccountCode" />
+                            <button type="submit" value="Activate" class="form__submit btn btn-brand-color">Activate</button>
+                        </form>
+                    }
                 </div>
             </div>
         </div>

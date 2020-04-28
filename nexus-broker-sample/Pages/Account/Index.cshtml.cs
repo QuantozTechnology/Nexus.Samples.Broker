@@ -23,6 +23,8 @@ namespace Nexus.Samples.Broker.Pages.Account
 
         [Required]
         public string CustomerCryptoAddress { get; set; }
+
+        [Required]
         public bool HasAcceptedTOS { get; set; }
         public string CryptoCode { get; set; }
 
@@ -56,9 +58,9 @@ namespace Nexus.Samples.Broker.Pages.Account
                 }
             });
 
-            if (response.Errors == null || response.Errors.Length == 0)
+            if (response.IsSuccess)
             {
-                return RedirectToPage("/Account/Created");
+                return RedirectToPage("/Account/Created", new { response.Values.Accounts[0].AccountCode });
             }
             else
             {
