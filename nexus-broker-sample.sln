@@ -5,12 +5,13 @@ VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nexus.Samples.Broker", "nexus-broker-sample\Nexus.Samples.Broker.csproj", "{370B7A36-6037-4E20-B844-90147AF29394}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nexus.Samples.Sdk", "Nexus.Samples.Sdk\Nexus.Samples.Sdk.csproj", "{8B14A508-7597-4721-9275-458835DCB49B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nexus.Samples.Sdk", "Nexus.Samples.Sdk\Nexus.Samples.Sdk.csproj", "{8B14A508-7597-4721-9275-458835DCB49B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8A4A0D4F-09F8-4232-A27B-85A3C56FADFA}"
 	ProjectSection(SolutionItems) = preProject
 		buildDocker.cmd = buildDocker.cmd
 		pushDocker.cmd = pushDocker.cmd
+		readme.md = readme.md
 	EndProjectSection
 EndProject
 Global
