@@ -74,7 +74,7 @@ $(function () {
             var v = 0.0;
             $("#curAmountLimit").css('color', 'red');
             $("input[name=Amount]").css('border-color', 'red');
-            $('.btn.btn-send').attr('disabled', 'disabled');
+            $('.btn.btn-send').prop('disabled', true);
             $('#BTCAmount').text(v.toFixed(8));
             $('#BTCBuyPrice').text('');
             $('#EuroBankFee').text(v.toFixed(2));
@@ -86,6 +86,7 @@ $(function () {
 
         $("#curAmountLimit").css('color', 'green');
         $("input[name=Amount]").css('border-color', '#d4d7de');
+        $('.btn.btn-send').prop('disabled', false);
 
         jsonRequest({
             url: "/api/ajax/bitcoinvalue",

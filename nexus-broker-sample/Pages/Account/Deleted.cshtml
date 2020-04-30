@@ -1,4 +1,5 @@
 ﻿@page
+@model Nexus.Samples.Broker.Pages.Account.DeletedModel
 @{
     ViewData["Title"] = "Account Deleted";
 }
@@ -8,9 +9,24 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-10 col-lg-8">
-                    <h1>Account Deleted.</h1>
-
-                    <p>Your account has succesfully been deleted. It is no longer usable to buy and or sell crypto-currency.</p>
+                    <h1>Account @Model.Account.AccountCode deleted</h1>
+                    <p>Your account has succesfully been deleted, therefore <strong>it is no longer possible to buy and or sell crypto-currency using the addresses reported below.</strong></p>
+                    
+                    <h4>Details of the deleted account</h4>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Account code</h6>
+                            <p class="mb-1">Here goes the account code @Model.Account.AccountCode</p>
+                        </div>
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Buy/receive address</h6>
+                            <p class="mb-1">Here goes the buy address @Model.Account.CustomerCryptoAddress</p>
+                        </div>
+                        <div class="list-group-item">
+                            <h6 class="mb-1">Sell address</h6>
+                            <p class="mb-1">Here goes the sell address @Model.Account.DcReceiveAddress</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

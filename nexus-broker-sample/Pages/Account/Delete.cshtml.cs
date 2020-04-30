@@ -46,10 +46,10 @@ namespace Nexus.Samples.Broker.Pages.Account
                     }
                 }
 
-                return Page();
+                return BadRequest(deleteResult.Values.ToString());
             }
 
-            return RedirectToPage("/Account/Deleted");
+            return RedirectToPage("/Account/Deleted", new { AccountCode });
         }
     }
 }

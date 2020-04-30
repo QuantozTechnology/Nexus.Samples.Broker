@@ -45,6 +45,7 @@
                                         <th>Crypto</th>
                                         <th>Amount</th>
                                         <th>Value</th>
+                                        <th>Currency</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -59,6 +60,7 @@
                                             <td>@item.CryptoCurrencyCode</td>
                                             <td>@item.CryptoAmount</td>
                                             <td>@item.Payout?.ToString("F2")</td>
+                                            <td>@item.CurrencyCode</td>
                                         </tr>
                                     }
                                 </tbody>
