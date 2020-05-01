@@ -143,13 +143,7 @@ namespace Nexus.Samples.Broker.API
                 value.Currency = "EUR";
             }
 
-            var response = await nexusClient.SimulateBuyBroker(new SimulateBuyBrokerRequest
-            {
-                AccountCode = value.AccountCode,
-                CryptoAmount = value.CryptoAmount,
-                Currency = value.Currency,
-                PaymentMethodCode = value.PaymentMethodCode
-            });
+            var response = await nexusClient.SimulateBuyBroker(value);
 
             if (response.IsSuccess)
             {
@@ -190,6 +184,7 @@ namespace Nexus.Samples.Broker.API
             public string AccountCode { get; set; }
             public decimal BtcAmount { get; set; }
             public string Currency { get; set; }
+            public string CryptoCode { get; set; }
         }
 
         [HttpPost("EuroValue")]
@@ -221,12 +216,13 @@ namespace Nexus.Samples.Broker.API
                 value.Currency = "EUR";
             }
 
-            var response = await nexusClient.SimulateSellBroker(new SimulateBuyBrokerRequest
+            var response = await nexusClient.SimulateSellBroker(new SimulateSellBrokerRequest
             {
                 AccountCode = value.AccountCode,
-                PaymentMethodCode = "DC_CRYPTO_BTC_EUR",
+                PaymentMethodCode = $"DC_CRYPTO_{value.CryptoCode}_EUR",
                 CryptoAmount = value.BtcAmount,
-                Currency = value.Currency
+                Ip = "::1"
+                //Currency = value.Currency
             });
 
             if (response.IsSuccess)

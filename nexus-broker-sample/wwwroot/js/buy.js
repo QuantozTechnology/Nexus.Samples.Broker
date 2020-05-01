@@ -338,7 +338,7 @@ $(function () {
 
             if (!redirecting) {
                 if (confirm(`This appears to be a ${prettyCrypto} account code, do you want to switch the form to ${prettyCrypto}?`)) {
-                    window.location.href = "/buy/changecrypto?crypto=" + crypto + "&id=" + getAccountCode();
+                    window.location.href = "/buy/" + crypto + "?id=" + getAccountCode();
                     redirecting = true;
                 } else {
                     var submit2 = $('.btn.btn-send');

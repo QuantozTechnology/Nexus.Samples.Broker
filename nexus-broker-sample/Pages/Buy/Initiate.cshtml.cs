@@ -110,7 +110,7 @@ namespace Nexus.Samples.Broker.Pages.Buy
             var priceSummaryResponse = await nexusClient.SimulateBuyBroker(new Sdk.Models.Request.SimulateBuyBrokerRequest
             {
                 AccountCode = BuyModel.AccountCode,
-                CryptoAmount = (decimal)BuyModel.Amount,
+                Amount = (decimal)BuyModel.Amount,
                 Currency = BuyModel.Currency,
                 PaymentMethodCode = BuyModel.PaymentMethodCode
             });

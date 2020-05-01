@@ -143,7 +143,7 @@ namespace Nexus.Samples.Sdk
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<SimulateBuyBrokerResponse>>();
         }
 
-        public async Task<DefaultResponseTemplate<SimulateSellBrokerResponse>> SimulateSellBroker(SimulateBuyBrokerRequest request)
+        public async Task<DefaultResponseTemplate<SimulateSellBrokerResponse>> SimulateSellBroker(SimulateSellBrokerRequest request)
         {
             var response = await PostRequest12Async("sell/broker/simulate", request);
 

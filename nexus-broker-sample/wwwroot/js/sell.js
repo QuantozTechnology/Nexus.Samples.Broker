@@ -41,7 +41,7 @@ function updateAccountCode(data, valid, business, type, highrisk, hasfirstbuy) {
     var updateprices = false;
 
 
-    if (data.dcCode != cryptoCode) {
+    if (data.dcCode !== cryptoCode) {
 
         const cryptoNames = {
             BTC: 'bitcoin',
@@ -64,7 +64,7 @@ function updateAccountCode(data, valid, business, type, highrisk, hasfirstbuy) {
 
         if (!redirecting) {
             if (confirm(`This appears to be a ${prettyCrypto} account code, do you want to switch the form to ${prettyCrypto}?`)) {
-                window.location.href = "/sell/changecrypto?crypto=" + crypto + "&id=" + getAccountCode();
+                window.location.href = "/sell/" + crypto + "?id=" + getAccountCode();
                 redirecting = true;
             } else {
                 $('#wrong-coin').prop('visible', 'block').show();
@@ -220,7 +220,8 @@ function updatePrices() {
     var postData = {
         AccountCode: getAccountCode(),
         BtcAmount: BTC,
-        Currency: ''
+        Currency: '',
+        CryptoCode: cryptoCode
     };
 
     $.ajax({

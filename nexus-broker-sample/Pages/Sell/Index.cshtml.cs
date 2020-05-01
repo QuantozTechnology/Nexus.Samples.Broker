@@ -9,9 +9,9 @@ namespace Nexus.Samples.Broker.Pages.Sell
         public string Currency { get; set; }
         public string CryptoCode { get; set; }
 
-        public void OnGet()
+        public void OnGet(string id = null)
         {
-
+            AccountCode = id;
         }
     }
 }
