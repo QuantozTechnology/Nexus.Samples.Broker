@@ -68,7 +68,7 @@ function updateAccountCode(data, valid, business, type, highrisk, hasfirstbuy) {
                 redirecting = true;
             } else {
                 $('#wrong-coin').prop('visible', 'block').show();
-                submit.prop('disabled', 'disabled');
+                submit.prop('disabled', true);
                 $('input[name=AccountCode]').removeProp('disabled').removeAttr('disabled');
                 accountValid = false;
                 return;
@@ -78,25 +78,25 @@ function updateAccountCode(data, valid, business, type, highrisk, hasfirstbuy) {
 
     if (valid == true) {
         $('input[name=AccountCode]').prop('readonly', 'readonly');
-        $('#wrong-coin').prop('visible', 'none').hide();
-        $('#non-active').prop('visible', 'none').hide();
-        $('#new-account').prop('visible', 'none').hide();
-        $('#new-personal').prop('visible', 'none').hide();
-        $('#trusted-personal').prop('visible', 'none').hide();
-        $('#verified-personal').prop('visible', 'none').hide();
-        $('#new-business').prop('visible', 'none').hide();
-        $('#verified-business').prop('visible', 'none').hide();
-        $('#business-limited').prop('visible', 'none').hide();
-        $('#personal-limited').prop('visible', 'none').hide();
-        $('#new-business-verification').prop('visible', 'none').hide();
-        $('#trusted-accounts-verification').prop('visible', 'none').hide();
+        $('#wrong-coin').hide();
+        $('#non-active').hide();
+        $('#new-account').hide();
+        $('#new-personal').hide();
+        $('#trusted-personal').hide();
+        $('#verified-personal').hide();
+        $('#new-business').hide();
+        $('#verified-business').hide();
+        $('#business-limited').hide();
+        $('#personal-limited').hide();
+        $('#new-business-verification').hide();
+        $('#trusted-accounts-verification').hide();
 
         if (business == true) {
             if (type == "Identified") {
-                $('#verified-business').prop('visible', 'block').show();
+                $('#verified-business').show();
                 if (highrisk == true) {
                     $('#business-limited').show();
-                    submit.prop('disabled', 'disabled');
+                    submit.prop('disabled', true);
                 }
                 else {
                     $('#BTCstr').removeProp('disabled').removeAttr('disabled');
@@ -105,19 +105,19 @@ function updateAccountCode(data, valid, business, type, highrisk, hasfirstbuy) {
                 }
             }
             else if (type == "New") {
-                $('#new-business').prop('visible', 'block').show();
+                $('#new-business').show();
                 if (hasfirstbuy == true) {
                     $('#new-business-verification').show();
                 }
-                submit.prop('disabled', 'disabled');
+                submit.prop('disabled', true);
             }
         }
         else {
             if (type == "Identified") {
-                $('#verified-personal').prop('visible', 'block').show();
+                $('#verified-personal').show();
                 if (highrisk == true) {
                     $('#personal-limited').show();
-                    submit.prop('disabled', 'disabled');
+                    submit.prop('disabled', true);
                 }
                 else {
                     $('#BTCstr').removeProp('disabled').removeAttr('disabled');
@@ -126,10 +126,10 @@ function updateAccountCode(data, valid, business, type, highrisk, hasfirstbuy) {
                 }
             }
             else if (type == "Trusted") {
-                $('#trusted-personal').prop('visible', 'block').show();
+                $('#trusted-personal').show();
                 if (highrisk == true) {
                     $('#personal-limited').show();
-                    submit.prop('disabled', 'disabled');
+                    submit.prop('disabled', true);
                 }
                 else {
                     $('#trusted-accounts-verification').show();
@@ -139,10 +139,10 @@ function updateAccountCode(data, valid, business, type, highrisk, hasfirstbuy) {
                 }
             }
             else if (type == "New") {
-                $('#new-personal').prop('visible', 'block').show();
+                $('#new-personal').show();
                 if (highrisk == true) {
                     $('#personal-limited').show();
-                    submit.prop('disabled', 'disabled');
+                    submit.prop('disabled', true);
                 }
                 else {
                     $('#BTCstr').removeProp('disabled').removeAttr('disabled');
@@ -153,6 +153,8 @@ function updateAccountCode(data, valid, business, type, highrisk, hasfirstbuy) {
         }
 
         accountValid = true;
+        submit.prop('disabled', false);
+
         updateSellForm = setInterval(function () { refreshFormData(); }, 60000);
         if (updateprices == true) {
             updatePrices();
@@ -160,7 +162,7 @@ function updateAccountCode(data, valid, business, type, highrisk, hasfirstbuy) {
     }
     else {
         $('#non-active').prop('visible', 'block').show();
-        submit.prop('disabled', 'disabled');
+        submit.prop('disabled', false);
         $('input[name=AccountCode]').removeProp('disabled').removeAttr('disabled');
     }
 }
@@ -201,7 +203,8 @@ function updatePrices() {
     if (isNaN(BTCstr) || (BTC <= 0.0) || (BTC < minBTC) || (BTC > maxBTC)) {
         var v = 0.0;
         $("#btcAmountLimit").css('color', 'red');
-        $('.btn.btn-send').attr('disabled', 'disabled');
+        $("#BTCstr").css('border-color', 'red');
+        $('.btn.btn-send').prop('disabled', true);
         $('#EuroAmountBeforeFee').text(v.toFixed(2));
         $('#BTCSellPrice').text('');
         $('#EuroBankFee').text(v.toFixed(2));
@@ -210,12 +213,16 @@ function updatePrices() {
         return;
     }
 
+    $("#BTCstr").css('border-color', '#d4d7de');
+    $('.btn.btn-send').prop('disabled', false);
+
     $("#btcAmountLimit").css('color', '#02aa45');
     var postData = {
         AccountCode: getAccountCode(),
         BtcAmount: BTC,
         Currency: ''
     };
+
     $.ajax({
         dataType: "json",
         contentType: "application/json; charset=utf-8",
@@ -234,10 +241,10 @@ function updatePrices() {
         $('.currency-code').text(data.currency);
 
         if (data.valueInFiatAfterFees > 0) {
-            $('.btn.btn-send').removeProp('disabled').removeAttr('disabled');
+            $('.btn.btn-send').prop('disabled', false);
         }
         else {
-            $('.btn.btn-send').attr('disabled', 'disabled');
+            $('.btn.btn-send').prop('disabled', true);
         }
     });
 }

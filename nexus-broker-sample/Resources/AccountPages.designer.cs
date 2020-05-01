@@ -8,1217 +8,1626 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nexus.Samples.Broker.Resources {
+namespace Nexus.Samples.Broker.Resources
+{
     using System;
     using System.Reflection;
-    
-    
+
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AccountPages {
-        
+    public class AccountPages
+    {
+
         private static System.Resources.ResourceManager resourceMan;
-        
+
         private static System.Globalization.CultureInfo resourceCulture;
-        
+
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AccountPages() {
+        internal AccountPages()
+        {
         }
-        
+
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.Equals(null, resourceMan)) {
+        public static System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.Equals(null, resourceMan))
+                {
                     System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Nexus.Samples.Broker.Resources.AccountPages", typeof(AccountPages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static System.Globalization.CultureInfo Culture {
-            get {
+        public static System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
-        public static string AccountAdditionalAccount {
-            get {
+
+        public static string AccountAdditionalAccount
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAdditionalAccount", resourceCulture);
             }
         }
-        
-        public static string AccountAdditionalAddress {
-            get {
+
+        public static string AccountAdditionalAddress
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAdditionalAddress", resourceCulture);
             }
         }
-        
-        public static string AccountAdditionalCreateButton {
-            get {
+
+        public static string AccountAdditionalCreateButton
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAdditionalCreateButton", resourceCulture);
             }
         }
-        
-        public static string AccountAdditionalCreatedTabTitle {
-            get {
+
+        public static string AccountAdditionalCreatedTabTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAdditionalCreatedTabTitle", resourceCulture);
             }
         }
-        
-        public static string AccountAdditionalCreatedText1 {
-            get {
+
+        public static string AccountAdditionalCreatedText1
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAdditionalCreatedText1", resourceCulture);
             }
         }
-        
-        public static string AccountAdditionalCreatedTitle {
-            get {
+
+        public static string AccountAdditionalCreatedTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAdditionalCreatedTitle", resourceCulture);
             }
         }
-        
-        public static string AccountAdditionalInfoText {
-            get {
+
+        public static string AccountAdditionalInfoText
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAdditionalInfoText", resourceCulture);
             }
         }
-        
-        public static string AccountAdditionalPlaceholderAccount {
-            get {
+
+        public static string AccountAdditionalPlaceholderAccount
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAdditionalPlaceholderAccount", resourceCulture);
             }
         }
-        
-        public static string AccountAdditionalPlaceholderAddress {
-            get {
+
+        public static string AccountAdditionalPlaceholderAddress
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAdditionalPlaceholderAddress", resourceCulture);
             }
         }
-        
-        public static string AccountAdditionalTabTitle {
-            get {
+
+        public static string AccountAdditionalTabTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAdditionalTabTitle", resourceCulture);
             }
         }
-        
-        public static string AccountAdditionalTitle {
-            get {
+
+        public static string AccountAdditionalTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAdditionalTitle", resourceCulture);
             }
         }
-        
-        public static string AccountAdditionalTitleFail {
-            get {
+
+        public static string AccountAdditionalTitleFail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAdditionalTitleFail", resourceCulture);
             }
         }
-        
-        public static string AccountAsideAddress {
-            get {
+
+        public static string AccountAsideAddress
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideAddress", resourceCulture);
             }
         }
-        
-        public static string AccountAsideBusiness {
-            get {
+
+        public static string AccountAsideBusiness
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideBusiness", resourceCulture);
             }
         }
-        
-        public static string AccountAsideCreateAccount {
-            get {
+
+        public static string AccountAsideCreateAccount
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideCreateAccount", resourceCulture);
             }
         }
-        
-        public static string AccountAsideCreateButton {
-            get {
+
+        public static string AccountAsideCreateButton
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideCreateButton", resourceCulture);
             }
         }
-        
-        public static string AccountAsideEmail {
-            get {
+
+        public static string AccountAsideEmail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideEmail", resourceCulture);
             }
         }
-        
-        public static string AccountAsideIBAN {
-            get {
+
+        public static string AccountAsideIBAN
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideIBAN", resourceCulture);
             }
         }
-        
-        public static string AccountAsideName {
-            get {
+
+        public static string AccountAsideName
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideName", resourceCulture);
             }
         }
-        
-        public static string AccountAsidePersonal {
-            get {
+
+        public static string AccountAsidePersonal
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsidePersonal", resourceCulture);
             }
         }
-        
-        public static string AccountAsidePlaceholderAddress {
-            get {
+
+        public static string AccountAsidePlaceholderAddress
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsidePlaceholderAddress", resourceCulture);
             }
         }
-        
-        public static string AccountAsidePlaceholderEmail {
-            get {
+
+        public static string AccountAsidePlaceholderEmail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsidePlaceholderEmail", resourceCulture);
             }
         }
-        
-        public static string AccountAsidePlaceholderIBAN {
-            get {
+
+        public static string AccountAsidePlaceholderIBAN
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsidePlaceholderIBAN", resourceCulture);
             }
         }
-        
-        public static string AccountAsidePlaceholderName {
-            get {
+
+        public static string AccountAsidePlaceholderName
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsidePlaceholderName", resourceCulture);
             }
         }
-        
-        public static string AccountAsideReferralCode {
-            get {
+
+        public static string AccountAsideReferralCode
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideReferralCode", resourceCulture);
             }
         }
-        
-        public static string AccountAsideTermsAgree {
-            get {
+
+        public static string AccountAsideTermsAgree
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideTermsAgree", resourceCulture);
             }
         }
-        
-        public static string AccountAsideTermsLink {
-            get {
+
+        public static string AccountAsideTermsLink
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideTermsLink", resourceCulture);
             }
         }
-        
-        public static string AccountAsideWarningText {
-            get {
+
+        public static string AccountAsideWarningText
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideWarningText", resourceCulture);
             }
         }
-        
-        public static string AccountCreatedTabTitle {
-            get {
+
+        public static string AccountCreatedTabTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountCreatedTabTitle", resourceCulture);
             }
         }
-        
-        public static string AccountCreatedText1 {
-            get {
+
+        public static string AccountCreatedText1
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountCreatedText1", resourceCulture);
             }
         }
-        
-        public static string AccountCreatedTitle {
-            get {
+
+        public static string AccountCreatedTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountCreatedTitle", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteAccount {
-            get {
+
+        public static string AccountDeleteAccount
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteAccount", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteConfirmButton {
-            get {
+
+        public static string AccountDeleteConfirmButton
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteConfirmButton", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteConfirmIBAN {
-            get {
+
+        public static string AccountDeleteConfirmIBAN
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteConfirmIBAN", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteConfirmName {
-            get {
+
+        public static string AccountDeleteConfirmName
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteConfirmName", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteConfirmReceiveAddress {
-            get {
+
+        public static string AccountDeleteConfirmReceiveAddress
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteConfirmReceiveAddress", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteConfirmSellAddress {
-            get {
+
+        public static string AccountDeleteConfirmSellAddress
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteConfirmSellAddress", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteConfirmTabTitle {
-            get {
+
+        public static string AccountDeleteConfirmTabTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteConfirmTabTitle", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteConfirmTextFail {
-            get {
+
+        public static string AccountDeleteConfirmTextFail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteConfirmTextFail", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteConfirmTitle {
-            get {
+
+        public static string AccountDeleteConfirmTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteConfirmTitle", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteConfirmTitleFail {
-            get {
+
+        public static string AccountDeleteConfirmTitleFail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteConfirmTitleFail", resourceCulture);
             }
         }
-        
-        public static string AccountDeletedTabTitle {
-            get {
+
+        public static string AccountDeletedTabTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeletedTabTitle", resourceCulture);
             }
         }
-        
-        public static string AccountDeletedText1 {
-            get {
+
+        public static string AccountDeletedText1
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeletedText1", resourceCulture);
             }
         }
-        
-        public static string AccountDeletedText2 {
-            get {
+
+        public static string AccountDeletedText2
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeletedText2", resourceCulture);
             }
         }
-        
-        public static string AccountDeletedTitle {
-            get {
+
+        public static string AccountDeletedTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeletedTitle", resourceCulture);
             }
         }
-        
-        public static string AccountDeletedTitleFail {
-            get {
+
+        public static string AccountDeletedTitleFail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeletedTitleFail", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteEmail {
-            get {
+
+        public static string AccountDeleteEmail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteEmail", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteInfoText {
-            get {
+
+        public static string AccountDeleteInfoText
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteInfoText", resourceCulture);
             }
         }
-        
-        public static string AccountDeletePlaceholderAccount {
-            get {
+
+        public static string AccountDeletePlaceholderAccount
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeletePlaceholderAccount", resourceCulture);
             }
         }
-        
-        public static string AccountDeletePlaceholderEmail {
-            get {
+
+        public static string AccountDeletePlaceholderEmail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeletePlaceholderEmail", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteRequestButton {
-            get {
+
+        public static string AccountDeleteRequestButton
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteRequestButton", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteRequestedFailed {
-            get {
+
+        public static string AccountDeleteRequestedFailed
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteRequestedFailed", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteRequestedTabTitle {
-            get {
+
+        public static string AccountDeleteRequestedTabTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteRequestedTabTitle", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteRequestedText1 {
-            get {
+
+        public static string AccountDeleteRequestedText1
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteRequestedText1", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteRequestedText2 {
-            get {
+
+        public static string AccountDeleteRequestedText2
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteRequestedText2", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteRequestedTitle {
-            get {
+
+        public static string AccountDeleteRequestedTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteRequestedTitle", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteTabTitle {
-            get {
+
+        public static string AccountDeleteTabTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteTabTitle", resourceCulture);
             }
         }
-        
-        public static string AccountDeleteTitle {
-            get {
+
+        public static string AccountDeleteTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountDeleteTitle", resourceCulture);
             }
         }
-        
-        public static string AccountInfoEmail {
-            get {
+
+        public static string AccountInfoEmail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountInfoEmail", resourceCulture);
             }
         }
-        
-        public static string AccountInfoInfoText {
-            get {
+
+        public static string AccountInfoInfoText
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountInfoInfoText", resourceCulture);
             }
         }
-        
-        public static string AccountInfoPlaceholderEmail {
-            get {
+
+        public static string AccountInfoPlaceholderEmail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountInfoPlaceholderEmail", resourceCulture);
             }
         }
-        
-        public static string AccountInfoRequestButton {
-            get {
+
+        public static string AccountInfoRequestButton
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountInfoRequestButton", resourceCulture);
             }
         }
-        
-        public static string AccountInfoRequestedTabTitle {
-            get {
+
+        public static string AccountInfoRequestedTabTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountInfoRequestedTabTitle", resourceCulture);
             }
         }
-        
-        public static string AccountInfoRequestedText11 {
-            get {
+
+        public static string AccountInfoRequestedText11
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountInfoRequestedText11", resourceCulture);
             }
         }
-        
-        public static string AccountInfoRequestedText12 {
-            get {
+
+        public static string AccountInfoRequestedText12
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountInfoRequestedText12", resourceCulture);
             }
         }
-        
-        public static string AccountInfoRequestedText21 {
-            get {
+
+        public static string AccountInfoRequestedText21
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountInfoRequestedText21", resourceCulture);
             }
         }
-        
-        public static string AccountInfoRequestedTitle {
-            get {
+
+        public static string AccountInfoRequestedTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountInfoRequestedTitle", resourceCulture);
             }
         }
-        
-        public static string AccountInfoRequestedTitleFail {
-            get {
+
+        public static string AccountInfoRequestedTitleFail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountInfoRequestedTitleFail", resourceCulture);
             }
         }
-        
-        public static string AccountInfoTabTitle {
-            get {
+
+        public static string AccountInfoTabTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountInfoTabTitle", resourceCulture);
             }
         }
-        
-        public static string AccountInfoTitle {
-            get {
+
+        public static string AccountInfoTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountInfoTitle", resourceCulture);
             }
         }
-        
-        public static string AccountPageAdditionalLink {
-            get {
+
+        public static string AccountPageAdditionalLink
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageAdditionalLink", resourceCulture);
             }
         }
-        
-        public static string AccountPageBusinessAccount {
-            get {
+
+        public static string AccountPageBusinessAccount
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageBusinessAccount", resourceCulture);
             }
         }
-        
-        public static string AccountPageBusinessInfo1 {
-            get {
+
+        public static string AccountPageBusinessInfo1
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageBusinessInfo1", resourceCulture);
             }
         }
-        
-        public static string AccountPageBusinessInfo2 {
-            get {
+
+        public static string AccountPageBusinessInfo2
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageBusinessInfo2", resourceCulture);
             }
         }
-        
-        public static string AccountPageBusinessInfo3 {
-            get {
+
+        public static string AccountPageBusinessInfo3
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageBusinessInfo3", resourceCulture);
             }
         }
-        
-        public static string AccountPageExtraInfo1 {
-            get {
+
+        public static string AccountPageExtraInfo1
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageExtraInfo1", resourceCulture);
             }
         }
-        
-        public static string AccountPageExtraInfo2 {
-            get {
+
+        public static string AccountPageExtraInfo2
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageExtraInfo2", resourceCulture);
             }
         }
-        
-        public static string AccountPageExtraInfo3 {
-            get {
+
+        public static string AccountPageExtraInfo3
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageExtraInfo3", resourceCulture);
             }
         }
-        
-        public static string AccountPageFastTrackLink {
-            get {
+
+        public static string AccountPageFastTrackLink
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageFastTrackLink", resourceCulture);
             }
         }
-        
-        public static string AccountPageInfo1 {
-            get {
+
+        public static string AccountPageInfo1
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageInfo1", resourceCulture);
             }
         }
-        
-        public static string AccountPageInfo2 {
-            get {
+
+        public static string AccountPageInfo2
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageInfo2", resourceCulture);
             }
         }
-        
-        public static string AccountPageInfoLink {
-            get {
+
+        public static string AccountPageInfoLink
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageInfoLink", resourceCulture);
             }
         }
-        
-        public static string AccountPageManageAccount {
-            get {
+
+        public static string AccountPageManageAccount
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageManageAccount", resourceCulture);
             }
         }
-        
-        public static string AccountPagePersonalAccount {
-            get {
+
+        public static string AccountPagePersonalAccount
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPagePersonalAccount", resourceCulture);
             }
         }
-        
-        public static string AccountPagePersonalInfo1 {
-            get {
+
+        public static string AccountPagePersonalInfo1
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPagePersonalInfo1", resourceCulture);
             }
         }
-        
-        public static string AccountPagePersonalInfo3 {
-            get {
+
+        public static string AccountPagePersonalInfo3
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPagePersonalInfo3", resourceCulture);
             }
         }
-        
-        public static string AccountPagePersonalInfo4 {
-            get {
+
+        public static string AccountPagePersonalInfo4
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPagePersonalInfo4", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabBuyHeader {
-            get {
+
+        public static string AccountPageTabBuyHeader
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabBuyHeader", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabBuyText11 {
-            get {
+
+        public static string AccountPageTabBuyText11
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabBuyText11", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabBuyText12 {
-            get {
+
+        public static string AccountPageTabBuyText12
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabBuyText12", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabBuyText13 {
-            get {
+
+        public static string AccountPageTabBuyText13
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabBuyText13", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabBuyText21 {
-            get {
+
+        public static string AccountPageTabBuyText21
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabBuyText21", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabBuyText41 {
-            get {
+
+        public static string AccountPageTabBuyText41
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabBuyText41", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabBuyText51 {
-            get {
+
+        public static string AccountPageTabBuyText51
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabBuyText51", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabBuyTitle {
-            get {
+
+        public static string AccountPageTabBuyTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabBuyTitle", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabSellHeader {
-            get {
+
+        public static string AccountPageTabSellHeader
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabSellHeader", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabSellText11 {
-            get {
+
+        public static string AccountPageTabSellText11
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabSellText11", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabSellText12 {
-            get {
+
+        public static string AccountPageTabSellText12
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabSellText12", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabSellText13 {
-            get {
+
+        public static string AccountPageTabSellText13
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabSellText13", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabSellText21 {
-            get {
+
+        public static string AccountPageTabSellText21
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabSellText21", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabSellText23 {
-            get {
+
+        public static string AccountPageTabSellText23
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabSellText23", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabSellText41 {
-            get {
+
+        public static string AccountPageTabSellText41
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabSellText41", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabSellText51 {
-            get {
+
+        public static string AccountPageTabSellText51
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabSellText51", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabSellTitle {
-            get {
+
+        public static string AccountPageTabSellTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabSellTitle", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabTitle {
-            get {
+
+        public static string AccountPageTabTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabTitle", resourceCulture);
             }
         }
-        
-        public static string AccountPageTitle {
-            get {
+
+        public static string AccountPageTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTitle", resourceCulture);
             }
         }
-        
-        public static string AccountPageVerificationLink {
-            get {
+
+        public static string AccountPageVerificationLink
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageVerificationLink", resourceCulture);
             }
         }
-        
-        public static string CONTROLMESSAGE001 {
-            get {
+
+        public static string CONTROLMESSAGE001
+        {
+            get
+            {
                 return ResourceManager.GetString("CONTROLMESSAGE001", resourceCulture);
             }
         }
-        
-        public static string CONTROLMESSAGE002 {
-            get {
+
+        public static string CONTROLMESSAGE002
+        {
+            get
+            {
                 return ResourceManager.GetString("CONTROLMESSAGE002", resourceCulture);
             }
         }
-        
-        public static string CONTROLMESSAGE003 {
-            get {
+
+        public static string CONTROLMESSAGE003
+        {
+            get
+            {
                 return ResourceManager.GetString("CONTROLMESSAGE003", resourceCulture);
             }
         }
-        
-        public static string CONTROLMESSAGE004 {
-            get {
+
+        public static string CONTROLMESSAGE004
+        {
+            get
+            {
                 return ResourceManager.GetString("CONTROLMESSAGE004", resourceCulture);
             }
         }
-        
-        public static string CONTROLMESSAGE005 {
-            get {
+
+        public static string CONTROLMESSAGE005
+        {
+            get
+            {
                 return ResourceManager.GetString("CONTROLMESSAGE005", resourceCulture);
             }
         }
-        
-        public static string CONTROLMESSAGE006 {
-            get {
+
+        public static string CONTROLMESSAGE006
+        {
+            get
+            {
                 return ResourceManager.GetString("CONTROLMESSAGE006", resourceCulture);
             }
         }
-        
-        public static string CONTROLMESSAGE007 {
-            get {
+
+        public static string CONTROLMESSAGE007
+        {
+            get
+            {
                 return ResourceManager.GetString("CONTROLMESSAGE007", resourceCulture);
             }
         }
-        
-        public static string CONTROLMESSAGE008 {
-            get {
+
+        public static string CONTROLMESSAGE008
+        {
+            get
+            {
                 return ResourceManager.GetString("CONTROLMESSAGE008", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE001 {
-            get {
+
+        public static string ERRORMESSAGE001
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE001", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE002 {
-            get {
+
+        public static string ERRORMESSAGE002
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE002", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE003 {
-            get {
+
+        public static string ERRORMESSAGE003
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE003", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE004 {
-            get {
+
+        public static string ERRORMESSAGE004
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE004", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE005 {
-            get {
+
+        public static string ERRORMESSAGE005
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE005", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE006 {
-            get {
+
+        public static string ERRORMESSAGE006
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE006", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE007 {
-            get {
+
+        public static string ERRORMESSAGE007
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE007", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE008 {
-            get {
+
+        public static string ERRORMESSAGE008
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE008", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE009 {
-            get {
+
+        public static string ERRORMESSAGE009
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE009", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE010 {
-            get {
+
+        public static string ERRORMESSAGE010
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE010", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE011 {
-            get {
+
+        public static string ERRORMESSAGE011
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE011", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE012 {
-            get {
+
+        public static string ERRORMESSAGE012
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE012", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE013 {
-            get {
+
+        public static string ERRORMESSAGE013
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE013", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE014 {
-            get {
+
+        public static string ERRORMESSAGE014
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE014", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE015 {
-            get {
+
+        public static string ERRORMESSAGE015
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE015", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE016 {
-            get {
+
+        public static string ERRORMESSAGE016
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE016", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE017 {
-            get {
+
+        public static string ERRORMESSAGE017
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE017", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE018 {
-            get {
+
+        public static string ERRORMESSAGE018
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE018", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE019 {
-            get {
+
+        public static string ERRORMESSAGE019
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE019", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE020 {
-            get {
+
+        public static string ERRORMESSAGE020
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE020", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE022 {
-            get {
+
+        public static string ERRORMESSAGE022
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE022", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE023 {
-            get {
+
+        public static string ERRORMESSAGE023
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE023", resourceCulture);
             }
         }
-        
-        public static string AccountPageActivateTabTitle {
-            get {
+
+        public static string AccountPageActivateTabTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageActivateTabTitle", resourceCulture);
             }
         }
-        
-        public static string AccountPageTabBuyExtra {
-            get {
+
+        public static string AccountPageTabBuyExtra
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageTabBuyExtra", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE024 {
-            get {
+
+        public static string ERRORMESSAGE024
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE024", resourceCulture);
             }
         }
-        
-        public static string AccountAsideCanadaAccount {
-            get {
+
+        public static string AccountAsideCanadaAccount
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideCanadaAccount", resourceCulture);
             }
         }
-        
-        public static string AccountAsideSWIFT {
-            get {
+
+        public static string AccountAsideSWIFT
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideSWIFT", resourceCulture);
             }
         }
-        
-        public static string AccountAsideNonSWIFT {
-            get {
+
+        public static string AccountAsideNonSWIFT
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideNonSWIFT", resourceCulture);
             }
         }
-        
-        public static string AccountAsidePlaceholderSwiftAccount {
-            get {
+
+        public static string AccountAsidePlaceholderSwiftAccount
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsidePlaceholderSwiftAccount", resourceCulture);
             }
         }
-        
-        public static string AccountAsidePlaceholderSwiftCode {
-            get {
+
+        public static string AccountAsidePlaceholderSwiftCode
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsidePlaceholderSwiftCode", resourceCulture);
             }
         }
-        
-        public static string AccountAsideSwiftCode {
-            get {
+
+        public static string AccountAsideSwiftCode
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideSwiftCode", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE065 {
-            get {
+
+        public static string ERRORMESSAGE065
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE065", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE066 {
-            get {
+
+        public static string ERRORMESSAGE066
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE066", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE067 {
-            get {
+
+        public static string ERRORMESSAGE067
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE067", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE068 {
-            get {
+
+        public static string ERRORMESSAGE068
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE068", resourceCulture);
             }
         }
-        
-        public static string AccountPageExtraInfo4 {
-            get {
+
+        public static string AccountPageExtraInfo4
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageExtraInfo4", resourceCulture);
             }
         }
-        
-        public static string AccountAsideSwiftOptionHelp {
-            get {
+
+        public static string AccountAsideSwiftOptionHelp
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideSwiftOptionHelp", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE069 {
-            get {
+
+        public static string ERRORMESSAGE069
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE069", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE070 {
-            get {
+
+        public static string ERRORMESSAGE070
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE070", resourceCulture);
             }
         }
-        
-        public static string AccountNameUpdatedTabTitle {
-            get {
+
+        public static string AccountNameUpdatedTabTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountNameUpdatedTabTitle", resourceCulture);
             }
         }
-        
-        public static string AccountNameUpdatedTitle {
-            get {
+
+        public static string AccountNameUpdatedTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountNameUpdatedTitle", resourceCulture);
             }
         }
-        
-        public static string AccountNameUpdateFail {
-            get {
+
+        public static string AccountNameUpdateFail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountNameUpdateFail", resourceCulture);
             }
         }
-        
-        public static string AccountNameUpdateSuccess {
-            get {
+
+        public static string AccountNameUpdateSuccess
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountNameUpdateSuccess", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateCurrentName {
-            get {
+
+        public static string AccountUpdateCurrentName
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateCurrentName", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateNameButton {
-            get {
+
+        public static string AccountUpdateNameButton
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateNameButton", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateNameInfo1a {
-            get {
+
+        public static string AccountUpdateNameInfo1a
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateNameInfo1a", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateNameInfo1b {
-            get {
+
+        public static string AccountUpdateNameInfo1b
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateNameInfo1b", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateTabTitle {
-            get {
+
+        public static string AccountUpdateTabTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateTabTitle", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateNameTextFail {
-            get {
+
+        public static string AccountUpdateNameTextFail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateNameTextFail", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateNameTitle {
-            get {
+
+        public static string AccountUpdateNameTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateNameTitle", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateNewName {
-            get {
+
+        public static string AccountUpdateNewName
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateNewName", resourceCulture);
             }
         }
-        
-        public static string CONTROLMESSAGE009 {
-            get {
+
+        public static string CONTROLMESSAGE009
+        {
+            get
+            {
                 return ResourceManager.GetString("CONTROLMESSAGE009", resourceCulture);
             }
         }
-        
-        public static string AccountPageWantVerificationLink {
-            get {
+
+        public static string AccountPageWantVerificationLink
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountPageWantVerificationLink", resourceCulture);
             }
         }
-        
-        public static string AccountAsideCurencySelectHelp {
-            get {
+
+        public static string AccountAsideCurencySelectHelp
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideCurencySelectHelp", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateAddress {
-            get {
+
+        public static string AccountUpdateAddress
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateAddress", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateCity {
-            get {
+
+        public static string AccountUpdateCity
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateCity", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateCountryName {
-            get {
+
+        public static string AccountUpdateCountryName
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateCountryName", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateInfo1 {
-            get {
+
+        public static string AccountUpdateInfo1
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateInfo1", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateName {
-            get {
+
+        public static string AccountUpdateName
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateName", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateTitle {
-            get {
+
+        public static string AccountUpdateTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateTitle", resourceCulture);
             }
         }
-        
-        public static string AccountUpdateZipCode {
-            get {
+
+        public static string AccountUpdateZipCode
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountUpdateZipCode", resourceCulture);
             }
         }
-        
-        public static string AccountAsideWallet {
-            get {
+
+        public static string AccountAsideWallet
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideWallet", resourceCulture);
             }
         }
-        
-        public static string AccountAsideWalletLink {
-            get {
+
+        public static string AccountAsideWalletLink
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideWalletLink", resourceCulture);
             }
         }
-        
-        public static string AccountAsideCountryName {
-            get {
+
+        public static string AccountAsideCountryName
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideCountryName", resourceCulture);
             }
         }
-        
-        public static string AccountAsidePlaceholderCountryName {
-            get {
+
+        public static string AccountAsidePlaceholderCountryName
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsidePlaceholderCountryName", resourceCulture);
             }
         }
-        
-        public static string ERRORMESSAGE_HC_COUNTRYREQUIRED {
-            get {
+
+        public static string ERRORMESSAGE_HC_COUNTRYREQUIRED
+        {
+            get
+            {
                 return ResourceManager.GetString("ERRORMESSAGE_HC_COUNTRYREQUIRED", resourceCulture);
             }
         }
-        
-        public static string AccountAsideBankAccountName {
-            get {
+
+        public static string AccountAsideBankAccountName
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideBankAccountName", resourceCulture);
             }
         }
-        
-        public static string AccountAsideBankAccountNameDesc {
-            get {
+
+        public static string AccountAsideBankAccountNameDesc
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideBankAccountNameDesc", resourceCulture);
             }
         }
-        
-        public static string AccountAsideBankAccountNumber {
-            get {
+
+        public static string AccountAsideBankAccountNumber
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideBankAccountNumber", resourceCulture);
             }
         }
-        
-        public static string AccountAsideCountryCode {
-            get {
+
+        public static string AccountAsideCountryCode
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideCountryCode", resourceCulture);
             }
         }
-        
-        public static string AccountAsideCustomerCryptoAddress {
-            get {
+
+        public static string AccountAsideCustomerCryptoAddress
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideCustomerCryptoAddress", resourceCulture);
             }
         }
-        
-        public static string AccountAsideCustomerCryptoAddressPlaceholder {
-            get {
+
+        public static string AccountAsideCustomerCryptoAddressPlaceholder
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideCustomerCryptoAddressPlaceholder", resourceCulture);
             }
         }
-        
-        public static string AccountAsideIsBusiness {
-            get {
+
+        public static string AccountAsideIsBusiness
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideIsBusiness", resourceCulture);
             }
         }
-        
-        public static string AccountAsideMail {
-            get {
+
+        public static string AccountAsideMail
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideMail", resourceCulture);
             }
         }
-        
-        public static string AccountAdditionalDesc {
-            get {
+
+        public static string AccountAdditionalDesc
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAdditionalDesc", resourceCulture);
             }
         }
-        
-        public static string AccountAsideDesc {
-            get {
+
+        public static string AccountAsideDesc
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideDesc", resourceCulture);
             }
         }
-        
-        public static string AccountAsideTitle {
-            get {
+
+        public static string AccountAsideTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideTitle", resourceCulture);
             }
         }
-        
-        public static string AccountAsideBankAccountNumberHelp {
-            get {
+
+        public static string AccountAsideAddTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("AccountAsideAddTitle", resourceCulture);
+            }
+        }
+
+        public static string AccountAsideBankAccountNumberHelp
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideBankAccountNumberHelp", resourceCulture);
             }
         }
-        
-        public static string AccountAsideCustomerCryptoAddressHelp {
-            get {
+
+        public static string AccountAsideCustomerCryptoAddressHelp
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideCustomerCryptoAddressHelp", resourceCulture);
             }
         }
-        
-        public static string AccountAsideIsBusinessHelp {
-            get {
+
+        public static string AccountAsideIsBusinessHelp
+        {
+            get
+            {
                 return ResourceManager.GetString("AccountAsideIsBusinessHelp", resourceCulture);
             }
         }
-        
-        public static string CustomerExists {
-            get {
+
+        public static string CustomerExists
+        {
+            get
+            {
                 return ResourceManager.GetString("CustomerExists", resourceCulture);
             }
         }

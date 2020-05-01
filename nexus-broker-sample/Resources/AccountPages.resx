@@ -694,6 +694,9 @@ such as &lt;a href="http://www.theswiftcodes.com/"&gt;The SWIFT Codes &lt;/a&gt;
   <data name="AccountAsideTitle" xml:space="preserve">
     <value>Add a new address to your existing account</value>
   </data>
+  <data name="AccountAsideAddTitle" xml:space="preserve">
+    <value>Let's get started</value>
+  </data>
   <data name="AccountAsideBankAccountNumberHelp" xml:space="preserve">
     <value>What is IBAN?</value>
   </data>

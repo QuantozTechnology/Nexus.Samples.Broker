@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LandingDescription" xml:space="preserve">
-    <value>We love Crypto. So we made a platform that is easy to use, in a safe and trusted way.</value>
+    <value>We love Crypto.</value>
   </data>
   <data name="LandingTitle" xml:space="preserve">
-    <value>Buying crypto has never been easier</value>
+    <value>Buy and sell crypto with your trusted broker</value>
   </data>
 </root>
