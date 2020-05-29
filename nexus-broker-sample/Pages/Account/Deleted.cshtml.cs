@@ -35,6 +35,7 @@ namespace Nexus.Samples.Broker.Pages.Account
             {
                 return BadRequest();
             }
+
             Account = accountResult.Values;
 
             return Page();

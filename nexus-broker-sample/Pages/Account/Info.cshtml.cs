@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nexus.Samples.Sdk;
+using Nexus.Samples.Sdk.Models.Request;
 using Nexus.Samples.Sdk.Models.Response;
+using Nexus.Samples.Sdk.Models.Shared;
 
 namespace Nexus.Samples.Broker.Pages.Account
 {
@@ -61,7 +63,36 @@ namespace Nexus.Samples.Broker.Pages.Account
                     return Page();
                 }
 
-                Transactions = transactions.Values.Records;
+                if (transactions.Values.Records != null)
+                {
+                    Transactions = transactions.Values.Records;
+                }
+
+                var customerResponse = await nexusClient.GetCustomer(accountResult.Values.CustomerCode);
+
+                if (customerResponse.IsSuccess)
+                {
+                    var activateAccountMail = new CreateMailRequest()
+                    {
+                        Type = "AccountInfoRequest",
+                        References = new MailEntityCodes()
+                        {
+                            AccountCode = AccountCode,
+                            CustomerCode = customerResponse.Values.CustomerCode
+                        },
+                        Recipient = new MailRecipient()
+                        {
+                            Email = customerResponse.Values.Email
+                        }
+                    };
+
+                    var activateAccountMailResponse = await nexusClient.CreateMail(activateAccountMail);
+
+                    if (!activateAccountMailResponse.IsSuccess)
+                    {
+                        Console.WriteLine("Failed to send AccountInfoRequest mail");
+                    }
+                }
             }
 
             return Page();

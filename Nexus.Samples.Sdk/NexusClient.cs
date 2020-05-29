@@ -157,6 +157,13 @@ namespace Nexus.Samples.Sdk
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetAccountResponse>>();
         }
 
+        public async Task<DefaultResponseTemplate<PagedResult<GetAccountResponse>>> GetAccountsForCustomer(string customerCode)
+        {
+            var response = await GetRequest12Async($"/customer/{customerCode}/accounts");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetAccountResponse>>>();
+        }
+
         public async Task<DefaultResponseTemplate<EmptyResponse>> ActivateAccount(string accountCode)
         {
             var response = await GetRequest12Async($"accounts/activate/{accountCode}");
@@ -178,6 +185,13 @@ namespace Nexus.Samples.Sdk
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>>();
         }
 
+        public async Task<DefaultResponseTemplate<GetBrokerTransactionResponse>> GetTransaction(string code)
+        {
+            var response = await GetRequest12Async($"transaction/{code}");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetBrokerTransactionResponse>>();
+        }
+
         public async Task<DefaultResponseTemplate<GetCustomerResponse>> GetCustomer(string customerCode)
         {
             var response = await GetRequest12Async($"customer/{customerCode}");
@@ -192,6 +206,41 @@ namespace Nexus.Samples.Sdk
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetPricesResponse>>();
         }
 
+        public async Task<DefaultResponseTemplate<PagedResult<GetMailResponse>>> GetReadyToSendMails(int page, string typeList = "")
+        {
+            var response = await GetRequest12Async($"mail?status=ReadyToSend&page={page}&type={typeList}");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetMailResponse>>>();
+        }
+
+        public async Task<DefaultResponseTemplate<GetMailResponse>> GetMailByCode(string code)
+        {
+            var response = await GetRequest12Async($"mail/{code}");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetMailResponse>>();
+        }
+
+
+        public async Task<DefaultResponseTemplate<GetMailResponse>> CreateMail(CreateMailRequest request)
+        {
+            var response = await PostRequest12Async("mail", request);
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetMailResponse>>();
+        }
+
+        public async Task<DefaultResponseTemplate<GetMailResponse>> UpdateMailContent(string code, UpdateMailContentRequest request)
+        {
+            var response = await PutRequest12($"mail/{code}", request);
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetMailResponse>>();
+        }
+
+        public async Task<DefaultResponseTemplate<GetMailResponse>> MailSent(string code)
+        {
+            var response = await PutRequest12($"mail/{code}/sent");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetMailResponse>>();
+        }
 
         public async Task<HttpResponseMessage> GetRequest12Async(string url)
         {
@@ -239,6 +288,14 @@ namespace Nexus.Samples.Sdk
             return response;
         }
 
+        public async Task<HttpResponseMessage> PutRequest12(string url)
+        {
+            await PotentialTokenRefresh();
+
+            var response = await client12.PutAsync(url, null);
+
+            return response;
+        }
 
         public async Task<HttpResponseMessage> GetAsync(string url, string argument = "")
         {
