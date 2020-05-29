@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nexus.Samples.MailClient", "Nexus.Samples.MailClient\Nexus.Samples.MailClient.csproj", "{24BCAB05-C759-40F5-A603-BC9D039CDB0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{8B14A508-7597-4721-9275-458835DCB49B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B14A508-7597-4721-9275-458835DCB49B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B14A508-7597-4721-9275-458835DCB49B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24BCAB05-C759-40F5-A603-BC9D039CDB0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24BCAB05-C759-40F5-A603-BC9D039CDB0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24BCAB05-C759-40F5-A603-BC9D039CDB0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24BCAB05-C759-40F5-A603-BC9D039CDB0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

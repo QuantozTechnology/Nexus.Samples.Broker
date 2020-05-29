@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nexus.Samples.Sdk;
 using Nexus.Samples.Sdk.Models.Request;
+using Nexus.Samples.Sdk.Models.Shared;
 
 namespace Nexus.Samples.Broker.Pages.Account
 {
@@ -60,7 +61,39 @@ namespace Nexus.Samples.Broker.Pages.Account
 
             if (response.IsSuccess)
             {
-                return RedirectToPage("/Account/Created", new { response.Values.Accounts[0].AccountCode });
+                var createCustomerMail = new CreateMailRequest()
+                {
+                    Type = "NewCustomerRequested",
+                    References = new MailEntityCodes()
+                    {
+                        CustomerCode = BankAccountNumber
+                    },
+                    Recipient = new MailRecipient()
+                    {
+                        Email = Email
+                    }
+                };
+
+                var createCustomerMailResponse = await nexusClient.CreateMail(createCustomerMail);
+
+                var accountCode = response.Values.Accounts[0].AccountCode;
+
+                var createAccountMail = new CreateMailRequest()
+                {
+                    Type = "NewAccountRequested",
+                    References = new MailEntityCodes()
+                    {
+                        AccountCode = accountCode
+                    },
+                    Recipient = new MailRecipient()
+                    {
+                        Email = Email
+                    }
+                };
+
+                var createAccountMailResponse = await nexusClient.CreateMail(createAccountMail);
+
+                return RedirectToPage("/Account/Created", new { accountCode });
             }
             else
             {

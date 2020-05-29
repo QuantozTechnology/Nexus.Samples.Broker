@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Nexus.Samples.MailClient;
 using Nexus.Samples.Sdk;
 
 namespace Nexus.Samples.Broker
@@ -22,7 +23,10 @@ namespace Nexus.Samples.Broker
             services.AddControllers();
             services.AddRazorPages();
 
+            services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("mailClientConfiguration"));
+
             services.AddSingleton<NexusClient>();
+            services.AddSingleton<NexusMailClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

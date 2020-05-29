@@ -23,6 +23,10 @@
 
                         <div class="header__menu">
                             <ul class="menu">
+                                <li class="menu__item @(controllerName == "mail" ? "menu__item--active" : String.Empty) menu__item--sell">
+                                    <a asp-page="/Mail/Index" class="menu__link btn">Mail</a>
+                                </li>
+
                                 <li class="menu__item @(controllerName == "buy" ? "menu__item--active" : String.Empty) menu__item--buy menu__item--dropdown">
                                     <a href="" class="menu__link btn">@Resources.Site.MenuBuy</a>
 
@@ -93,14 +97,14 @@
                                             </li>
 
                                             <li class="dropdown__item">
-                                                <a  asp-page="/Sell/Index" asp-route-crypto="litecoin" class="dropdown__link @(crypto == "litecoin" ? "dropdown__link--active" : String.Empty)">
+                                                <a asp-page="/Sell/Index" asp-route-crypto="litecoin" class="dropdown__link @(crypto == "litecoin" ? "dropdown__link--active" : String.Empty)">
                                                     <img src="~/img/coins/ltc.svg" alt="Litecoin">
                                                     Litecoin
                                                 </a>
                                             </li>
 
                                             <li class="dropdown__item">
-                                                <a  asp-page="/Sell/Index" asp-route-crypto="lumen" class="dropdown__link @(crypto == "xlm" ? "dropdown__link--active" : String.Empty)">
+                                                <a asp-page="/Sell/Index" asp-route-crypto="lumen" class="dropdown__link @(crypto == "xlm" ? "dropdown__link--active" : String.Empty)">
                                                     <img src="~/img/coins/xlm.svg" alt="Lumen">
                                                     Lumen
                                                 </a>

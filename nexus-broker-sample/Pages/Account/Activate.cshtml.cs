@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nexus.Samples.Sdk;
+using Nexus.Samples.Sdk.Models.Request;
+using Nexus.Samples.Sdk.Models.Shared;
 
 namespace Nexus.Samples.Broker.Pages.Account
 {
@@ -13,6 +13,8 @@ namespace Nexus.Samples.Broker.Pages.Account
         private readonly NexusClient nexusClient;
 
         [BindProperty(SupportsGet = true)]
+        public string Code { get; set; }
+
         public string AccountCode { get; set; }
 
         public bool Successful { get; set; }
@@ -24,11 +26,54 @@ namespace Nexus.Samples.Broker.Pages.Account
 
         public async Task<IActionResult> OnGet()
         {
+            var mailResponse = await nexusClient.GetMailByCode(Code);
+
+            if (mailResponse.IsSuccess)
+            {
+                var mail = mailResponse.Values;
+                AccountCode = mail.References.AccountCode;
+            }
+            else
+            {
+                AccountCode = Code;
+            }
+
             var activateAccountResponse = await nexusClient.ActivateAccount(AccountCode);
 
             if (activateAccountResponse.IsSuccess)
             {
                 Successful = true;
+
+                var accountResponse = await nexusClient.GetAccount(AccountCode);
+
+                if (accountResponse.IsSuccess)
+                {
+                    var customerResponse = await nexusClient.GetCustomer(accountResponse.Values.CustomerCode);
+
+                    if (customerResponse.IsSuccess)
+                    {
+                        var activateAccountMail = new CreateMailRequest()
+                        {
+                            Type = "NewAccountActivated",
+                            References = new MailEntityCodes()
+                            {
+                                AccountCode = AccountCode,
+                                CustomerCode = customerResponse.Values.CustomerCode
+                            },
+                            Recipient = new MailRecipient()
+                            {
+                                Email = customerResponse.Values.Email
+                            }
+                        };
+
+                        var activateAccountMailResponse = await nexusClient.CreateMail(activateAccountMail);
+
+                        if (!activateAccountMailResponse.IsSuccess)
+                        {
+                            Console.WriteLine("Failed to send NewAccountActivated mail");
+                        }
+                    }
+                }
 
                 return Page();
             }
