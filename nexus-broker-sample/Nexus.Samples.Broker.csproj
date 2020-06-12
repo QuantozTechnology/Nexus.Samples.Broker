@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Nexus.Samples.MailClient\Nexus.Samples.MailClient.csproj" />
     <ProjectReference Include="..\Nexus.Samples.Sdk\Nexus.Samples.Sdk.csproj" />
   </ItemGroup>
 

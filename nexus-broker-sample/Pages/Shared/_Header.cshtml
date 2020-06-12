@@ -23,10 +23,6 @@
 
                         <div class="header__menu">
                             <ul class="menu">
-                                <li class="menu__item @(controllerName == "mail" ? "menu__item--active" : String.Empty) menu__item--sell">
-                                    <a asp-page="/Mail/Index" class="menu__link btn">Mail</a>
-                                </li>
-
                                 <li class="menu__item @(controllerName == "buy" ? "menu__item--active" : String.Empty) menu__item--buy menu__item--dropdown">
                                     <a href="" class="menu__link btn">@Resources.Site.MenuBuy</a>
 
