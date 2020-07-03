@@ -16,84 +16,109 @@
 }
 else
 {
-    <form method="post" class="form">
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-        <input type="hidden" asp-for="CryptoCode" value="@dc" />
+<form method="post" class="form">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <input type="hidden" asp-for="CryptoCode" value="@dc" />
 
-        <div class="form__group">
-            <label class="form__label" for="Email">@Resources.AccountPages.AccountAsideMail</label>
-            @Html.TextBoxFor(model => model.Email, new { @class = "form__control", @placeholder = "..." })
+    <div class="form__group">
+        <label class="form__label" for="Email">@Resources.AccountPages.AccountAsideMail</label>
+        @Html.TextBoxFor(model => model.Email, new { @class = "form__control", @placeholder = "..." })
 
-            <div class="form__error">
-                @Html.ValidationMessageFor(model => model.Email)
-            </div>
+        <div class="form__error">
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+    </div>
+
+    <div class="form__group">
+        <label class="form__label" for="BankAccountNumber">@Resources.AccountPages.AccountAsideBankAccountNumber</label>
+
+        <input asp-for="BankAccountNumber" class="form__control" placeholder="..." />
+
+        <div class="form__error">
+            <span asp-validation-for="BankAccountNumber"></span>
+        </div>
+    </div>
+
+    <div class="form__group">
+        <label class="form__label" for="BankAccountName">@Resources.AccountPages.AccountAsideBankAccountName</label>
+
+        @Html.TextBoxFor(model => model.BankAccountName, new { @class = "form__control", placeholder = "..." })
+
+        <div class="form__description">@Resources.AccountPages.AccountAsideBankAccountNameDesc</div>
+
+        <div class="form__error">
+            @Html.ValidationMessageFor(model => model.BankAccountName)
+        </div>
+    </div>
+
+    <div class="form__group">
+        <label class="form__label" for="nationality">@Resources.AccountPages.AccountAsideCountryCode</label>
+
+        <select class="form-control" asp-for="CountryCode" asp-items="Model.Countries">
+            <option value="">Choose a nationality</option>
+        </select>
+
+        <div class="form__error">
+            @Html.ValidationMessageFor(model => model.CountryCode)
+        </div>
+    </div>
+
+    <div class="form__group">
+        <label class="form__label" for="CustomerCryptoAddress">@Resources.AccountPages.AccountAsideCustomerCryptoAddress</label>
+
+        @Html.TextBoxFor(model => model.CustomerCryptoAddress, new { @class = "form__control", placeholder = "..." })
+
+        <div class="form__description">@string.Format(Resources.AccountPages.AccountAsideCustomerCryptoAddressPlaceholder, dcCode)</div>
+
+        <div class="form__error">
+            @Html.ValidationMessageFor(model => model.CustomerCryptoAddress)
+        </div>
+    </div>
+
+    <div class="form__group">
+        <label class="form__label">Data</label>
+
+        @Html.TextBoxFor(model => model.DataValue, new { @class = "form__control", placeholder = "..." })
+
+        <div class="form__error">
+            @Html.ValidationMessageFor(model => model.DataValue)
+        </div>
+    </div>
+
+    <div class="form__group">
+        <label class="form__label" for="IsBusiness">@Resources.AccountPages.AccountAsideIsBusiness</label>
+
+        <div class="form__check">
+            @Html.RadioButtonFor(model => model.IsBusiness, false, new { id = "personal" })
+            @Html.Label("personal", @Resources.AccountPages.AccountAsidePersonal)
         </div>
 
-        <div class="form__group">
-            <label class="form__label" for="BankAccountNumber">@Resources.AccountPages.AccountAsideBankAccountNumber</label>
+        <div class="form__check">
+            @Html.RadioButtonFor(model => model.IsBusiness, true, new { id = "business" })
+            @Html.Label("business", @Resources.AccountPages.AccountAsideBusiness)
+        </div>
+    </div>
 
-            <input asp-for="BankAccountNumber" class="form__control" placeholder="..." />
 
-            <div class="form__error">
-                <span asp-validation-for="BankAccountNumber"></span>
-            </div>
+    <div class="form__group">
+        <div class="form__check">
+            <input asp-for="HasAcceptedTOS" type="checkbox" />
+            <label for="@Html.IdFor(model => model.HasAcceptedTOS)">
+                @Html.Raw(string.Format(
+                    @Resources.AccountPages.AccountAsideTermsAgree,
+                    "<a href=\"" + @Url.Page("/Terms") + "\">" + @Resources.Site.FooterTermsOfUseLink + "</a>",
+                    "<a href=\"" + @Url.Page("/Privacy") + "\">" + @Resources.Site.FooterPrivacyPolicyLink + "</a>"))
+            </label>
         </div>
 
-        <div class="form__group">
-            <label class="form__label" for="BankAccountName">@Resources.AccountPages.AccountAsideBankAccountName</label>
-
-            @Html.TextBoxFor(model => model.BankAccountName, new { @class = "form__control", placeholder = "..." })
-
-            <div class="form__description">@Resources.AccountPages.AccountAsideBankAccountNameDesc</div>
-
-            <div class="form__error">
-                @Html.ValidationMessageFor(model => model.BankAccountName)
-            </div>
+        <div class="form__error">
+            @Html.ValidationMessageFor(model => model.HasAcceptedTOS)
         </div>
+    </div>
 
-        @*<div class="form__group">
-                <label class="form__label" for="nationality">@Resources.AccountPages.AccountAsideCountryCode</label>
-
-                <div class="form__select select--form">
-                    @Html.DropDownListFor(m => m.CountryCode, ViewBag.AvailableCountries as SelectList, @Resources.AccountPages.AccountAsidePlaceholderCountryName, new { @class = "select" })
-                </div>
-
-                <div class="form__error">
-                    @Html.ValidationMessageFor(model => model.CountryCode)
-                </div>
-            </div>*@
-
-        <div class="form__group">
-            <label class="form__label" for="CustomerCryptoAddress">@Resources.AccountPages.AccountAsideCustomerCryptoAddress</label>
-
-            @Html.TextBoxFor(model => model.CustomerCryptoAddress, new { @class = "form__control", placeholder = "..." })
-
-            <div class="form__description">@string.Format(Resources.AccountPages.AccountAsideCustomerCryptoAddressPlaceholder, dcCode)</div>
-
-            <div class="form__error">
-                @Html.ValidationMessageFor(model => model.CustomerCryptoAddress)
-            </div>
-        </div>
-
-        <div class="form__group">
-            <div class="form__check">
-                <input asp-for="HasAcceptedTOS" type="checkbox" />
-                <label for="@Html.IdFor(model => model.HasAcceptedTOS)">
-                    @Html.Raw(string.Format(
-                        @Resources.AccountPages.AccountAsideTermsAgree,
-                        "<a href=\"" + @Url.Page("/Terms") + "\">" + @Resources.Site.FooterTermsOfUseLink + "</a>",
-                        "<a href=\"" + @Url.Page("/Privacy") + "\">" + @Resources.Site.FooterPrivacyPolicyLink + "</a>"))
-                </label>
-            </div>
-
-            <div class="form__error">
-                @Html.ValidationMessageFor(model => model.HasAcceptedTOS)
-            </div>
-        </div>
-
-        <button type="submit" class="form__submit btn btn-brand-color">
-            @Resources.AccountPages.AccountAsideCreateButton
-        </button>
-    </form>
+    <button type="submit" class="form__submit btn btn-brand-color">
+        @Resources.AccountPages.AccountAsideCreateButton
+    </button>
+</form>
 }

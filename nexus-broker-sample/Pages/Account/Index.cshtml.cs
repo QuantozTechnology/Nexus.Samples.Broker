@@ -1,33 +1,55 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Nexus.Samples.Sdk;
 using Nexus.Samples.Sdk.Models.Request;
 using Nexus.Samples.Sdk.Models.Shared;
 
 namespace Nexus.Samples.Broker.Pages.Account
 {
-    [BindProperties]
     public class IndexModel : PageModel
     {
         private readonly NexusClient nexusClient;
 
         [Required]
+        [BindProperty]
         public string Email { get; set; }
 
         [Required]
+        [BindProperty]
         public string BankAccountNumber { get; set; }
 
         [Required]
+        [BindProperty]
         public string BankAccountName { get; set; }
 
         [Required]
+        [BindProperty]
+        public bool IsBusiness { get; set; }
+
+        [Required]
+        [BindProperty]
+        public string CountryCode { get; set; }
+
+        [Required]
+        [BindProperty]
         public string CustomerCryptoAddress { get; set; }
 
         [Required]
+        [BindProperty]
+        public string DataValue { get; set; }
+
+        [Required]
+        [BindProperty]
         public bool HasAcceptedTOS { get; set; }
+
+        [BindProperty]
         public string CryptoCode { get; set; }
+
+        public SelectList Countries { get; set; }
 
         public IndexModel(NexusClient nexusClient)
         {
@@ -36,11 +58,13 @@ namespace Nexus.Samples.Broker.Pages.Account
 
         public void OnGet()
         {
-
+            Countries = GetCountries();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            Countries = GetCountries();
+
             var response = await nexusClient.CreateCustomer(new CreateCustomerRequest
             {
                 CustomerCode = BankAccountNumber,
@@ -48,6 +72,20 @@ namespace Nexus.Samples.Broker.Pages.Account
                 CurrencyCode = "EUR",
                 Status = "ACTIVE",
                 Email = Email,
+                IsBusiness = IsBusiness,
+                CountryCode = CountryCode,
+                Data = new Dictionary<string, string>
+                {
+                    { "Key1", DataValue }
+                },
+                BankAccounts = new BankAccount[]
+                {
+                    new BankAccount
+                    {
+                        BankAccountName = BankAccountName,
+                        BankAccountNumber = BankAccountNumber
+                    }
+                },
                 Accounts = new Sdk.Models.Request.Account[]
                 {
                     new Sdk.Models.Request.Account
@@ -109,6 +147,25 @@ namespace Nexus.Samples.Broker.Pages.Account
             }
 
             return Page();
+        }
+
+        private SelectList GetCountries()
+        {
+            var countries = new SelectListItem[]
+{
+                new SelectListItem
+                {
+                    Text = "Netherlands",
+                    Value = "NL"
+                },
+                new SelectListItem
+                {
+                    Text = "Germany",
+                    Value = "DE"
+                }
+};
+
+            return new SelectList(countries, "Value", "Text");
         }
     }
 }
