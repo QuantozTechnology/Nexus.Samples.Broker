@@ -16,12 +16,28 @@
 
                         <div class="form__group">
                             <label class="form__label" asp-for="AccountCode">@Resources.AccountPages.AccountDeletePlaceholderAccount</label>
-
                             <input asp-for="AccountCode" class="form__control" placeholder="@Resources.AccountPages.AccountAdditionalPlaceholderAccount" />
-
                             <div class="form__error">
                                 <span asp-validation-for="AccountCode"></span>
                             </div>
+
+                            <label class="form__label" asp-for="Email">Email</label>
+                            <input asp-for="Email" class="form__control" placeholder="Email" />
+                            <div class="form__error">
+                                <span asp-validation-for="Email"></span>
+                            </div>
+
+                            @if (Model.SuccessfullyProcessRequest.HasValue)
+                            {
+                                if (Model.SuccessfullyProcessRequest.Value)
+                                {
+                                    <p>Email has been sent.</p>
+                                }
+                                else
+                                {
+                                    <p>Unexpected error occured</p>
+                                }
+                            }
                         </div>
 
                         <button type="submit" class="form__submit btn btn-brand-color">
