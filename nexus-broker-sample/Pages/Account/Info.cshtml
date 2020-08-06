@@ -13,14 +13,26 @@
 
                     <form method="get" class="form frends-form create">
                         <div class="form__group">
-                            <label class="form__label" asp-for="AccountCode">@Resources.AccountPages.AccountDeletePlaceholderAccount</label>
+                            <label class="form__label" asp-for="Email">Email</label>
 
-                            <input asp-for="AccountCode" class="form__control" placeholder="@Resources.AccountPages.AccountAdditionalPlaceholderAccount" />
+                            <input asp-for="Email" class="form__control" placeholder="@Resources.AccountPages.AccountDeletePlaceholderEmail" />
 
                             <div class="form__error">
-                                <span asp-validation-for="AccountCode"></span>
+                                <span asp-validation-for="Email"></span>
                             </div>
                         </div>
+
+                        @if (Model.SuccessfullyProcessRequest.HasValue)
+                        {
+                            if (Model.SuccessfullyProcessRequest.Value)
+                            {
+                                <p>Email has been sent.</p>
+                            }
+                            else
+                            {
+                                <p>Unexpected error occured</p>
+                            }
+                        }
 
                         <button type="submit" class="form__submit btn btn-brand-color">
                             Get Info
@@ -67,7 +79,7 @@
                             </table>
                         </div>
                     }
-                    else if (Model.AccountCode != null && Model.Transactions.Length == 0)
+                    else if (Model.Email != null && Model.Transactions.Length == 0)
                     {
                         <p>No transactions to show.</p>
                     }
