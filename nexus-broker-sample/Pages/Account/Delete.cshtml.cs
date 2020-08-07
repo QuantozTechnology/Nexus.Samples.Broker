@@ -16,6 +16,12 @@ namespace Nexus.Samples.Broker.Pages.Account
         [Required]
         public string AccountCode { get; set; }
 
+        [BindProperty]
+        [Required]
+        public string Email { get; set; }
+
+        public bool? SuccessfullyProcessRequest { get; set; } = null;
+
         public DeleteModel(NexusClient nexusClient)
         {
             this.nexusClient = nexusClient;
@@ -34,54 +40,41 @@ namespace Nexus.Samples.Broker.Pages.Account
                 return Page();
             }
 
-            CreateMailRequest deletedAccountMail = null;
-
             var accountResponse = await nexusClient.GetAccount(AccountCode);
 
             if (accountResponse.IsSuccess)
             {
                 var customerResponse = await nexusClient.GetCustomer(accountResponse.Values.CustomerCode);
 
-                if (customerResponse.IsSuccess)
+                if (customerResponse.IsSuccess 
+                    && Email == customerResponse.Values.Email
+                    && accountResponse.Values.AccountStatus == "ACTIVE")
                 {
-                    deletedAccountMail = new CreateMailRequest()
+                    var deletedAccountMail = new CreateMailRequest()
                     {
-                        Type = "AccountDeletedByRequest",
+                        Type = "AccountDeleteRequested",
                         References = new MailEntityCodes()
                         {
                             AccountCode = AccountCode
                         },
                         Recipient = new MailRecipient()
                         {
-                            Email = customerResponse.Values.Email
+                            Email = Email
                         }
                     };
-                }
-            }
 
-            var deleteResult = await nexusClient.DeleteAccount(AccountCode);
+                    var mailSentResponse = await nexusClient.CreateMail(deletedAccountMail);
 
-            if (!deleteResult.IsSuccess)
-            {
-                foreach (var error in deleteResult.Errors)
-                {
-                    switch (error)
+                    if (!mailSentResponse.IsSuccess)
                     {
-                        case "AccountNotFound": ModelState.AddModelError(nameof(AccountCode), "Account not found."); break;
-                        default:
-                            break;
+                        SuccessfullyProcessRequest = false;
                     }
                 }
-
-                return BadRequest(deleteResult.Values.ToString());
             }
 
-            if (deletedAccountMail != null)
-            {
-                var deletedAccountMailResponse = await nexusClient.CreateMail(deletedAccountMail);
-            }
+            SuccessfullyProcessRequest = true;
 
-            return RedirectToPage("/Account/Deleted", new { AccountCode });
+            return Page();
         }
     }
 }

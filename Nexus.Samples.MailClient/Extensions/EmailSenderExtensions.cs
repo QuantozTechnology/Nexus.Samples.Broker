@@ -227,5 +227,22 @@ namespace Nexus.Samples.MailClient
 
             return (subject, body);
         }
+
+        public static async Task<(string, string)> SendAccountDeleteRequestedAsync(this IEmailSender emailSender, string email, List<string> CC, List<string> BCC, string deleteLink, GetAccountResponse account)
+        {
+            string subject = $"{BaseModel.ApplicationName} account: Delete confirmation";
+            string body = @$"Dear {email},<br><br>
+                 You requested <b>deletion</b> of your {BaseModel.ApplicationName} account.<br>
+                 <b>Click <a href=" + "\"" + $"{deleteLink}" + "\"" + @$"> this link</a> to confirm to delete the account:</b><br>
+                 <ul>AccountCode: {account.AccountCode} <br>
+                 EmailAddress: {email} <br>
+                 {account.DcCode} ReceiveAddress: {account.CustomerCryptoAddress} <br><i>(your address to receive {account.DcCode})</i><br>
+                 {account.DcCode} SellAddress: { account.DcReceiveAddress} <br><i>(address to sell {account.DcCode})</i><br>";
+
+            await emailSender.SendEmailAsync(email, CC, BCC, subject, body);
+
+            return (subject, body);
+        }
+
     }
 }

@@ -22,7 +22,8 @@ namespace Nexus.Samples.MailClient
             "AccountDeletedByRequest",
             "TransactionBuyFinish",
             "TrustLevelUpdated",
-            "AccountInfoRequest"
+            "AccountInfoRequest",
+            "AccountDeleteRequested"
         };
 
         public NexusMailClient(NexusClient nexusClient, IOptions<AuthMessageSenderOptions> credentials)
@@ -80,6 +81,11 @@ namespace Nexus.Samples.MailClient
 
                     case "AccountInfoRequest":
                         (subject, body) = await SendAccountInfoRequestedAsync(mailToSend);
+                        isMailSuccessfullySent = true;
+                        break;
+
+                    case "AccountDeleteRequested":
+                        (subject, body) = await SendAccountDeleteRequestedMailAsync(mailToSend);
                         isMailSuccessfullySent = true;
                         break;
 
@@ -271,6 +277,27 @@ namespace Nexus.Samples.MailClient
             var bcc = mail.Recipient.BCC?.Split(',').ToList();
 
             var result = await _mailClient.SendAccountInfoRequestedAsync(mail.Recipient.Email, cc, bcc, accounts, transactions, customer);
+
+            return result;
+        }
+
+        private async Task<(string, string)> SendAccountDeleteRequestedMailAsync(GetMailResponse mail)
+        {
+            var accountCode = mail.References.AccountCode;
+            var accountResponse = await _nexusClient.GetAccount(accountCode);
+
+            if (!accountResponse.IsSuccess)
+            {
+                Console.WriteLine($"Error occured fetching Account with code: {accountCode}");
+            }
+
+            var activationLink = ApplicationUrl + "/account/deleted?code=" + mail.Code;
+            var account = accountResponse.Values;
+
+            var cc = mail.Recipient.CC?.Split(',').ToList();
+            var bcc = mail.Recipient.BCC?.Split(',').ToList();
+
+            var result = await _mailClient.SendAccountDeleteRequestedAsync(mail.Recipient.Email, cc, bcc, activationLink, account);
 
             return result;
         }
