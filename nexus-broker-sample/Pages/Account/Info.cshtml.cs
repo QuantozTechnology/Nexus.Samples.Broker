@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +17,12 @@ namespace Nexus.Samples.Broker.Pages.Account
         private readonly NexusClient nexusClient;
 
         [BindProperty(SupportsGet = true)]
-        public string AccountCode { get; set; }
+        [Required]
+        public string Email { get; set; }
 
         public GetBrokerTransactionResponse[] Transactions { get; set; } = new GetBrokerTransactionResponse[] { };
+
+        public bool? SuccessfullyProcessRequest { get; set; } = null;
 
         public InfoModel(NexusClient nexusClient)
         {
@@ -27,73 +31,64 @@ namespace Nexus.Samples.Broker.Pages.Account
 
         public async Task<IActionResult> OnGet()
         {
-            if (!string.IsNullOrWhiteSpace(AccountCode))
+            if (!ModelState.IsValid)
             {
-                var accountResult = await nexusClient.GetAccount(AccountCode);
+                return Page();
+            }
 
-                if (!accountResult.IsSuccess)
+            if (!string.IsNullOrWhiteSpace(Email))
+            {
+                var customersResult = await nexusClient.GetCustomersByEmail(Email);
+
+                if (customersResult.IsSuccess)
                 {
-                    foreach (var error in accountResult.Errors)
+                    if (customersResult.Values.Total > 0)
                     {
-                        switch (error)
+                        var customer = customersResult.Values.Records.First();
+
+                        var customerCode = customer.CustomerCode;
+
+                        var transactions = await nexusClient.GetTransactions(customerCode);
+
+                        if (!transactions.IsSuccess)
                         {
-                            case "AccountNotFound": ModelState.AddModelError(nameof(AccountCode), "Account not found."); break;
-                            default:
-                                break;
+                            foreach (var error in transactions.Errors)
+                            {
+                                ModelState.AddModelError(nameof(Email), error);
+                            }
+
+                            return Page();
                         }
-                    }
 
-                    return Page();
-                }
-
-                var transactions = await nexusClient.GetTransactions(accountResult.Values.CustomerCode);
-
-                if (!transactions.IsSuccess)
-                {
-                    foreach (var error in transactions.Errors)
-                    {
-                        switch (error)
+                        if (transactions.Values.Records != null)
                         {
-                            //case "AccountNotFound": ModelState.AddModelError(nameof(AccountCode), "Account not found."); break;
-                            default:
-                                break;
+                            Transactions = transactions.Values.Records;
                         }
-                    }
 
-                    return Page();
-                }
-
-                if (transactions.Values.Records != null)
-                {
-                    Transactions = transactions.Values.Records;
-                }
-
-                var customerResponse = await nexusClient.GetCustomer(accountResult.Values.CustomerCode);
-
-                if (customerResponse.IsSuccess)
-                {
-                    var activateAccountMail = new CreateMailRequest()
-                    {
-                        Type = "AccountInfoRequest",
-                        References = new MailEntityCodes()
+                        var accountInforMail = new CreateMailRequest()
                         {
-                            AccountCode = AccountCode,
-                            CustomerCode = customerResponse.Values.CustomerCode
-                        },
-                        Recipient = new MailRecipient()
+                            Type = "AccountInfoRequest",
+                            References = new MailEntityCodes()
+                            {
+                                CustomerCode = customerCode
+                            },
+                            Recipient = new MailRecipient()
+                            {
+                                Email = Email
+                            }
+                        };
+
+                        var accountInforRequest = await nexusClient.CreateMail(accountInforMail);
+
+                        if (!accountInforRequest.IsSuccess)
                         {
-                            Email = customerResponse.Values.Email
+                            Console.WriteLine("Failed to send AccountInfoRequest mail");
                         }
-                    };
-
-                    var activateAccountMailResponse = await nexusClient.CreateMail(activateAccountMail);
-
-                    if (!activateAccountMailResponse.IsSuccess)
-                    {
-                        Console.WriteLine("Failed to send AccountInfoRequest mail");
                     }
                 }
             }
+
+            SuccessfullyProcessRequest = true;
 
             return Page();
         }

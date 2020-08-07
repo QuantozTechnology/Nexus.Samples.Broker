@@ -213,6 +213,13 @@ namespace Nexus.Samples.Sdk
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetMailResponse>>>();
         }
 
+        public async Task<DefaultResponseTemplate<PagedResult<GetCustomerResponse>>> GetCustomersByEmail(string email)
+        {
+            var response = await GetRequest12Async($"customer?email={email}");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetCustomerResponse>>>();
+        }
+
         public async Task<DefaultResponseTemplate<GetMailResponse>> GetMailByCode(string code)
         {
             var response = await GetRequest12Async($"mail/{code}");
