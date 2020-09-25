@@ -6,7 +6,7 @@ The Nexus sample application for retail crypto brokers is an open source C# web 
 
 The sample application supports crypto buy transactions (with the assumption of manual processing of incoming bank transfers) and crypto sell transactions (with the assumption of manual processing of payouts as bank transfers).
 
-The sample application as-is should not be used for production purposes, but as a proof-of-concept example or base for further or own development. Some changes are required to turn the sample application into a minimal viable and safe production product. On top of that you can develop all kind of additional customizations.
+The sample application and mail service as-is should not be used for production purposes, but as a proof-of-concept example or base for further or own development. Some changes are required to turn the sample application and mail service into a minimal viable and safe production product. On top of that you can develop all kind of additional customizations.
 
 ### Minimal adaptation for production
 The sample application has a very simplified model for account management. Customers can create accounts, white-list additional addresses, delete accounts and view account details directly in the sample web page without use of a second confirmation method. For security and privacy reasons it is advised to at least add a confirmation mail for account creation, white-listing additional addresses and account deletion. Also the account info could be send by mail.
@@ -17,3 +17,8 @@ The sample application has a very simplified model for account management. Custo
 3) All other kind of customer experience improving extensions, like price charts, referral programs, price alerts services.
 
 The Quantoz Nexus team can help you with advice and support.
+
+### Customer communication
+To support customer communication Nexus offers a Mail entity that stores information related to the Broker processes. This entity is either created manually via Nexus API or automatically by processes within Nexus. The sending of Mails as e-mail is handle by the Mail Service implemented as an [Azure Function](https://azure.microsoft.com/en-us/services/functions/?&ef_id=Cj0KCQjwqrb7BRDlARIsACwGad4pSj4Y3octbqqli5iLIAAlGZ5yBQpLnRs7j2vmvX4xwJuRfN25l28aArEOEALw_wcB:G:s&OCID=AID2100079_SEM_Cj0KCQjwqrb7BRDlARIsACwGad4pSj4Y3octbqqli5iLIAAlGZ5yBQpLnRs7j2vmvX4xwJuRfN25l28aArEOEALw_wcB:G:s) in this project. The subject and content of the e-mail is set by the Mail Service and an overview of the supported types along with their subject and content is described [here](/mail-examples.md).
+
+
