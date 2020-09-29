@@ -89,13 +89,13 @@ Created by Broker Sample
 ```
 Subject: Broker Sample accounts: Information
 
-Dear user@test.com ,
+Dear user@test.com,
 
 As requested, you hereby receive the details about your Broker Sample account(s):
 
 Active accounts overview:
 AccountCode	Level	BankAccount	Sell Address (send to address)	Buy/Return Address (your receive address)
-APNHBCEU	Trusted		GDU7FZUS2IOMA4NQB3ENSDMQIKSOJALK2BG3A7MOMA2GQLSQ3BL23TYL	GCZUMMYGOJLQYPMHBCKUBNS46L62SX673MAH2USBIDD4TB2KNAGEIY5H
+APNHBCEU	Trusted     Example-Bank		GDU7FZUS2IOMA4NQB3ENSDMQIKSOJALK2BG3A7MOMA2GQLSQ3BL23TYL	GCZUMMYGOJLQYPMHBCKUBNS46L62SX673MAH2USBIDD4TB2KNAGEIY5H
 
 
 No recent transactions found.
@@ -166,6 +166,7 @@ Mail that is created when a BUY transaction has successfully been completed by a
 
 Created by Nexus
 
+```
 Subject: Broker Sample Sent 100.00000000 LTC
 
 Dear user@test.com,
@@ -180,7 +181,7 @@ FinishTimestamp: 2020-09-15|10:34:09 UTC
 (confirmation of sending the LTC to your wallet)
 LTC Address: GCZUMMYGOJLQYPMHBCKUBNS46L62SX673MAH2USBIDD4TB2KNAGEIY5H
 (the address where your LTC are sent to)
-LTC TransactionId:
+LTC TransactionId: example-tx-id
 
 Financial result:
 Received payment: 10.00 EUR
