@@ -46,7 +46,8 @@ Created by Broker Sample
 
 ```
 Subject: Broker Sample account: Delete confirmation
-Dear user@test.com ,
+
+Dear user@test.com,
 
 You requested deletion of your Broker Sample account.
 Click this link to confirm to delete the account:
