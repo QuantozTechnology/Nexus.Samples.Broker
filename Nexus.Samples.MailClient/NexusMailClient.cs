@@ -25,7 +25,8 @@ namespace Nexus.Samples.MailClient
             "AccountInfoRequest",
             "AccountDeleteRequested",
             "BlockedTransaction",
-            "TransactionBuySendDelay"
+            "TransactionBuySendDelay",
+            "TransactionSellFinish"
         };
 
         public NexusMailClient(NexusClient nexusClient, IOptions<AuthMessageSenderOptions> credentials)
@@ -98,6 +99,11 @@ namespace Nexus.Samples.MailClient
 
                     case "TransactionBuySendDelay":
                         (subject, body) = await SendTransactionBuySendDelayMailAsync(mailToSend);
+                        isMailSuccessfullySent = true;
+                        break;
+
+                    case "TransactionSellFinish":
+                        (subject, body) = await SendTransactionSellFinishAsync(mailToSend);
                         isMailSuccessfullySent = true;
                         break;
 
@@ -370,6 +376,36 @@ namespace Nexus.Samples.MailClient
             var bcc = mail.Recipient.BCC?.Split(',').ToList();
 
             var result = await _mailClient.SendBlockedTransactionAsync(mail.Recipient.Email, cc, bcc, account, transaction);
+
+            return result;
+        }
+
+        private async Task<(string, string)> SendTransactionSellFinishAsync(GetMailResponse mail)
+        {
+            var transactionCode = mail.References.TransactionCode;
+            var transactionResponse = await _nexusClient.GetTransaction(transactionCode);
+
+            if (!transactionResponse.IsSuccess)
+            {
+                Console.WriteLine($"Error occured fetching Transaction with code: {transactionCode}");
+            }
+
+            var transaction = transactionResponse.Values;
+
+            var accountCode = mail.References.AccountCode;
+            var accountResponse = await _nexusClient.GetAccount(accountCode);
+
+            if (!accountResponse.IsSuccess)
+            {
+                Console.WriteLine($"Error occured fetching Account with code: {accountCode}");
+            }
+
+            var account = accountResponse.Values;
+
+            var cc = mail.Recipient.CC?.Split(',').ToList();
+            var bcc = mail.Recipient.BCC?.Split(',').ToList();
+
+            var result = await _mailClient.SendTransactionSellFinishAsync(mail.Recipient.Email, cc, bcc, account, transaction);
 
             return result;
         }
