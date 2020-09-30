@@ -69,7 +69,7 @@ namespace Nexus.Samples.MailClient
             if (transaction.Notified != null)
             {
                 notifytimestring = $"NotifyTimestamp: {transaction.Notified.Value:yyyy-MM-dd|HH:mm:ss} UTC <br><i>({receivetext})</i><br>";
-                receivetext = "initiation of transaction on the {BaseModel.ApplicationName} page";
+                receivetext = $"initiation of transaction on the {BaseModel.ApplicationName} page";
             }
             //
             string bankfee = "", servicefee = "", networkfee = "", payfeesplit = "";
@@ -278,6 +278,37 @@ namespace Nexus.Samples.MailClient
                 ReceiveTimestamp: {transaction.Created.ToString("yyyy-MM-dd|HH:mm:ss")} UTC <br><br>
                 {transaction.CryptoCurrencyCode}Address: {account.CustomerCryptoAddress}<br><i>(the address where your {transaction.CryptoCurrencyCode} should be sent to)</i></ul><br>
                 Blocking reason: <b>{transaction.Comment}</b><br><br>";
+
+            await emailSender.SendEmailAsync(email, CC, BCC, subject, body);
+
+            return (subject, body);
+        }
+
+        public static async Task<(string, string)> SendTransactionSellFinishAsync(this IEmailSender emailSender, string email, List<string> CC, List<string> BCC, GetAccountResponse account,
+            GetBrokerTransactionResponse transaction)
+        {
+            string subject = $"{BaseModel.ApplicationName}: Payment confirmation {transaction.CryptoAmount.Value.ToString("F8")} {transaction.CryptoCurrencyCode}";
+
+            string body = @$"Dear {email},<br><br>
+                {BaseModel.ApplicationName} has <b>finished</b> your {transaction.CryptoCurrencyCode} sell transaction:<br>
+                <ul>AccountCode: {transaction.AccountCode}<br>
+                TransactionId: {transaction.TransactionCode}<br>
+                {transaction.CryptoCurrencyCode} Amount: {transaction.CryptoAmount.GetValueOrDefault(0).ToString("F8")} {transaction.CryptoCurrencyCode}<br>
+                {transaction.CryptoCurrencyCode} Sell Address: {account.DcReceiveAddress} (the address where you sent the {transaction.CryptoCurrencyCode})<br>
+                {transaction.CryptoCurrencyCode} Transaction Id: {transaction.CryptoReceiveTxId}<br>
+                CreateTimestamp: {transaction.Created:yyyy-MM-dd|HH:mm:ss} UTC<br>
+                ConfirmationTimestamp: {transaction.Confirmed?.ToString("yyyy-MM-dd|HH:mm: ss") + " UTC" ?? "MISSING"}<br>
+                FinishTimestamp: {transaction.Finished.GetValueOrDefault():yyyy-MM-dd|HH:mm:ss} UTC <br><i>(confirmation of sending the {transaction.CryptoCurrencyCode} to your wallet)</i></ul><br>
+                Financial result:<br>
+                <ul>{transaction.CryptoCurrencyCode} price: {transaction.CryptoPrice.GetValueOrDefault(0).ToString("F5")} {transaction.CurrencyCode}/{transaction.CryptoCurrencyCode}<br>
+                Transaction value: {transaction.TradeValue.GetValueOrDefault(0).ToString("F2")} {transaction.CurrencyCode}<br>
+                Bank costs: {transaction.BankCommission.GetValueOrDefault(0).ToString("F2")} {transaction.CurrencyCode}<br>
+                Service fee: {transaction.PartnerCommission.GetValueOrDefault(0).ToString("F2")} {transaction.CurrencyCode}<br>
+                <b>Payout on your bank account: {transaction.Payout.GetValueOrDefault(0).ToString("F2")} {transaction.CurrencyCode}</b></ul><br>
+                <br /><hr /><br /><i> {transaction.CryptoCurrencyCode} is a form of electronic money that can be used for payments.
+                However, {transaction.CryptoCurrencyCode} is not legal tender because it is not (yet) recognized in any country as such.
+                Since {transaction.CryptoCurrencyCode} is used for the same purposes as money, it should be treated equally (based on the principle of neutrality).
+                As such (and for the time being), {BaseModel.ApplicationName} considers the servicing of purchase and sale of {transaction.CryptoCurrencyCode} to be exempt for VAT purposes.</i><br />";
 
             await emailSender.SendEmailAsync(email, CC, BCC, subject, body);
 

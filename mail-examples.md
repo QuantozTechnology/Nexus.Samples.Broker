@@ -196,3 +196,34 @@ The LTC have been sent to the above mentioned LTC Address. In approximately 10 m
 
 LTC is a form of electronic money that can be used for payments. However, LTC is not legal tender because it is not (yet) recognized in any country as such. Since LTC is used for the same purposes as money, it should be treated equally (based on the principle of neutrality). As such (and for the time being), Broker Sample considers the servicing of purchase and sale of LTC to be exempt for VAT purposes.
 ```
+
+### TransactonSellFinish
+Mail that is created when a SELL transaction has successfully been completed by a customer.
+
+Created by Nexus
+
+```
+Subject: Broker Sample: Payment confirmation 0.00100000 BTC
+
+Dear user@test.com,
+
+Broker Sample has finished your BTC sell transaction:
+    AccountCode: 1EY5YNUU
+    TransactionId: DC20190205154317SRI
+    BTC Amount: 0.00100000 BTC
+    BTC Sell Address: 1DybYxUZnPMoDm68sStvBgMknLijG8yEq8 (the address where you sent the BTC)
+    BTC Transaction Id: 19bedcd75b6dd3c9db9fabc499aa791eb8ecd37c9aee74ee69b0de22fe1fd3ca
+    CreateTimestamp: 2019-02-05|15:43:17 UTC
+    ConfirmationTimestamp: 2019-02-05|16:25:43 UTC
+    FinishTimestamp: 2019-02-06|13:11:09 UTC 
+    (confirmation of sending the BTC to your wallet)
+
+Financial result:
+    BTC price: 2986.93030 EUR/BTC
+    Transaction value: 2.99 EUR
+    Bank costs: 1.00 EUR
+    Service fee: 0.03 EUR
+    Payout on your bank account: 1.96 EUR
+
+BTC is a form of electronic money that can be used for payments. However, BTC is not legal tender because it is not (yet) recognized in any country as such. Since BTC is used for the same purposes as money, it should be treated equally (based on the principle of neutrality). As such (and for the time being), Broker Sample considers the servicing of purchase and sale of BTC to be exempt for VAT purposes.
+```
