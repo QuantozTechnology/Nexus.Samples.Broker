@@ -19,9 +19,18 @@
                     else
                     {
                         <h1>Failed to activate account</h1>
-                        <p>
-                            There was an issue, please try again later.
-                        </p>
+                        if (Model.AccountIsInvalid)
+                        {
+                            <p>
+                                This account activation link has expired. Please re-create your account in order to proceed.
+                            </p>
+                        }
+                        else
+                        {
+                            <p>
+                                There was an issue, please try again later.
+                            </p>
+                        }
                     }
                 </div>
             </div>

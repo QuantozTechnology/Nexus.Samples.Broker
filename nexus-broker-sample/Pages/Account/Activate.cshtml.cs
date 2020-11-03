@@ -19,6 +19,8 @@ namespace Nexus.Samples.Broker.Pages.Account
 
         public bool Successful { get; set; }
 
+        public bool AccountIsInvalid { get; set; }
+
         public ActivateModel(NexusClient nexusClient)
         {
             this.nexusClient = nexusClient;
@@ -84,6 +86,9 @@ namespace Nexus.Samples.Broker.Pages.Account
                     switch (error)
                     {
                         case "AccountNotFound": return NotFound();
+                        case "InvalidAccountStatus":
+                            AccountIsInvalid = true;
+                            break;
                         default:
                             break;
                     }
