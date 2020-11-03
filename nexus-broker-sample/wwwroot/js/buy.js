@@ -55,7 +55,6 @@ $(function () {
                 minAmount = method.minAmount;
                 maxAmount = method.maxAmount;
                 setAmountRanges();
-                $('input[name=Amount]').val(minAmount);
             }
         });
 
@@ -416,4 +415,5 @@ $(function () {
     }
 
     checkAccount();
+    refreshFormData();
 });
