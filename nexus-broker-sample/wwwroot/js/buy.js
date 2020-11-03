@@ -49,12 +49,13 @@ $(function () {
         var paymentMethodCode = $('select[name=PaymentMethodCode] :selected').val();
 
         $.each(availablePaymentMethods, function (index, method) {
-            if (method.PaymentMethodCode === paymentMethodCode) {
+            if (method.paymentMethodCode === paymentMethodCode) {
                 var imagefile = relativeImagePath + method.paymentTypeCode + '.png';
                 $('#PaymentImage').prop('src', imagefile);
                 minAmount = method.minAmount;
                 maxAmount = method.maxAmount;
                 setAmountRanges();
+                $('input[name=Amount]').val(minAmount);
             }
         });
 
@@ -68,9 +69,7 @@ $(function () {
             IncludeFees: true
         };
 
-        var isNumber = /^\d+$/.test(amount);
-
-        if (amount < minAmount || amount > maxAmount || !isNumber) {
+        if (amount < minAmount || amount > maxAmount) {
             var v = 0.0;
             $("#curAmountLimit").css('color', 'red');
             $("input[name=Amount]").css('border-color', 'red');
