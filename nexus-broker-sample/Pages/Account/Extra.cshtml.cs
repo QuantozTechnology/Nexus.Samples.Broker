@@ -78,7 +78,7 @@ namespace Nexus.Samples.Broker.Pages.Account
                         Type = "NewAccountRequested",
                         References = new MailEntityCodes()
                         {
-                            AccountCode = AccountCode
+                            AccountCode = response.Values.AccountCode
                         },
                         Recipient = new MailRecipient()
                         {
@@ -86,10 +86,10 @@ namespace Nexus.Samples.Broker.Pages.Account
                         }
                     };
 
-                    var createAccountMailResponse = await nexusClient.CreateMail(createAccountMail);
+                    await nexusClient.CreateMail(createAccountMail);
                 }
 
-                return RedirectToPage("/Account/Created");
+                return RedirectToPage("/Account/Created", new { response.Values.AccountCode});
             }
             else
             {
