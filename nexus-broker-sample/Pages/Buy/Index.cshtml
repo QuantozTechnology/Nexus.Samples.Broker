@@ -88,7 +88,7 @@ else
                                         @ViewBag.CurrencyCode
                                     </div>
 
-                                    @Html.TextBoxFor(model => model.Amount, new { @class = "form__control updateBitcoin", type = "number", step = "1", min = "0" })
+                                    @Html.TextBoxFor(model => model.Amount, new { @class = "form__control updateBitcoin", min = "0" })
 
                                     <div class="form__description">
                                         <div id="curAmountLimit"></div>
