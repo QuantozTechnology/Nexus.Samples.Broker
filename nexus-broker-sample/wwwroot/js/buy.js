@@ -142,23 +142,61 @@ $(function () {
             type: "get",
             data: {}
         }).done(function (data) {
-            updateAccountCode(data);
 
-            currentDCCode = data.dcCode;
+            if (data.dcCode !== cryptoCode) {
 
-            if (data.accountValid) {
-                if (data.firstBuyStatus === 1) {
-                    $('#sell-notice-needsuccessfulbuytransaction-beforefirstsell').show();
+                const cryptoNames = {
+                    BTC: 'bitcoin',
+                    BCH: 'bitcoincash',
+                    ETH: 'ethereum',
+                    LTC: 'litecoin',
+                    XLM: 'lumen'
                 }
 
-                $('input[name=Amount]').focus();
+                const cryptoPrettyNames = {
+                    BTC: 'Bitcoin',
+                    BCH: 'Bitcoin Cash',
+                    ETH: 'Ethereum',
+                    LTC: 'Litecoin',
+                    XLM: 'Lumen'
+                }
 
-                updatePayMethods(data.paymentMethods);
-                updateWarningHeaders(data.paymentPending, data.coolingDown, data.needFotoID);
-                updateLimitReasonHeaders(data.limitReasons);
-                updateForm();
+                const crypto = cryptoNames[data.dcCode]
+                const prettyCrypto = cryptoPrettyNames[data.dcCode]
 
-                $('input[name=Currency]').val(data.currency);
+                if (!redirecting) {
+                    if (confirm(`This appears to be a ${prettyCrypto} account code, do you want to switch the form to ${prettyCrypto}?`)) {
+                        window.location.href = "/buy/" + crypto + "?id=" + getAccountCode();
+                        redirecting = true;
+                    } else {
+                        var submit2 = $('.btn.btn-send');
+                        $('#wrong-coin').prop('visible', 'block').show();
+                        submit2.prop('disabled', 'disabled');
+                        $('input[name=AccountCode]').removeProp('disabled').removeAttr('disabled');
+                        accountValid = false;
+                    }
+                }
+            }
+            else
+            {
+                updateAccountCode(data);
+
+                currentDCCode = data.dcCode;
+
+                if (data.accountValid) {
+                    if (data.firstBuyStatus === 1) {
+                        $('#sell-notice-needsuccessfulbuytransaction-beforefirstsell').show();
+                    }
+
+                    $('input[name=Amount]').focus();
+
+                    updatePayMethods(data.paymentMethods);
+                    updateWarningHeaders(data.paymentPending, data.coolingDown, data.needFotoID);
+                    updateLimitReasonHeaders(data.limitReasons);
+                    updateForm();
+
+                    $('input[name=Currency]').val(data.currency);
+                }
             }
         });
     }
@@ -312,41 +350,6 @@ $(function () {
             $('input[name=AccountCode]').removeProp('disabled').removeAttr('disabled');
             accountValid = false;
         }
-
-        if (data.dcCode !== cryptoCode) {
-
-            const cryptoNames = {
-                BTC: 'bitcoin',
-                BCH: 'bitcoincash',
-                ETH: 'ethereum',
-                LTC: 'litecoin',
-                XLM: 'lumen'
-            }
-
-            const cryptoPrettyNames = {
-                BTC: 'Bitcoin',
-                BCH: 'Bitcoin Cash',
-                ETH: 'Ethereum',
-                LTC: 'Litecoin',
-                XLM: 'Lumen'
-            }
-
-            const crypto = cryptoNames[data.dcCode]
-            const prettyCrypto = cryptoPrettyNames[data.dcCode]
-
-            if (!redirecting) {
-                if (confirm(`This appears to be a ${prettyCrypto} account code, do you want to switch the form to ${prettyCrypto}?`)) {
-                    window.location.href = "/buy/" + crypto + "?id=" + getAccountCode();
-                    redirecting = true;
-                } else {
-                    var submit2 = $('.btn.btn-send');
-                    $('#wrong-coin').prop('visible', 'block').show();
-                    submit2.prop('disabled', 'disabled');
-                    $('input[name=AccountCode]').removeProp('disabled').removeAttr('disabled');
-                    accountValid = false;
-                }
-            }
-        }
     }
 
     var redirecting = false;
@@ -355,24 +358,18 @@ $(function () {
     function updatePayMethods(PaymentMethods) {
         availablePaymentMethods = PaymentMethods;
 
-        var selectedMethodCode = $("select[name=PaymentMethodCode] option:selected").val();
-
         var paymethComboBox = $('select[name=PaymentMethodCode]');
 
         //Clean the content
         paymethComboBox.empty();
 
         $.each(PaymentMethods, function (index, paymethod) {
-            //var option = $('<option></option>').val(paymethod.Id).html(paymethod.Name);
 
-            if (paymethod.paymentMethodCode === selectedMethodCode) {
+            if (index === 0) {
                 paymethComboBox.append($('<option></option>').val(paymethod.paymentMethodCode).html(paymethod.paymentTypeName).prop('selected', 'selected'));
 
-                // TODO: enable this back
                 minAmount = paymethod.minAmount;
                 maxAmount = paymethod.maxAmount;
-                //minAmount = 2;
-                //maxAmount = 100;
                 setAmountRanges();
                 $('input[name=Amount]').val(minAmount);
             }
@@ -383,6 +380,8 @@ $(function () {
 
         // jcf.refresh($('select[name=PaymentMethodCode]'));
         $('select[name=PaymentMethodCode]').selectric('refresh');
+
+
     }
 
     $('input[name=AccountCode]').on("input keyup change", function () {
@@ -415,5 +414,4 @@ $(function () {
     }
 
     checkAccount();
-    refreshFormData();
 });
