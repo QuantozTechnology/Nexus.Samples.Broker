@@ -1,4 +1,6 @@
-﻿namespace Nexus.Samples.Sdk.Models.Request
+﻿using System.Collections.Generic;
+
+namespace Nexus.Samples.Sdk.Models.Request
 {
     public class CreateCustomerRequest
     {
@@ -8,7 +10,19 @@
         public string Status { get; set; }
         public string CurrencyCode { get; set; }
         public string Email { get; set; }
+        public string CountryCode { get; set; }
+        public bool IsBusiness { get; set; }
         public Account[] Accounts { get; set; }
+
+        public BankAccount[] BankAccounts { get; set; }
+
+        public IDictionary<string, string> Data { get; set; }
+    }
+
+    public class BankAccount
+    {
+        public string BankAccountNumber { get; set; }
+        public string BankAccountName { get; set; }
     }
 
     public class Account
