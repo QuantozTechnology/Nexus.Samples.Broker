@@ -12,6 +12,7 @@ namespace Nexus.Samples.Sdk.Models.Request
         public string IP { get; set; }
     }
 
+    [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum CreateAccountRequestAccountType
     {
         BROKER,
