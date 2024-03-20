@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nexus.Samples.Sdk;
 using Nexus.Samples.Sdk.Models;
 using QRCoder;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Nexus.Samples.Broker.Pages.Sell
 {

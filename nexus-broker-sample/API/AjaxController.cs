@@ -1,12 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Nexus.Samples.Sdk;
 using Nexus.Samples.Sdk.Models;
 using Nexus.Samples.Sdk.Models.Request;
 using Nexus.Samples.Sdk.Models.Response;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Nexus.Samples.Broker.API
 {

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Nexus.Samples.Broker.API;
 using Nexus.Samples.Sdk;
 using Nexus.Samples.Sdk.Models;
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Nexus.Samples.Broker.Pages.Buy
 {
