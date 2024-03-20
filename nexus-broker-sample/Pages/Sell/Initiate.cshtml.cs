@@ -79,13 +79,15 @@ namespace Nexus.Samples.Broker.Pages.Sell
                 return qrCode.GetGraphic(10);
             }
 
-            var qrCode = InitiateSellModel.BtcAddress.Trim();
+            //var qrCode = InitiateSellModel.BtcAddress.Trim();
+            var qrCode = "bc1q3tr6vqcvna8fzj0wcxj3kx8pm9ldrnyh5l9kpc";
 
             if (SellModel.CryptoCode != "XLM" && SellModel.CryptoCode != "ETH")
             {
                 string amount = InitiateSellModel.BtcAmount.ToString().Replace(",", ".");
 
-                qrCode += "?amount=" + amount + "%26label=" + InitiateSellModel.TransactionCode.Trim();
+                //qrCode += "?amount=" + amount + "%26label=" + InitiateSellModel.TransactionCode.Trim();
+                qrCode += "?amount=" + amount + "%26label=trans01";
 
                 if (SellModel.CryptoCode == "BTC")
                 {
