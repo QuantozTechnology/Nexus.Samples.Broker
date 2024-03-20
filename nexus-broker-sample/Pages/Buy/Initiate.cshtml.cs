@@ -136,7 +136,7 @@ namespace Nexus.Samples.Broker.Pages.Buy
                 EstimateBTC = priceSummaryResponse.Values.CryptoAmount.ToString("F8"),
                 PaymentMethodLogoURL = "/img/psp/" + pspinfo.PayMethodCode.Trim() + "_BIG.jpg",
                 PaymentMethodIconURL = "/img/psp/" + pspinfo.PayMethodCode.Trim() + ".png",
-                ActionUrl = pspinfo.URLPSPInitiateFull.Trim(),
+                ActionUrl = pspinfo.URLPSPInitiateFull?.Trim(),
                 Currency = priceSummaryResponse.Values.CurrencyCode,
                 SendDelayHours = pspinfo.SendDelayHours,
                 DCCode = buyInfo.DCCode
