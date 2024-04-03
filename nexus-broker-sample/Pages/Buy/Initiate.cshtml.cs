@@ -175,8 +175,6 @@ namespace Nexus.Samples.Broker.Pages.Buy
 
         public string IBAN { get; set; }
 
-        public string BicCode { get; set; }
-
         public string Amount { get; set; }
 
         public string EstimateBTC { get; set; }
