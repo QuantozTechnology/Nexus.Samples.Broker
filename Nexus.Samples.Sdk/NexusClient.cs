@@ -4,8 +4,10 @@ using Newtonsoft.Json;
 using Nexus.Samples.Sdk.Models.Request;
 using Nexus.Samples.Sdk.Models.Response;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Nexus.Samples.Sdk
@@ -180,7 +182,17 @@ namespace Nexus.Samples.Sdk
 
         public async Task<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>> GetTransactions(string customerCode)
         {
-            var response = await GetRequest12Async($"transaction?customer={customerCode}");
+            return await GetTransactions(customerCode, null);
+        }
+
+        public async Task<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>> GetTransactions(string customerCode, string transactionStatus)
+        {
+            var queryString = $"transaction?customer={customerCode}";
+            if (transactionStatus != null)
+            {
+                queryString += $"&status={transactionStatus}";
+            }
+            var response = await GetRequest12Async(queryString);
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>>();
         }
@@ -247,6 +259,27 @@ namespace Nexus.Samples.Sdk
             var response = await PutRequest12($"mail/{code}/sent");
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetMailResponse>>();
+        }
+
+        public async Task<DefaultResponseTemplate<PagedResult<GetPaymentMethodResponse>>> GetPaymentMethodInformation(string currency, string crypto, string transactionType)
+        {
+            var response = await GetRequest12Async($"paymentmethod?currency={currency}&crypto={crypto}&transactionType={transactionType}&limit=100");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetPaymentMethodResponse>>>();
+        }
+
+        public async Task<DefaultResponseTemplate<InitiateBrokerBuyResponse>> InitiateBrokerBuy(InitiateBrokerBuyRequest request)
+        {
+            var response = await PostRequest12Async("/buy/broker", request);
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<InitiateBrokerBuyResponse>>();
+        }
+
+        public async Task<DefaultResponseTemplate<GetBrokerLimitResponse>> GetBrokerBuyLimit(string customerCode, string paymentMethodCode)
+        {
+            var response = await GetRequest12Async($"customer/{customerCode}/limits/broker/buy?paymentMethodCode={paymentMethodCode}");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetBrokerLimitResponse>>();
         }
 
         public async Task<HttpResponseMessage> GetRequest12Async(string url)

@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Nexus.Samples.Broker.ViewModels;
 using Nexus.Samples.Sdk;
 using Nexus.Samples.Sdk.Models;
 using Nexus.Samples.Sdk.Models.Request;
 using Nexus.Samples.Sdk.Models.Response;
+using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Nexus.Samples.Broker.API
@@ -14,6 +15,7 @@ namespace Nexus.Samples.Broker.API
     public class AjaxController : ControllerBase
     {
         private readonly NexusClient nexusClient;
+        private const string CurrencyCode = "EUR";
 
         public AjaxController(NexusClient nexusClient)
         {
@@ -23,22 +25,6 @@ namespace Nexus.Samples.Broker.API
         [HttpGet("getprices")]
         public async Task<ActionResult<MarketPricesModel>> GetPrices([FromQuery]string currency)
         {
-            //try
-            //{
-            //    ValidateRequestHeader(Request);
-            //}
-            //catch (System.Web.Mvc.HttpAntiForgeryException)
-            //{
-            //    return null;
-            //}
-
-            //var req = new
-            //{
-            //    Currency = currency
-            //};
-
-            //PricesPT response = await nexusClient.PostAndGetRequestAsync<PricesPT, object>("api/BitcoinPrice/PostGetPrices/", req);
-
             var getPricesResponse = await nexusClient.GetPrices(currency);
 
             if (!getPricesResponse.IsSuccess)
@@ -54,92 +40,121 @@ namespace Nexus.Samples.Broker.API
         [HttpGet("checkbuyinfo/{id?}")]
         public async Task<IActionResult> CheckBuyInfo(string id = null)
         {
-            //try
-            //{
-            //    ValidateRequestHeader(Request);
-            //}
-            //catch (System.Web.Mvc.HttpAntiForgeryException)
-            //{
-            //    return null;
-            //}
-
-            var model = new
+            var accountResponse = await this.nexusClient.GetAccount(id);
+            if (!accountResponse.IsSuccess)
             {
-                AccountCode = id,
-                //IP = HttpContext.Current.Request.UserHostAddress
-                IP = "::1"
+                return BadRequest(accountResponse.Errors);
+            }
+            var account = accountResponse.Values;
+
+            var customerResponse = await this.nexusClient.GetCustomer(account.CustomerCode);
+            if (!customerResponse.IsSuccess)
+            {
+                return BadRequest(customerResponse.Errors);
+            }
+            var customer = customerResponse.Values;
+
+            var paymentMethodResponse = await this.nexusClient.GetPaymentMethodInformation(CurrencyCode, account.DcCode, "BUY");
+            if (!paymentMethodResponse.IsSuccess)
+            {
+                return BadRequest(paymentMethodResponse.Errors);
+            }
+
+            PaymentMethod[] availablePaymentMethods = null;
+            if (paymentMethodResponse.Values.Total > 0)
+            {
+                var paymentMethods = paymentMethodResponse.Values.Records;
+                var uniquePMs = paymentMethods.DistinctBy(pm => pm.PaymentType.Code);
+                availablePaymentMethods = uniquePMs.Select(pm => new PaymentMethod()
+                {
+                    PaymentMethodCode = pm.Code,
+                    PaymentMethodName = pm.Name,
+                    PaymentTypeCode = pm.PaymentType.Code,
+                    PaymentTypeDisplay = string.IsNullOrEmpty(pm.PaymentType.Description) ? pm.PaymentType.Name : pm.PaymentType.Description,
+                }).ToArray();
+            }          
+
+            var transactionsAwaitingPayment = await this.nexusClient.GetTransactions(account.CustomerCode, "BuyIncasso");
+            var paymentPending = (transactionsAwaitingPayment.IsSuccess && transactionsAwaitingPayment.Values.Total > 0);
+
+            var (limits, limitErrors) = await RetrieveLimitInfoModel(account.CustomerCode, availablePaymentMethods.First().PaymentMethodCode);
+            if (limitErrors != null)
+            {
+                return BadRequest(limitErrors);
+            }
+
+            var info = new BuyInfoModel()
+            {
+                AccountValid = account.AccountStatus.ToUpper() == "ACTIVE",
+                DCCode = account.DcCode,
+                Currency = CurrencyCode,
+                CoolingDown = false,
+                FirstBuyStatus = string.IsNullOrEmpty(customer.FirstTransaction) ? 1 : 0,
+                NeedPhotoID = !customer.HasPhotoId,
+                PaymentMethods = availablePaymentMethods,
+                PaymentPending = paymentPending,
+                Limits = limits
             };
 
-            //var cookies = Request.Headers.GetCookies("currency");
-
-            //if (cookies != null && cookies.Any())
-            //{
-            //    var cookie = cookies.First().Cookies.SingleOrDefault(t => t.Name == "currency");
-
-            //    if (cookie != null)
-            //    {
-            //        model.Currency = cookie.Value;
-            //    }
-            //}
-
-            HttpResponseMessage response = await nexusClient.PostRequestAsync("api/Buy/Check/", model);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var info = await response.Content.ReadAsAsync<BuyInfoPT>();
-
-                if (info.LimitReasons != null)
-                {
-                    //only include limit reasons that are handled by the front end
-                    info.LimitReasons =
-                        info.LimitReasons
-                        .Where(lr =>
-                            lr == "DailyBuyLimit"
-                            || lr == "MonthlyBuyLimit"
-                            || lr == "LowBalance")
-                        .OrderBy(lr => lr)
-                        .ToArray();
-                }
-
-                return Ok(info);
-            }
-            else
-            {
-                //var error = await response.Content.ReadAsAsync<HttpError>();
-
-                //Trace.WriteLine(error.Message + Environment.NewLine + error.StackTrace);
-
-                return BadRequest();
-            }
+            return Ok(info);            
         }
 
-        [HttpPost("bitcoinvalue")]
-        public async Task<ActionResult<SimulateBuyBrokerResponse>> BitcoinValue([FromBody]SimulateBuyBrokerRequest value)
+        [HttpGet("checkbuylimits")]
+        public async Task<IActionResult> CheckBuyLimits([FromQuery] string accountId, [FromQuery] string paymentMethodCode)
         {
-            //try
-            //{
-            //    ValidateRequestHeader(Request);
-            //}
-            //catch (System.Web.Mvc.HttpAntiForgeryException)
-            //{
-            //    return null;
-            //}
+            var accountResponse = await this.nexusClient.GetAccount(accountId);
+            if (!accountResponse.IsSuccess)
+            {
+                return BadRequest(accountResponse.Errors);
+            }
+            var account = accountResponse.Values;
 
-            //var cookies = Request.Headers.GetCookies("currency");
+            var (info, errors) = await RetrieveLimitInfoModel(account.CustomerCode, paymentMethodCode);
+            if (errors != null)
+            {
+                return BadRequest(errors);
+            }
 
-            //if (cookies != null && cookies.Any())
-            //{
-            //    var cookie = cookies.First().Cookies.SingleOrDefault(t => t.Name == "currency");
+            return Ok(info);
+        }
 
-            //    if (cookie != null)
-            //    {
-            //        value.Currency = cookie.Value;
-            //    }
-            //}
+        private async Task<(LimitInfoModel, IEnumerable<string>)> RetrieveLimitInfoModel(string customerCode, string paymentMethodCode)
+        {
+            var brokerLimitResponse = await this.nexusClient.GetBrokerBuyLimit(customerCode, paymentMethodCode);
+            if (!brokerLimitResponse.IsSuccess)
+            {
+                return (null, brokerLimitResponse.Errors);
+            }
+            var brokerBuyLimits = brokerLimitResponse.Values;
+            var info = new LimitInfoModel()
+            {
+                LimitReasons = brokerBuyLimits.LimitReasons,
+                RemainingDailyLimit = brokerBuyLimits.Remaining.DailyLimit,
+                MinimumAmount = brokerBuyLimits.Remaining.DailyLimit / 2, //TODO: Replace with API result after fixed
+            };
 
+            if (info.LimitReasons != null)
+            {
+                //only include limit reasons that are handled by the front end
+                info.LimitReasons =
+                    info.LimitReasons
+                    .Where(lr =>
+                        lr == "DailyBuyLimit"
+                        || lr == "MonthlyBuyLimit"
+                        || lr == "LowBalance")
+                    .OrderBy(lr => lr)
+                    .ToArray();
+            }
+
+            return (info, null);
+        }
+
+        [HttpPost("simulatebuy")]
+        public async Task<ActionResult<SimulateBuyBrokerResponse>> SimulateBuy([FromBody]SimulateBuyBrokerRequest value)
+        {
             if (string.IsNullOrEmpty(value.Currency))
             {
-                value.Currency = "EUR";
+                value.Currency = CurrencyCode;
             }
 
             var response = await nexusClient.SimulateBuyBroker(value);
@@ -150,7 +165,14 @@ namespace Nexus.Samples.Broker.API
             }
             else
             {
-                return BadRequest();
+                if (response.Values != null)
+                {
+                    return BadRequest(response.Values);
+                } 
+                else
+                {
+                    return BadRequest();
+                }
             }
         }
 
@@ -212,7 +234,7 @@ namespace Nexus.Samples.Broker.API
 
             if (string.IsNullOrEmpty(value.Currency))
             {
-                value.Currency = "EUR";
+                value.Currency = CurrencyCode;
             }
 
             var response = await nexusClient.SimulateSellBroker(new SimulateSellBrokerRequest
