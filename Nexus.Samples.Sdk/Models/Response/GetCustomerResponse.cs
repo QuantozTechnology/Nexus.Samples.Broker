@@ -14,5 +14,6 @@ namespace Nexus.Samples.Sdk.Models.Response
         public bool IsHighRisk { get; set; }
         public bool HasPhotoId { get; set; }
         public string FirstTransaction { get; set; }
+        public bool IsBusiness { get; set; }
     }
 }

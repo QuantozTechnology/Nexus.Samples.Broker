@@ -197,6 +197,12 @@ namespace Nexus.Samples.Sdk
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>>();
         }
 
+        public async Task<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>> GetBuyTransactions(string customerCode)
+        {
+            var response = await GetRequest12Async($"transaction?customer={customerCode}&type=Buy");
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>>();
+        }
+
         public async Task<DefaultResponseTemplate<GetBrokerTransactionResponse>> GetTransaction(string code)
         {
             var response = await GetRequest12Async($"transaction/{code}");
@@ -275,9 +281,23 @@ namespace Nexus.Samples.Sdk
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<InitiateBrokerBuyResponse>>();
         }
 
-        public async Task<DefaultResponseTemplate<GetBrokerLimitResponse>> GetBrokerBuyLimit(string customerCode, string paymentMethodCode)
+        public async Task<DefaultResponseTemplate<InitiateBrokerSellResponse>> InitiateBrokerSell(InitiateBrokerSellRequest request)
+        {
+            var response = await PostRequest12Async("/sell/broker", request);
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<InitiateBrokerSellResponse>>();
+        }
+
+        public async Task<DefaultResponseTemplate<GetBrokerLimitResponse>> GetBrokerBuyLimits(string customerCode, string paymentMethodCode)
         {
             var response = await GetRequest12Async($"customer/{customerCode}/limits/broker/buy?paymentMethodCode={paymentMethodCode}");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetBrokerLimitResponse>>();
+        }
+
+        public async Task<DefaultResponseTemplate<GetBrokerLimitResponse>> GetBrokerSellLimits(string customerCode, string cryptoCode)
+        {
+            var response = await GetRequest12Async($"customer/{customerCode}/limits/broker/sell?cryptoCode={cryptoCode}");
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetBrokerLimitResponse>>();
         }
