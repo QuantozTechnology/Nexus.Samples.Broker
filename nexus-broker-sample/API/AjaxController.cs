@@ -131,7 +131,7 @@ namespace Nexus.Samples.Broker.API
             {
                 LimitReasons = brokerBuyLimits.LimitReasons,
                 RemainingDailyLimit = brokerBuyLimits.Remaining.DailyLimit,
-                MinimumAmount = brokerBuyLimits.Remaining.DailyLimit / 2, //TODO: Replace with API result after fixed
+                MinimumAmount = 0, //TODO: Replace with API result after fixed
             };
 
             if (info.LimitReasons != null)

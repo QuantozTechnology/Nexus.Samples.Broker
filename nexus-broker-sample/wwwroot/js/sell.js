@@ -17,9 +17,7 @@
             dataType: "json",
             type: "GET",
             url: '/api/ajax/checksellinfo/' + accountCode,
-            headers: {
-                //'RequestVerificationToken': tokenHeaderValue
-            }
+            headers: {}
         }).done(function (data) {
 
             if (data.dcCode !== cryptoCode) {
@@ -58,16 +56,16 @@
             }
             else
             {
-                updateAccountCode(data, data.accountValid, data.isBusiness, data.accountType, data.highRisk, (data.firstBuyStatus == 0));
+                updateAccountCode(data, data.accountValid, data.isBusiness, data.trustLevel, data.highRisk, (data.firstBuyStatus === 0));
 
                 if (data.accountValid) {
-                    $('input[name=BTCstr]').focus();
+                    $('input[name=CryptoAmount]').focus();
 
                     setAmountRanges(data.minBtcAmount, data.maxBtcAmount, (data.highRisk || (data.firstBuyStatus > 0)));
                     updateSellActivateComment(data.firstBuyStatus, data.HighRisk, data.isBusiness);
                 }
 
-                $('#BTCstr').val(data.minBtcAmount);
+                $('#CryptoAmount').val(data.minBtcAmount);
             }
         });
     }
@@ -75,12 +73,11 @@
     var redirecting = false;
 
     /// Update account input field according to web response
-    function updateAccountCode(data, valid, business, type, highrisk, hasfirstbuy) {
-        // true/false
+    function updateAccountCode(data, valid, business, trustLevel, highrisk, hasfirstbuy) {
         var submit = $('.btn.btn-send');
         var updateprices = false;
 
-        if (valid == true) {
+        if (valid) {
             $('input[name=AccountCode]').prop('readonly', 'readonly');
             $('#wrong-coin').hide();
             $('#non-active').hide();
@@ -95,64 +92,59 @@
             $('#new-business-verification').hide();
             $('#trusted-accounts-verification').hide();
 
-            if (business == true) {
-                if (type == "Identified") {
+            if (business) {
+                if (trustLevel === "IDENTIFIED") {
                     $('#verified-business').show();
-                    if (highrisk == true) {
+                    if (highrisk) {
                         $('#business-limited').show();
                         submit.prop('disabled', true);
                     }
                     else {
-                        $('#BTCstr').removeProp('disabled').removeAttr('disabled');
+                        $('#CryptoAmount').removeProp('disabled').removeAttr('disabled');
                         updateprices = true;
-                        //submit.removeProp('disabled').removeAttr('disabled');
                     }
                 }
-                else if (type == "New") {
+                else if (trustLevel === "NEW") {
                     $('#new-business').show();
-                    if (hasfirstbuy == true) {
+                    if (hasfirstbuy) {
                         $('#new-business-verification').show();
                     }
                     submit.prop('disabled', true);
                 }
             }
             else {
-                if (type == "Identified") {
+                if (trustLevel === "IDENTIFIED") {
                     $('#verified-personal').show();
-                    if (highrisk == true) {
+                    if (highrisk) {
                         $('#personal-limited').show();
                         submit.prop('disabled', true);
                     }
                     else {
-                        $('#BTCstr').removeProp('disabled').removeAttr('disabled');
+                        $('#CryptoAmount').removeProp('disabled').removeAttr('disabled');
                         updateprices = true;
-                        //submit.removeProp('disabled').removeAttr('disabled');
                     }
                 }
-                else if (type == "TRUSTED") {
+                else if (trustLevel === "TRUSTED") {
                     $('#trusted-personal').show();
-                    if (highrisk == true) {
+                    if (highrisk) {
                         $('#personal-limited').show();
                         submit.prop('disabled', true);
                     }
                     else {
                         $('#trusted-accounts-verification').show();
-                        $('#BTCstr').removeProp('disabled').removeAttr('disabled');
+                        $('#CryptoAmount').removeProp('disabled').removeAttr('disabled');
                         updateprices = true;
-                        //submit.removeProp('disabled').removeAttr('disabled');
                     }
                 }
-                else if (type == "NEW") {
+                else if (trustLevel === "NEW") {
                     $('#new-personal').show();
-                    if (highrisk == true) {
+                    if (highrisk) {
                         $('#personal-limited').show();
                         submit.prop('disabled', true);
                     }
                     else {
-                        console.log('hello4');
-                        $('#BTCstr').removeProp('disabled').removeAttr('disabled');
+                        $('#CryptoAmount').removeProp('disabled').removeAttr('disabled');
                         updateprices = true;
-                        //submit.removeProp('disabled').removeAttr('disabled');
                     }
                 }
             }
@@ -161,7 +153,7 @@
             submit.prop('disabled', false);
 
             updateSellForm = setInterval(function () { refreshFormData(); }, 60000);
-            if (updateprices == true) {
+            if (updateprices) {
                 updatePrices();
             }
         }
@@ -174,43 +166,40 @@
 
     function setAmountRanges(min, max, notallowed) {
         var content = "";
-        if (notallowed == true) {
+        if (notallowed) {
             minBTC = 0.0;
             maxBTC = 0.0;
         }
         else {
             minBTC = min;
             maxBTC = max;
-            if (max == 0) {
+            if (max === 0) {
                 content = "day or month limit reached";
             }
             else {
-                console.log('hello3');
                 content = "min: " + minBTC + " max: " + maxBTC;
             }
         }
-        console.log(content);
         $("#btcAmountLimit").html(content);
     }
 
     function updateSellActivateComment(type, highrisk, isbusiness) {
-        if (type !== undefined && type !== null && isbusiness == false && highrisk == false) {
-            if (type == 1) $('#sell-notice-needsuccessfulbuytransaction-beforefirstsell').show();
-            if (type == 2) $('#sell-notice-successfulbuytransaction-pending').show();
-            if (type == 3) $('#sell-notice-need-fotoid').show();
+        if (type !== undefined && type !== null && isbusiness && highrisk) {
+            if (type === 1) $('#sell-notice-needsuccessfulbuytransaction-beforefirstsell').show();
+            if (type === 2) $('#sell-notice-successfulbuytransaction-pending').show();
+            if (type === 3) $('#sell-notice-need-fotoid').show();
         }
     }
 
-    $('#BTCstr').on("input keyup change", function () { updatePrices(); });
+    $('#CryptoAmount').on("input keyup change", function () { updatePrices(); });
 
     function updatePrices() {
         $("#btcAmountLimit").show();
-        var BTCstr = $('#BTCstr').val();
-        var BTC = parseFloat('0' + BTCstr);
-        if (isNaN(BTCstr) || (BTC <= 0.0) || (BTC < minBTC) || (BTC > maxBTC)) {
+        var BTC = $('#CryptoAmount').val();
+        if (isNaN(BTC) || (BTC <= 0.0) || (BTC < minBTC) || (BTC > maxBTC)) {
             var v = 0.0;
             $("#btcAmountLimit").css('color', 'red');
-            $("#BTCstr").css('border-color', 'red');
+            $("#CryptoAmount").css('border-color', 'red');
             $('.btn.btn-send').prop('disabled', true);
             $('#EuroAmountBeforeFee').text(v.toFixed(2));
             $('#BTCSellPrice').text('');
@@ -220,14 +209,14 @@
             return;
         }
 
-        $("#BTCstr").css('border-color', '#d4d7de');
+        $("#CryptoAmount").css('border-color', '#d4d7de');
         $('.btn.btn-send').prop('disabled', false);
 
         $("#btcAmountLimit").css('color', '#02aa45');
         var postData = {
             AccountCode: getAccountCode(),
             BtcAmount: BTC,
-            Currency: '',
+            Currency: 'EUR',
             CryptoCode: cryptoCode
         };
 
@@ -235,14 +224,11 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             type: "POST",
-            url: '/api/ajax/eurovalue/',
+            url: '/api/ajax/simulatesell/',
             data: JSON.stringify(postData),
-            headers: {
-                //'RequestVerificationToken': tokenHeaderValue
-            }
+            headers: {}
         }).done(function (data) {
             $('#EuroAmountBeforeFee').text(data.valueInFiatBeforeFees.toFixed(2));
-            //$('#BTCSellPrice').text('(' + data.btcSellPriceBeforeFee.toFixed(2) + ' ' + data.currency + '/' + data.dcCode + ')');
             $('#EuroBankFee').text(data.bankFee.toFixed(2));
             $('#EuroServiceFee').text(data.serviceFee.toFixed(2));
             $('#EuroAmountAfterFee').text(data.valueInFiatAfterFees.toFixed(2));
@@ -268,7 +254,7 @@
 
     /// pressing enter while typing accountcode will click CheckAccount button
     $('input[name=AccountCode]').on('keypress', function (event) {
-        if (event.which == '13') {
+        if (event.which === '13') {
             event.preventDefault();
         }
     });
@@ -279,9 +265,7 @@
             dataType: "json",
             type: "GET",
             url: '/api/ajax/checksellinfo/' + accountCode,
-            headers: {
-                //'RequestVerificationToken': tokenHeaderValue
-            }
+            headers: {}
         }).done(function (data) {
             refreshingForm = true;
             updatePrices();
