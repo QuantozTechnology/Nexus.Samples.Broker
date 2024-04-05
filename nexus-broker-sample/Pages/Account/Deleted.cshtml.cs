@@ -96,7 +96,13 @@ namespace Nexus.Samples.Broker.Pages.Account
                 {
                     switch (error)
                     {
-                        case "AccountNotFound": return NotFound();
+                        case "AccountNotFound": 
+                            return NotFound();
+                        case "AccountAlreadyDeleted":
+                            SuccessfullyProcessedRequest = true;
+                            var accountResponse = await nexusClient.GetAccount(AccountCode);
+                            Account = accountResponse.Values;
+                            return Page();
                         default:
                             break;
                     }
