@@ -54,63 +54,64 @@ namespace Nexus.Samples.MailClient
                 var isMailSuccessfullySent = false;
                 var body = "";
                 var subject = "";
+                mailToSend.Recipient.Email = mailToSend.Recipient.Email.Trim();
 
-                switch (mailToSend.Type)
-                {
-                    case "NewAccountRequested":
-                        (subject, body) = await SendNewAccountRequestedMailAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
+                    switch (mailToSend.Type)
+                    {
+                        case "NewAccountRequested":
+                            (subject, body) = await SendNewAccountRequestedMailAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
 
-                    case "NewAccountActivated":
-                        (subject, body) = await SendNewAccountActivatedAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
+                        case "NewAccountActivated":
+                            (subject, body) = await SendNewAccountActivatedAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
 
-                    case "AccountDeletedByRequest":
-                        (subject, body) = await SendAccountDeletedByRequestAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
+                        case "AccountDeletedByRequest":
+                            (subject, body) = await SendAccountDeletedByRequestAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
 
-                    case "TransactionBuyFinish":
-                        (subject, body) = await SendTransactionBuyFinishAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
+                        case "TransactionBuyFinish":
+                            (subject, body) = await SendTransactionBuyFinishAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
 
-                    case "TrustLevelUpdated":
-                        (subject, body) = await SendTrustLevelUpdatedAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
+                        case "TrustLevelUpdated":
+                            (subject, body) = await SendTrustLevelUpdatedAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
 
-                    case "AccountInfoRequest":
-                        (subject, body) = await SendAccountInfoRequestedAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
+                        case "AccountInfoRequest":
+                            (subject, body) = await SendAccountInfoRequestedAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
 
-                    case "AccountDeleteRequested":
-                        (subject, body) = await SendAccountDeleteRequestedMailAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
+                        case "AccountDeleteRequested":
+                            (subject, body) = await SendAccountDeleteRequestedMailAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
 
-                    case "BlockedTransaction":
-                        (subject, body) = await SendTransactionBlockedMailAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
+                        case "BlockedTransaction":
+                            (subject, body) = await SendTransactionBlockedMailAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
 
-                    case "TransactionBuySendDelay":
-                        (subject, body) = await SendTransactionBuySendDelayMailAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
+                        case "TransactionBuySendDelay":
+                            (subject, body) = await SendTransactionBuySendDelayMailAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
 
-                    case "TransactionSellFinish":
-                        (subject, body) = await SendTransactionSellFinishAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
+                        case "TransactionSellFinish":
+                            (subject, body) = await SendTransactionSellFinishAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
 
-                    default:
-                        Console.WriteLine("Mail Type not supported");
-                        break;
-                }
+                        default:
+                            Console.WriteLine("Mail Type not supported");
+                            break;
+                    }
 
                 if (isMailSuccessfullySent)
                 {
