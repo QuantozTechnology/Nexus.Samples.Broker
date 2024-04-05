@@ -51,10 +51,12 @@ namespace Nexus.Samples.MailClient
 
             foreach(var mailToSend in mailsToSend)
             {
-                var isMailSuccessfullySent = false;
-                var body = "";
-                var subject = "";
-                mailToSend.Recipient.Email = mailToSend.Recipient.Email.Trim();
+                try
+                {
+                    var isMailSuccessfullySent = false;
+                    var body = "";
+                    var subject = "";
+                    mailToSend.Recipient.Email = mailToSend.Recipient.Email.Trim();
 
                     switch (mailToSend.Type)
                     {
@@ -113,35 +115,41 @@ namespace Nexus.Samples.MailClient
                             break;
                     }
 
-                if (isMailSuccessfullySent)
-                {
-                    var updateResponse = await _nexusClient.UpdateMailContent(mailToSend.Code, new UpdateMailContentRequest
+                    if (isMailSuccessfullySent)
                     {
-                        Content = new MailContent
+                        var updateResponse = await _nexusClient.UpdateMailContent(mailToSend.Code, new UpdateMailContentRequest
                         {
-                            Html = body,
-                            Subject = subject
-                        },
+                            Content = new MailContent
+                            {
+                                Html = body,
+                                Subject = subject
+                            },
 
-                    });
+                        });
 
-                    if (!updateResponse.IsSuccess)
-                    {
-                        Console.WriteLine($"Error occured updating Mail with code: {mailToSend.Code}.");
-                    }
+                        if (!updateResponse.IsSuccess)
+                        {
+                            Console.WriteLine($"Error occured updating Mail with code: {mailToSend.Code}.");
+                        }
 
-                    var sentResponse = await _nexusClient.MailSent(mailToSend.Code);
+                        var sentResponse = await _nexusClient.MailSent(mailToSend.Code);
 
-                    if (!sentResponse.IsSuccess)
-                    {
-                        Console.WriteLine($"Error occured updating Mail with code: {mailToSend.Code} as sent.");
+                        if (!sentResponse.IsSuccess)
+                        {
+                            Console.WriteLine($"Error occured updating Mail with code: {mailToSend.Code} as sent.");
+                        }
                     }
                 }
-
-                if (totalPages > page)
+                catch (Exception ex) 
                 {
-                    await SendMailsAsync(page++);
+                    Console.WriteLine($"Error sending email {mailToSend.Code} because of {ex.ToString()}");
                 }
+                
+            }
+
+            if (totalPages > page)
+            {
+                await SendMailsAsync(page++);
             }
         }
 
