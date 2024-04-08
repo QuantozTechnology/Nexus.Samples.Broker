@@ -2,7 +2,7 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Nexus.Samples.MailClient;
 
-namespace FunctionApp1
+namespace MailService
 {
     public class MailFunctions
     {
