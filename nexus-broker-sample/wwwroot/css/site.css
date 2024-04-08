@@ -21245,7 +21245,7 @@ h3, .h3 {
     align-items: center;
 }
 
-.select--crypto .selectric-items .ico-bitcoin, .select--crypto .selectric-items .ico-bitcoincash, .select--crypto .selectric-items .ico-ethereum, .select--crypto .selectric-items .ico-litecoin, .select--crypto .selectric-items .ico-lumen {
+.select--crypto .selectric-items .ico-bitcoin, .select--crypto .selectric-items .ico-bitcoincash, .select--crypto .selectric-items .ico-ethereum, .select--crypto .selectric-items .ico-litecoin, .select--crypto .selectric-items .ico-lumen, .select--crypto .selectric-items .ico-usdt {
     display: inline-block;
     width: 22px;
     height: 22px;
@@ -21276,6 +21276,10 @@ h3, .h3 {
 
 .select--crypto .selectric .ico-lumen, .select--crypto .selectric-items .ico-lumen {
     background-image: url(/img/coins/xlm.svg);
+}
+
+.select--crypto .selectric .ico-usdt, .select--crypto .selectric-items .ico-usdt {
+    background-image: url(/img/coins/usdt.svg);
 }
 
 .select--sm {

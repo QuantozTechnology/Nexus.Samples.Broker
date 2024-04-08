@@ -27,7 +27,9 @@
                     BCH: 'bitcoincash',
                     ETH: 'ethereum',
                     LTC: 'litecoin',
-                    XLM: 'lumen'
+                    XLM: 'lumen',
+                    USDT: 'usdt',
+                    'USDT-ERC20': 'usdt'
                 }
 
                 const cryptoPrettyNames = {
@@ -35,7 +37,9 @@
                     BCH: 'Bitcoin Cash',
                     ETH: 'Ethereum',
                     LTC: 'Litecoin',
-                    XLM: 'Lumen'
+                    XLM: 'Lumen',
+                    USDT: 'Tether (USDT)',
+                    'USDT-ERC20': 'Tether (USDT)'
                 }
 
                 const crypto = cryptoNames[data.dcCode]

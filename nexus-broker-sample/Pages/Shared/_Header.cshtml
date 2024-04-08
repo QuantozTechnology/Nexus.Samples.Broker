@@ -62,6 +62,13 @@
                                                     Lumen
                                                 </a>
                                             </li>
+
+                                            <li class="dropdown__item">
+                                                <a asp-page="/Buy/Index" asp-route-crypto="usdt" class="dropdown__link @(crypto == "usdt" ? "dropdown__link--active" : String.Empty)">
+                                                    <img src="~/img/coins/usdt.svg" alt="USDT">
+                                                    Tether (USDT)
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
@@ -103,6 +110,13 @@
                                                 <a asp-page="/Sell/Index" asp-route-crypto="lumen" class="dropdown__link @(crypto == "xlm" ? "dropdown__link--active" : String.Empty)">
                                                     <img src="~/img/coins/xlm.svg" alt="Lumen">
                                                     Lumen
+                                                </a>
+                                            </li>
+
+                                            <li class="dropdown__item">
+                                                <a asp-page="/Sell/Index" asp-route-crypto="usdt" class="dropdown__link @(crypto == "usdt" ? "dropdown__link--active" : String.Empty)">
+                                                    <img src="~/img/coins/usdt.svg" alt="USDT">
+                                                    Tether (USDT)
                                                 </a>
                                             </li>
                                         </ul>

@@ -26,6 +26,7 @@ namespace Nexus.Samples.Broker.Extensions
                 "ethereum" => "ETH",
                 "litecoin" => "LTC",
                 "lumen" => "XLM",
+                "usdt" => "USDT-ERC20",
                 _ => "",
             };
             ;
@@ -45,6 +46,8 @@ namespace Nexus.Samples.Broker.Extensions
                     return "Litecoin";
                 case "lumen":
                     return "Lumen";
+                case "usdt":
+                    return "Tether (USDT)";
                 default:
                     return "Crypto";
             }
