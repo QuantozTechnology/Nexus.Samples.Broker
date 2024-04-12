@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Nexus.Samples.Sdk;
+using Nexus.Samples.Sdk.Models.Shared;
 
 namespace Nexus.Samples.Broker
 {
@@ -22,6 +23,7 @@ namespace Nexus.Samples.Broker
         {
             services.AddControllers();
             services.AddRazorPages();
+            services.Configure<NexusConnectionOptions>(Configuration.GetSection("nexusConnection"));
             services.AddSingleton<NexusClient>();
         }
 
