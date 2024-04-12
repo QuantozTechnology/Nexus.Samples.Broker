@@ -1,7 +1,10 @@
 ﻿@page "{crypto}"
 @model Nexus.Samples.Broker.Pages.Account.IndexModel
+@inject SupportedCryptoHelper SupportCryptoHelper
 @{
-    string dcCode = Html.GetActiveCryptoName();
+    string route = Html.GetActiveCrypto();
+    var supportedCrypto = SupportCryptoHelper.GetSupportedCryptoFromRoute(route);
+    string dcCode = supportedCrypto.Name;
     ViewData["Title"] = Resources.AccountPages.AccountPageTabTitle;
 
     var cryptoSelector = new CryptoSelectorViewModel("", "/Account/Index", RouteData.Values["crypto"].ToString(), false);
@@ -34,10 +37,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    @*@Scripts.Render("~/Scripts/jquery.tabs.js")
-        @Scripts.Render("~/Scripts/tabs.js")
-        @Scripts.Render("~/bundles/jqueryval")
-        @Scripts.Render("~/Scripts/Page/accountLimits.js")*@
-}

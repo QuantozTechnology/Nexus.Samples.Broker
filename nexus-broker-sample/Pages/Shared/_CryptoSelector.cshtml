@@ -1,9 +1,13 @@
 ﻿@model CryptoSelectorViewModel
+@inject SupportedCryptoHelper SupportCryptoHelper
 
 @{
+    string route = Html.GetActiveCrypto();
     var crypto = Html.GetActiveCrypto();
-    var cryptoName = Html.GetActiveCryptoName();
-    var cryptoCode = Html.GetActiveCryptoCode();
+    var supportedCryptos = SupportCryptoHelper.GetAllSupportedCryptos();
+    var supportedCrypto = SupportCryptoHelper.GetSupportedCryptoFromRoute(crypto);
+    var cryptoName = supportedCrypto.Name;
+    var cryptoCode = supportedCrypto.Crypto;
 }
 
 <div>
@@ -12,12 +16,10 @@
 
         <form class="form__select select--crypto" method="get">
             <select asp-for="Crypto" name="crypto" id="crypto">
-                <option value="bitcoin">Bitcoin</option>
-                <option value="bitcoincash">Bitcoin Cash</option>
-                <option value="ethereum">Ethereum</option>
-                <option value="litecoin">Litecoin</option>
-                <option value="lumen">Lumen</option>
-                <option value="usdt">Tether (USDT)</option>
+                @foreach (var displayedCrypto in supportedCryptos)
+                {
+                    <option value="@displayedCrypto.Route">@displayedCrypto.Name</option>
+                }
             </select>
             <input hidden name="newaction" value="@Model.Action" />
         </form>

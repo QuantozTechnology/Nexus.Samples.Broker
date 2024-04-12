@@ -148,41 +148,26 @@ $(function () {
 
             if (data.dcCode !== cryptoCode) {
 
-                const cryptoNames = {
-                    BTC: 'bitcoin',
-                    BCH: 'bitcoincash',
-                    ETH: 'ethereum',
-                    LTC: 'litecoin',
-                    XLM: 'lumen',
-                    USDT: 'usdt',
-                    'USDT-ERC20': 'usdt'
-                }
+                jsonRequest({
+                    url: "/api/ajax/getsupportedcrypto/" + data.dcCode,
+                    type: "get",
+                    data: {}
+                }).done(function (supportedCrypto) {
+                    const prettyCrypto = supportedCrypto.name
 
-                const cryptoPrettyNames = {
-                    BTC: 'Bitcoin',
-                    BCH: 'Bitcoin Cash',
-                    ETH: 'Ethereum',
-                    LTC: 'Litecoin',
-                    XLM: 'Lumen',
-                    USDT: 'Tether (USDT)',
-                    'USDT-ERC20': 'Tether (USDT)'
-                }
-
-                const crypto = cryptoNames[data.dcCode]
-                const prettyCrypto = cryptoPrettyNames[data.dcCode]
-
-                if (!redirecting) {
-                    if (confirm(`This appears to be a ${prettyCrypto} account code, do you want to switch the form to ${prettyCrypto}?`)) {
-                        window.location.href = "/buy/" + crypto + "?id=" + getAccountCode();
-                        redirecting = true;
-                    } else {
-                        var submit2 = $('.btn.btn-send');
-                        $('#wrong-coin').prop('visible', 'block').show();
-                        submit2.prop('disabled', 'disabled');
-                        $('input[name=AccountCode]').removeProp('disabled').removeAttr('disabled');
-                        accountValid = false;
+                    if (!redirecting) {
+                        if (confirm(`This appears to be a ${prettyCrypto} account code, do you want to switch the form to ${prettyCrypto}?`)) {
+                            window.location.href = "/buy/" + supportedCrypto.route + "?id=" + getAccountCode();
+                            redirecting = true;
+                        } else {
+                            var submit2 = $('.btn.btn-send');
+                            $('#wrong-coin').prop('visible', 'block').show();
+                            submit2.prop('disabled', 'disabled');
+                            $('input[name=AccountCode]').removeProp('disabled').removeAttr('disabled');
+                            accountValid = false;
+                        }
                     }
-                }
+                });
             }
             else {
                 updateAccountCode(data);

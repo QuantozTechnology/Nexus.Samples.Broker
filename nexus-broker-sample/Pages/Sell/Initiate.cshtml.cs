@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Nexus.Samples.Broker.Extensions;
 using Nexus.Samples.Sdk;
 using Nexus.Samples.Sdk.Models;
 using Nexus.Samples.Sdk.Models.Request;
@@ -11,15 +12,17 @@ namespace Nexus.Samples.Broker.Pages.Sell
     public class InitiateModel : PageModel
     {
         private readonly NexusClient nexusClient;
+        private readonly SupportedCryptoHelper supportedCryptoHelper;
 
         public AccountSellResponsePT InitiateSellModel { get; set; }
 
         [BindProperty]
         public AccountSellPT SellModel { get; set; }
 
-        public InitiateModel(NexusClient nexusClient)
+        public InitiateModel(NexusClient nexusClient, SupportedCryptoHelper supportedCryptoHelper)
         {
             this.nexusClient = nexusClient;
+            this.supportedCryptoHelper = supportedCryptoHelper;
         }
 
         public async Task<IActionResult> OnPost()
@@ -108,21 +111,7 @@ namespace Nexus.Samples.Broker.Pages.Sell
 
         private string GetCryptoName(string cryptoCode)
         {
-            switch (cryptoCode)
-            {
-                case "BTC":
-                    return "Bitcoin";
-                case "BCH":
-                    return "Bitcoin Cash";
-                case "ETH":
-                    return "Ethereum";
-                case "LTC":
-                    return "Litecoin";
-                case "XLM":
-                    return "Lumen";
-                default:
-                    return "Crypto";
-            }
+            return supportedCryptoHelper.GetSupportedCrypto(cryptoCode).Name;
         }
     }
 }

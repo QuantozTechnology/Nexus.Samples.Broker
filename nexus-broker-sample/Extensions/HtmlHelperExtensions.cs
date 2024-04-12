@@ -17,42 +17,6 @@ namespace Nexus.Samples.Broker.Extensions
                 : "";
         }
 
-        public static string GetActiveCryptoCode<T>(this IHtmlHelper<T> html)
-        {
-            return (html.GetActiveCrypto()) switch
-            {
-                "bitcoin" => "BTC",
-                "bitcoincash" => "BCH",
-                "ethereum" => "ETH",
-                "litecoin" => "LTC",
-                "lumen" => "XLM",
-                "usdt" => "USDT-ERC20",
-                _ => "",
-            };
-            ;
-        }
-
-        public static string GetActiveCryptoName<T>(this IHtmlHelper<T> html)
-        {
-            switch (html.GetActiveCrypto())
-            {
-                case "bitcoin":
-                    return "Bitcoin";
-                case "bitcoincash":
-                    return "Bitcoin Cash";
-                case "ethereum":
-                    return "Ethereum";
-                case "litecoin":
-                    return "Litecoin";
-                case "lumen":
-                    return "Lumen";
-                case "usdt":
-                    return "Tether (USDT)";
-                default:
-                    return "Crypto";
-            }
-        }
-
         public static string GetActionName<T>(this IHtmlHelper<T> html)
         {
             return html.ViewContext.RouteData.Values["action"]?.ToString()?.ToLower();

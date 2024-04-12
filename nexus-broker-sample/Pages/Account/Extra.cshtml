@@ -1,9 +1,11 @@
 ﻿@page "{crypto}"
-
+@inject SupportedCryptoHelper SupportCryptoHelper
 @model Nexus.Samples.Broker.Pages.Account.ExtraModel
 @{
-    string dcCode = Html.GetActiveCryptoName();
-    string dc = Html.GetActiveCryptoCode();
+    string route = Html.GetActiveCrypto();
+    var supportedCrypto = SupportCryptoHelper.GetSupportedCryptoFromRoute(route);
+    string dcCode = supportedCrypto.Name;
+    string dc = supportedCrypto.Crypto;
 
     var cryptoSelector = new CryptoSelectorViewModel("", "/Account/Extra", RouteData.Values["crypto"].ToString(), false);
     ViewData["Title"] = Resources.AccountPages.AccountAdditionalTabTitle;

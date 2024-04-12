@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Nexus.Samples.Broker.Configuration;
+using Nexus.Samples.Broker.Extensions;
 using Nexus.Samples.Broker.ViewModels;
 using Nexus.Samples.Sdk;
 using Nexus.Samples.Sdk.Models;
@@ -15,18 +18,20 @@ namespace Nexus.Samples.Broker.API
     [ApiController]
     public class AjaxController : ControllerBase
     {
-        private readonly NexusClient nexusClient;
+        private readonly NexusClient _nexusClient;
+        private readonly SupportedCryptoHelper _supportedCryptoHelper;
         private const string CurrencyCode = "EUR";
 
-        public AjaxController(NexusClient nexusClient)
+        public AjaxController(NexusClient nexusClient, SupportedCryptoHelper supportedCryptoHelper)
         {
-            this.nexusClient = nexusClient;
+            this._nexusClient = nexusClient;
+            this._supportedCryptoHelper = supportedCryptoHelper;
         }
 
         [HttpGet("getprices")]
         public async Task<ActionResult<MarketPricesModel>> GetPrices([FromQuery] string currency)
         {
-            var getPricesResponse = await nexusClient.GetPrices(currency);
+            var getPricesResponse = await _nexusClient.GetPrices(currency);
 
             if (!getPricesResponse.IsSuccess)
             {
@@ -41,21 +46,21 @@ namespace Nexus.Samples.Broker.API
         [HttpGet("checkbuyinfo/{id?}")]
         public async Task<IActionResult> CheckBuyInfo(string id = null)
         {
-            var accountResponse = await this.nexusClient.GetAccount(id);
+            var accountResponse = await this._nexusClient.GetAccount(id);
             if (!accountResponse.IsSuccess)
             {
                 return BadRequest(accountResponse.Errors);
             }
             var account = accountResponse.Values;
 
-            var customerResponse = await this.nexusClient.GetCustomer(account.CustomerCode);
+            var customerResponse = await this._nexusClient.GetCustomer(account.CustomerCode);
             if (!customerResponse.IsSuccess)
             {
                 return BadRequest(customerResponse.Errors);
             }
             var customer = customerResponse.Values;
 
-            var paymentMethodResponse = await this.nexusClient.GetPaymentMethodInformation(CurrencyCode, account.DcCode, "BUY");
+            var paymentMethodResponse = await this._nexusClient.GetPaymentMethodInformation(CurrencyCode, account.DcCode, "BUY");
             if (!paymentMethodResponse.IsSuccess)
             {
                 return BadRequest(paymentMethodResponse.Errors);
@@ -75,7 +80,7 @@ namespace Nexus.Samples.Broker.API
                 }).ToArray();
             }
 
-            var transactionsAwaitingPayment = await this.nexusClient.GetTransactions(account.CustomerCode, "BuyIncasso");
+            var transactionsAwaitingPayment = await this._nexusClient.GetTransactions(account.CustomerCode, "BuyIncasso");
             var paymentPending = (transactionsAwaitingPayment.IsSuccess && transactionsAwaitingPayment.Values.Total > 0);
 
             var (limits, limitErrors) = await RetrieveLimitInfoModel(account.CustomerCode, availablePaymentMethods.First().PaymentMethodCode);
@@ -103,7 +108,7 @@ namespace Nexus.Samples.Broker.API
         [HttpGet("checkbuylimits")]
         public async Task<IActionResult> CheckBuyLimits([FromQuery] string accountId, [FromQuery] string paymentMethodCode)
         {
-            var accountResponse = await this.nexusClient.GetAccount(accountId);
+            var accountResponse = await this._nexusClient.GetAccount(accountId);
             if (!accountResponse.IsSuccess)
             {
                 return BadRequest(accountResponse.Errors);
@@ -121,7 +126,7 @@ namespace Nexus.Samples.Broker.API
 
         private async Task<(LimitInfoModel, IEnumerable<string>)> RetrieveLimitInfoModel(string customerCode, string paymentMethodCode)
         {
-            var brokerLimitResponse = await this.nexusClient.GetBrokerBuyLimits(customerCode, paymentMethodCode);
+            var brokerLimitResponse = await this._nexusClient.GetBrokerBuyLimits(customerCode, paymentMethodCode);
             if (!brokerLimitResponse.IsSuccess)
             {
                 return (null, brokerLimitResponse.Errors);
@@ -158,7 +163,7 @@ namespace Nexus.Samples.Broker.API
                 value.Currency = CurrencyCode;
             }
 
-            var response = await nexusClient.SimulateBuyBroker(value);
+            var response = await _nexusClient.SimulateBuyBroker(value);
 
             if (response.IsSuccess)
             {
@@ -180,28 +185,28 @@ namespace Nexus.Samples.Broker.API
         [HttpGet("checksellinfo/{id?}")]
         public async Task<IActionResult> CheckSellInfo(string id = null)
         {
-            var accountResponse = await this.nexusClient.GetAccount(id);
+            var accountResponse = await this._nexusClient.GetAccount(id);
             if (!accountResponse.IsSuccess)
             {
                 return BadRequest(accountResponse.Errors);
             }
             var account = accountResponse.Values;
 
-            var customerResponse = await this.nexusClient.GetCustomer(account.CustomerCode);
+            var customerResponse = await this._nexusClient.GetCustomer(account.CustomerCode);
             if (!customerResponse.IsSuccess)
             {
                 return BadRequest(customerResponse.Errors);
             }
             var customer = customerResponse.Values;
 
-            var brokerLimitResponse = await this.nexusClient.GetBrokerSellLimits(account.CustomerCode, account.DcCode);
+            var brokerLimitResponse = await this._nexusClient.GetBrokerSellLimits(account.CustomerCode, account.DcCode);
             if (!brokerLimitResponse.IsSuccess)
             {
                 return BadRequest(brokerLimitResponse.Errors);
             }
             var brokerSellLimits = brokerLimitResponse.Values;
 
-            var pricesResponse = await this.nexusClient.GetPrices("EUR");
+            var pricesResponse = await this._nexusClient.GetPrices("EUR");
             if (!pricesResponse.IsSuccess)
             {
                 return BadRequest(pricesResponse.Errors);
@@ -209,7 +214,7 @@ namespace Nexus.Samples.Broker.API
             var prices = pricesResponse.Values;
             var cryptoPrices = prices.Prices[account.DcCode];
 
-            var brokerBuyTransactionsResponse = await this.nexusClient.GetBuyTransactions(account.CustomerCode);
+            var brokerBuyTransactionsResponse = await this._nexusClient.GetBuyTransactions(account.CustomerCode);
             if (!brokerBuyTransactionsResponse.IsSuccess)
             {
                 return BadRequest(brokerBuyTransactionsResponse?.Errors);
@@ -250,7 +255,7 @@ namespace Nexus.Samples.Broker.API
                 value.Currency = CurrencyCode;
             }
 
-            var response = await nexusClient.SimulateSellBroker(new SimulateSellBrokerRequest
+            var response = await _nexusClient.SimulateSellBroker(new SimulateSellBrokerRequest
             {
                 AccountCode = value.AccountCode,
                 PaymentMethodCode = $"DT_CRYPTO_SELL_{value.CryptoCode}_EUR",
@@ -266,6 +271,12 @@ namespace Nexus.Samples.Broker.API
             {
                 return BadRequest(response.Errors);
             }
+        }
+
+        [HttpGet("getsupportedcrypto/{crypto}")]
+        public async Task<ActionResult<SupportedCrypto>> GetSupportedCrypto(string crypto)
+        {
+            return Ok(_supportedCryptoHelper.GetSupportedCrypto(crypto));
         }
     }
 }
