@@ -16,6 +16,10 @@ namespace Nexus.Samples.Broker.Extensions
 
         public SupportedCrypto GetSupportedCryptoFromRoute(string route)
         {
+            if (string.IsNullOrWhiteSpace(route))
+            {
+                return _supportedCryptos.FirstOrDefault();
+            }
             return _supportedCryptos.First(crypto => string.Equals(crypto.Route.ToLower(), route.ToLower()));
         }
 

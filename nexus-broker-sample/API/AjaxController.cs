@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Nexus.Samples.Broker.Configuration;
 using Nexus.Samples.Broker.Extensions;
 using Nexus.Samples.Broker.ViewModels;
@@ -255,10 +254,12 @@ namespace Nexus.Samples.Broker.API
                 value.Currency = CurrencyCode;
             }
 
+            var paymentMethodCode = _supportedCryptoHelper.GetSupportedCrypto(value.CryptoCode).SellPaymentMethodCode;
+
             var response = await _nexusClient.SimulateSellBroker(new SimulateSellBrokerRequest
             {
                 AccountCode = value.AccountCode,
-                PaymentMethodCode = $"DT_CRYPTO_SELL_{value.CryptoCode}_EUR",
+                PaymentMethodCode = paymentMethodCode,
                 CryptoAmount = value.BtcAmount,
                 Ip = Request.HttpContext.Connection.RemoteIpAddress.ToString()
             });

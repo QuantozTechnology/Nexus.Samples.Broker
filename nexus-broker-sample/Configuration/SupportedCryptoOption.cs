@@ -13,5 +13,6 @@ namespace Nexus.Samples.Broker.Configuration
         public string Crypto {  get; set; }
         public string Name { get; set; }
         public bool IsNative { get; set; }
+        public string SellPaymentMethodCode { get; set; }
     }
 }
