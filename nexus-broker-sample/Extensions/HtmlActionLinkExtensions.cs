@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq.Expressions;
-using Microsoft.AspNetCore.Html;
+﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Linq.Expressions;
 
 namespace Nexus.Samples.Broker.Extensions
 {

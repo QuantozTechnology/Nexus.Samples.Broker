@@ -51,96 +51,105 @@ namespace Nexus.Samples.MailClient
 
             foreach(var mailToSend in mailsToSend)
             {
-                var isMailSuccessfullySent = false;
-                var body = "";
-                var subject = "";
-
-                switch (mailToSend.Type)
+                try
                 {
-                    case "NewAccountRequested":
-                        (subject, body) = await SendNewAccountRequestedMailAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
+                    var isMailSuccessfullySent = false;
+                    var body = "";
+                    var subject = "";
+                    mailToSend.Recipient.Email = mailToSend.Recipient.Email.Trim();
 
-                    case "NewAccountActivated":
-                        (subject, body) = await SendNewAccountActivatedAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
-
-                    case "AccountDeletedByRequest":
-                        (subject, body) = await SendAccountDeletedByRequestAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
-
-                    case "TransactionBuyFinish":
-                        (subject, body) = await SendTransactionBuyFinishAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
-
-                    case "TrustLevelUpdated":
-                        (subject, body) = await SendTrustLevelUpdatedAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
-
-                    case "AccountInfoRequest":
-                        (subject, body) = await SendAccountInfoRequestedAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
-
-                    case "AccountDeleteRequested":
-                        (subject, body) = await SendAccountDeleteRequestedMailAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
-
-                    case "BlockedTransaction":
-                        (subject, body) = await SendTransactionBlockedMailAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
-
-                    case "TransactionBuySendDelay":
-                        (subject, body) = await SendTransactionBuySendDelayMailAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
-
-                    case "TransactionSellFinish":
-                        (subject, body) = await SendTransactionSellFinishAsync(mailToSend);
-                        isMailSuccessfullySent = true;
-                        break;
-
-                    default:
-                        Console.WriteLine("Mail Type not supported");
-                        break;
-                }
-
-                if (isMailSuccessfullySent)
-                {
-                    var updateResponse = await _nexusClient.UpdateMailContent(mailToSend.Code, new UpdateMailContentRequest
+                    switch (mailToSend.Type)
                     {
-                        Content = new MailContent
+                        case "NewAccountRequested":
+                            (subject, body) = await SendNewAccountRequestedMailAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
+
+                        case "NewAccountActivated":
+                            (subject, body) = await SendNewAccountActivatedAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
+
+                        case "AccountDeletedByRequest":
+                            (subject, body) = await SendAccountDeletedByRequestAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
+
+                        case "TransactionBuyFinish":
+                            (subject, body) = await SendTransactionBuyFinishAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
+
+                        case "TrustLevelUpdated":
+                            (subject, body) = await SendTrustLevelUpdatedAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
+
+                        case "AccountInfoRequest":
+                            (subject, body) = await SendAccountInfoRequestedAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
+
+                        case "AccountDeleteRequested":
+                            (subject, body) = await SendAccountDeleteRequestedMailAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
+
+                        case "BlockedTransaction":
+                            (subject, body) = await SendTransactionBlockedMailAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
+
+                        case "TransactionBuySendDelay":
+                            (subject, body) = await SendTransactionBuySendDelayMailAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
+
+                        case "TransactionSellFinish":
+                            (subject, body) = await SendTransactionSellFinishAsync(mailToSend);
+                            isMailSuccessfullySent = true;
+                            break;
+
+                        default:
+                            Console.WriteLine("Mail Type not supported");
+                            break;
+                    }
+
+                    if (isMailSuccessfullySent)
+                    {
+                        var updateResponse = await _nexusClient.UpdateMailContent(mailToSend.Code, new UpdateMailContentRequest
                         {
-                            Html = body,
-                            Subject = subject
-                        },
+                            Content = new MailContent
+                            {
+                                Html = body,
+                                Subject = subject
+                            },
 
-                    });
+                        });
 
-                    if (!updateResponse.IsSuccess)
-                    {
-                        Console.WriteLine($"Error occured updating Mail with code: {mailToSend.Code}.");
-                    }
+                        if (!updateResponse.IsSuccess)
+                        {
+                            Console.WriteLine($"Error occured updating Mail with code: {mailToSend.Code}.");
+                        }
 
-                    var sentResponse = await _nexusClient.MailSent(mailToSend.Code);
+                        var sentResponse = await _nexusClient.MailSent(mailToSend.Code);
 
-                    if (!sentResponse.IsSuccess)
-                    {
-                        Console.WriteLine($"Error occured updating Mail with code: {mailToSend.Code} as sent.");
+                        if (!sentResponse.IsSuccess)
+                        {
+                            Console.WriteLine($"Error occured updating Mail with code: {mailToSend.Code} as sent.");
+                        }
                     }
                 }
-
-                if (totalPages > page)
+                catch (Exception ex) 
                 {
-                    await SendMailsAsync(page++);
+                    Console.WriteLine($"Error sending email {mailToSend.Code} because of {ex.ToString()}");
                 }
+                
+            }
+
+            if (totalPages > page)
+            {
+                await SendMailsAsync(page++);
             }
         }
 

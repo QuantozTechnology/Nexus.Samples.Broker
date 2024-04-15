@@ -1,12 +1,12 @@
-﻿using System;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using IdentityModel.Client;
 using Microsoft.Extensions.Configuration;
-using IdentityModel.Client;
 using Newtonsoft.Json;
 using Nexus.Samples.Sdk.Models.Request;
 using Nexus.Samples.Sdk.Models.Response;
+using System;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Nexus.Samples.Sdk
 {
@@ -35,8 +35,7 @@ namespace Nexus.Samples.Sdk
 
     public class NexusClient
     {
-        private readonly HttpClient client11;
-        private readonly HttpClient client12;
+        private readonly HttpClient client;
         private readonly ConnectionConfiguration config;
         private DateTime refreshTime = DateTime.MinValue;
         private string token;
@@ -45,13 +44,9 @@ namespace Nexus.Samples.Sdk
         {
             config = ConnectionConfiguration.GetAPIConnectionSettings(configuration);
 
-            client11 = new HttpClient();
-            client11.BaseAddress = new Uri(config.URL);
-            client11.DefaultRequestHeaders.Add("api_version", "1.1");
-
-            client12 = new HttpClient();
-            client12.BaseAddress = new Uri(config.URL);
-            client12.DefaultRequestHeaders.Add("api_version", "1.2");
+            client = new HttpClient();
+            client.BaseAddress = new Uri(config.URL);
+            client.DefaultRequestHeaders.Add("api_version", "1.2");
         }
 
         private async Task PotentialTokenRefresh()
@@ -65,8 +60,7 @@ namespace Nexus.Samples.Sdk
                 {
                     Trace.WriteLine("Updated Token");
 
-                    client11.SetBearerToken(token);
-                    client12.SetBearerToken(token);
+                    client.SetBearerToken(token);
                     refreshTime = DateTime.UtcNow;
                 }
             }
@@ -75,7 +69,7 @@ namespace Nexus.Samples.Sdk
         private async Task<string> GetNewToken()
         {
             // discover endpoints from metadata
-            var disco = await client11.GetDiscoveryDocumentAsync(config.IdentityUrl);
+            var disco = await client.GetDiscoveryDocumentAsync(config.IdentityUrl);
 
             if (disco.IsError)
             {
@@ -84,7 +78,7 @@ namespace Nexus.Samples.Sdk
             }
 
             // request token
-            var tokenResponse = await client11.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+            var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
             {
                 Address = disco.TokenEndpoint,
                 ClientId = config.Username,
@@ -100,129 +94,124 @@ namespace Nexus.Samples.Sdk
 
             return tokenResponse.AccessToken;
         }
-
-        //[Obsolete("Use other methods to lower the chance of exceptions")]
-        public async Task<T> GetRequestAsync<T>(string url, string argument = "")
-        {
-            await PotentialTokenRefresh();
-
-            HttpResponseMessage response = await client11.GetAsync(url + argument);
-
-            //try
-            //{
-            //    response.EnsureSuccessStatusCode();
-            //}
-            //catch (HttpRequestException ex)
-            //{
-            //    Trace.WriteLine(ex.ToString());
-            //}
-
-            string responseresult = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<T>(responseresult);
-        }
-
+        
         public async Task<DefaultResponseTemplate<CreateCustomerResponse>> CreateCustomer(CreateCustomerRequest request)
         {
-            var response = await PostRequest12Async("customer", request);
+            var response = await PostRequestAsync("customer", request);
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<CreateCustomerResponse>>();
         }
 
         public async Task<DefaultResponseTemplate<GetAccountResponse>> CreateAccount(string customerCode, CreateAccountRequest request)
         {
-            var response = await PostRequest12Async($"customer/{customerCode}/accounts", request);
+            var response = await PostRequestAsync($"customer/{customerCode}/accounts", request);
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetAccountResponse>>();
         }
 
         public async Task<DefaultResponseTemplate<SimulateBuyBrokerResponse>> SimulateBuyBroker(SimulateBuyBrokerRequest request)
         {
-            var response = await PostRequest12Async("buy/broker/simulate", request);
+            var response = await PostRequestAsync("buy/broker/simulate", request);
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<SimulateBuyBrokerResponse>>();
         }
 
         public async Task<DefaultResponseTemplate<SimulateSellBrokerResponse>> SimulateSellBroker(SimulateSellBrokerRequest request)
         {
-            var response = await PostRequest12Async("sell/broker/simulate", request);
+            var response = await PostRequestAsync("sell/broker/simulate", request);
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<SimulateSellBrokerResponse>>();
         }
 
         public async Task<DefaultResponseTemplate<GetAccountResponse>> GetAccount(string accountCode)
         {
-            var response = await GetRequest12Async($"accounts/{accountCode}");
+            var response = await GetRequestAsync($"accounts/{accountCode}");
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetAccountResponse>>();
         }
 
         public async Task<DefaultResponseTemplate<PagedResult<GetAccountResponse>>> GetAccountsForCustomer(string customerCode)
         {
-            var response = await GetRequest12Async($"/customer/{customerCode}/accounts");
+            var response = await GetRequestAsync($"/customer/{customerCode}/accounts");
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetAccountResponse>>>();
         }
 
         public async Task<DefaultResponseTemplate<EmptyResponse>> ActivateAccount(string accountCode)
         {
-            var response = await GetRequest12Async($"accounts/activate/{accountCode}");
+            var response = await GetRequestAsync($"accounts/activate/{accountCode}");
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<EmptyResponse>>();
         }
 
         public async Task<DefaultResponseTemplate<EmptyResponse>> DeleteAccount(string accountCode)
         {
-            var response = await DeleteRequest12Async($"accounts/{accountCode}");
+            var response = await DeleteRequestAsync($"accounts/{accountCode}");
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<EmptyResponse>>();
         }
 
         public async Task<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>> GetTransactions(string customerCode)
         {
-            var response = await GetRequest12Async($"transaction?customer={customerCode}");
+            return await GetTransactions(customerCode, null);
+        }
 
+        public async Task<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>> GetTransactions(string customerCode, string transactionStatus)
+        {
+            var queryString = $"transaction?customer={customerCode}";
+            if (transactionStatus != null)
+            {
+                queryString += $"&status={transactionStatus}";
+            }
+            var response = await GetRequestAsync(queryString);
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>>();
+        }
+
+        public async Task<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>> GetBuyTransactions(string customerCode)
+        {
+            var response = await GetRequestAsync($"transaction?customer={customerCode}&type=Buy");
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetBrokerTransactionResponse>>>();
         }
 
         public async Task<DefaultResponseTemplate<GetBrokerTransactionResponse>> GetTransaction(string code)
         {
-            var response = await GetRequest12Async($"transaction/{code}");
+            var response = await GetRequestAsync($"transaction/{code}");
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetBrokerTransactionResponse>>();
         }
 
         public async Task<DefaultResponseTemplate<GetCustomerResponse>> GetCustomer(string customerCode)
         {
-            var response = await GetRequest12Async($"customer/{customerCode}");
+            var response = await GetRequestAsync($"customer/{customerCode}");
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetCustomerResponse>>();
         }
 
         public async Task<DefaultResponseTemplate<GetPricesResponse>> GetPrices(string currencyCode)
         {
-            var response = await GetRequest12Async($"prices/{currencyCode}");
+            var response = await GetRequestAsync($"prices/{currencyCode}");
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetPricesResponse>>();
         }
 
         public async Task<DefaultResponseTemplate<PagedResult<GetMailResponse>>> GetReadyToSendMails(int page, string typeList = "")
         {
-            var response = await GetRequest12Async($"mail?status=ReadyToSend&page={page}&type={typeList}");
+            var response = await GetRequestAsync($"mail?status=ReadyToSend&page={page}&type={typeList}");
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetMailResponse>>>();
         }
 
         public async Task<DefaultResponseTemplate<PagedResult<GetCustomerResponse>>> GetCustomersByEmail(string email)
         {
-            var response = await GetRequest12Async($"customer?email={email}");
+            var response = await GetRequestAsync($"customer?email={email}");
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetCustomerResponse>>>();
         }
 
         public async Task<DefaultResponseTemplate<GetMailResponse>> GetMailByCode(string code)
         {
-            var response = await GetRequest12Async($"mail/{code}");
+            var response = await GetRequestAsync($"mail/{code}");
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetMailResponse>>();
         }
@@ -230,44 +219,79 @@ namespace Nexus.Samples.Sdk
 
         public async Task<DefaultResponseTemplate<GetMailResponse>> CreateMail(CreateMailRequest request)
         {
-            var response = await PostRequest12Async("mail", request);
+            var response = await PostRequestAsync("mail", request);
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetMailResponse>>();
         }
 
         public async Task<DefaultResponseTemplate<GetMailResponse>> UpdateMailContent(string code, UpdateMailContentRequest request)
         {
-            var response = await PutRequest12($"mail/{code}", request);
+            var response = await PutRequest($"mail/{code}", request);
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetMailResponse>>();
         }
 
         public async Task<DefaultResponseTemplate<GetMailResponse>> MailSent(string code)
         {
-            var response = await PutRequest12($"mail/{code}/sent");
+            var response = await PutRequest($"mail/{code}/sent");
 
             return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetMailResponse>>();
         }
 
-        public async Task<HttpResponseMessage> GetRequest12Async(string url)
+        public async Task<DefaultResponseTemplate<PagedResult<GetPaymentMethodResponse>>> GetPaymentMethodInformation(string currency, string crypto, string transactionType)
         {
-            await PotentialTokenRefresh();
+            var response = await GetRequestAsync($"paymentmethod?currency={currency}&crypto={crypto}&transactionType={transactionType}&limit=100");
 
-            return await client12.GetAsync(url);
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<PagedResult<GetPaymentMethodResponse>>>();
         }
 
-        public async Task<HttpResponseMessage> DeleteRequest12Async(string url)
+        public async Task<DefaultResponseTemplate<InitiateBrokerBuyResponse>> InitiateBrokerBuy(InitiateBrokerBuyRequest request)
         {
-            await PotentialTokenRefresh();
+            var response = await PostRequestAsync("/buy/broker", request);
 
-            return await client12.DeleteAsync(url);
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<InitiateBrokerBuyResponse>>();
         }
 
-        public async Task<T> GetRequest12<T>(string url)
+        public async Task<DefaultResponseTemplate<InitiateBrokerSellResponse>> InitiateBrokerSell(InitiateBrokerSellRequest request)
+        {
+            var response = await PostRequestAsync("/sell/broker", request);
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<InitiateBrokerSellResponse>>();
+        }
+
+        public async Task<DefaultResponseTemplate<GetBrokerLimitResponse>> GetBrokerBuyLimits(string customerCode, string paymentMethodCode)
+        {
+            var response = await GetRequestAsync($"customer/{customerCode}/limits/broker/buy?paymentMethodCode={paymentMethodCode}");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetBrokerLimitResponse>>();
+        }
+
+        public async Task<DefaultResponseTemplate<GetBrokerLimitResponse>> GetBrokerSellLimits(string customerCode, string cryptoCode)
+        {
+            var response = await GetRequestAsync($"customer/{customerCode}/limits/broker/sell?cryptoCode={cryptoCode}");
+
+            return await response.Content.ReadAsAsync<DefaultResponseTemplate<GetBrokerLimitResponse>>();
+        }
+
+        public async Task<HttpResponseMessage> GetRequestAsync(string url)
         {
             await PotentialTokenRefresh();
 
-            var response = await client12.GetAsync(url);
+            return await client.GetAsync(url);
+        }
+
+        public async Task<HttpResponseMessage> DeleteRequestAsync(string url)
+        {
+            await PotentialTokenRefresh();
+
+            return await client.DeleteAsync(url);
+        }
+
+        public async Task<T> GetRequest<T>(string url)
+        {
+            await PotentialTokenRefresh();
+
+            var response = await client.GetAsync(url);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -279,64 +303,29 @@ namespace Nexus.Samples.Sdk
             return JsonConvert.DeserializeObject<T>(responseresult);
         }
 
-        public async Task<HttpResponseMessage> PostRequest12Async<T>(string url, T postData)
+        public async Task<HttpResponseMessage> PostRequestAsync<T>(string url, T postData)
         {
             await PotentialTokenRefresh();
 
-            return await client12.PostAsJsonAsync(url, postData);
+            return await client.PostAsJsonAsync(url, postData);
         }
 
-        public async Task<HttpResponseMessage> PutRequest12<T>(string url, T msg)
+        public async Task<HttpResponseMessage> PutRequest<T>(string url, T msg)
         {
             await PotentialTokenRefresh();
 
-            var response = await client12.PutAsJsonAsync(url, msg);
+            var response = await client.PutAsJsonAsync(url, msg);
 
             return response;
         }
 
-        public async Task<HttpResponseMessage> PutRequest12(string url)
+        public async Task<HttpResponseMessage> PutRequest(string url)
         {
             await PotentialTokenRefresh();
 
-            var response = await client12.PutAsync(url, null);
+            var response = await client.PutAsync(url, null);
 
             return response;
-        }
-
-        public async Task<HttpResponseMessage> GetAsync(string url, string argument = "")
-        {
-            await PotentialTokenRefresh();
-
-            HttpResponseMessage response = await client11.GetAsync(url + argument);
-
-            return response;
-        }
-
-        public async Task<HttpResponseMessage> PostRequestAsync<T>(string url, T postData, string argument = "")
-        {
-            await PotentialTokenRefresh();
-
-            return await client11.PostAsJsonAsync(url + argument, postData);
-        }
-
-        public async Task<T> PostAndGetRequestAsync<T, T2>(string url, T2 postData, string id = "")
-        {
-            await PotentialTokenRefresh();
-
-            HttpResponseMessage response = await client11.PostAsJsonAsync(url + id, postData);
-            var res = await response.Content.ReadAsStringAsync();
-
-            try
-            {
-                response.EnsureSuccessStatusCode();
-            }
-            catch (HttpRequestException ex)
-            {
-                Trace.WriteLine(ex.ToString());
-            }
-
-            return await response.Content.ReadAsAsync<T>();
         }
     }
 }

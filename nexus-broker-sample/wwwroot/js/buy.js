@@ -1,10 +1,11 @@
-﻿
+﻿/*
+This Javascript file is used for all the broker buy functions needed to make the buy pages more dynamic.
+This makes use of the AjaxController exposed API endpoints.
+*/
 $(function () {
     var relativeImagePath = '/images/payments/';
     var accountValid = false;
-    var refreshingForm = false;
     var availablePaymentMethods;
-    var updateBuyFormInterval;
     var minAmount = 0;
     var maxAmount = 0;
     var currentDCCode;
@@ -27,20 +28,38 @@ $(function () {
     };
 
     function jsonRequest(config) {
-        return $.ajax(config.url, {
+        var ajaxConfig = {
             type: config.type,
-            //contentType: "application/json",
-            data: JSON.stringify(config.data), // JSON data goes here
+            data: JSON.stringify(config.data),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            headers: {
-                //'RequestVerificationToken': tokenHeaderValue
-            }
-        });
+            headers: {}
+        };
+        if (config.error) {
+            ajaxConfig.error = config.error;
+        }
+        return $.ajax(config.url, ajaxConfig);
     }
 
     function getAccountCode() {
         return $('input[name=AccountCode]').val().trim();
+    }
+
+    function firePaymentMethodEvent() {
+        var paymentMethodCode = $('select[name=PaymentMethodCode] :selected').val();
+        var accountCode = getAccountCode();
+
+        jsonRequest({
+            url: "/api/ajax/checkbuylimits?accountId=" + accountCode + "&paymentMethodCode=" + paymentMethodCode,
+            type: "get",
+            data: {}
+        }).done(function (data) {
+            maxAmount = data.remainingDailyLimit;
+            minAmount = data.minimumAmount;
+            updateAmountLimitText();
+            updateLimitReasonHeaders(data.limitReasons);
+            updateForm();
+        });
     }
 
     function updateForm() {
@@ -52,9 +71,6 @@ $(function () {
             if (method.paymentMethodCode === paymentMethodCode) {
                 var imagefile = relativeImagePath + method.paymentTypeCode + '.png';
                 $('#PaymentImage').prop('src', imagefile);
-                minAmount = method.minAmount;
-                maxAmount = method.maxAmount;
-                setAmountRanges();
             }
         });
 
@@ -87,29 +103,16 @@ $(function () {
         $('.btn.btn-send').prop('disabled', false);
 
         jsonRequest({
-            url: "/api/ajax/bitcoinvalue",
+            url: "/api/ajax/simulatebuy",
             type: "post",
-            data: postData
+            data: postData,
+            error: function (xhr, status, error) {
+                if (error && error.limitReasons && error.limitReasons.length > 0) {
+                    updateLimitReasonHeaders(error.limitReasons);
+                    return;
+                }
+            }
         }).done(function (data) {
-            // old: (1.0/1.1)
-            //$('.currency-code').text(data.currency);
-            //$('.dc-code').text(data.dcCode);
-            //$('#BTCAmount').text(data.info.dcAmount.toFixed(8));
-            //$('#BTCBuyPrice').text('(' + data.info.dcBuyPriceBeforeFee.toFixed(2) + ' ' + data.currency + '/' + data.dcCode + ')');
-            //$('#EuroBankFee').text(data.info.currencyBankFee.toFixed(2));
-            //$('#EuroServiceFee').text(data.info.currencyServiceFee.toFixed(2));
-            //$('#EuroNetworkFee').text(data.info.currencyNetworkFee.toFixed(2));
-            //$('#TotalEuro').text(data.info.totalCurrency.toFixed(2));
-
-            //var submit = $('.btn.btn-send');
-            //if (data.info.dcAmount.toFixed(8) > 0.0) {
-            //    submit.removeProp('disabled').removeAttr('disabled');
-            //} else {
-            //    submit.prop('disabled', 'disabled');
-            //}
-
-            // 1.2
-
             if (!data) { return; }
 
             $('.currency-code').text(data.currencyCode);
@@ -177,8 +180,7 @@ $(function () {
                     }
                 }
             }
-            else
-            {
+            else {
                 updateAccountCode(data);
 
                 currentDCCode = data.dcCode;
@@ -189,9 +191,11 @@ $(function () {
                     }
 
                     $('input[name=Amount]').focus();
-
                     updatePayMethods(data.paymentMethods);
                     updateWarningHeaders(data.paymentPending, data.coolingDown, data.needFotoID);
+                    minAmount = data.limits.minimumAmount;
+                    maxAmount = data.limits.remainingDailyLimit;
+                    updateAmountLimitText();
                     updateLimitReasonHeaders(data.limitReasons);
                     updateForm();
 
@@ -203,7 +207,7 @@ $(function () {
 
     function updateLimitReasonHeaders(limitReasons) {
 
-        if (limitReasons.length > 0) {
+        if (limitReasons && limitReasons.length > 0) {
             $('#limit-reason-title').prop('visible', 'block').show();
 
             if (limitReasons.includes(LimitReasonEnum.LowBalance)) {
@@ -251,30 +255,21 @@ $(function () {
         };
     };
 
-    function updateWarningHeaders(paymentPending, coolingDown, needFotoID) {
+    function updateWarningHeaders(paymentPending, coolingDown, needPhotoID) {
         if (paymentPending) {
             $('#buy-notice-payment-pending').show();
         }
         else if (coolingDown) {
             $('#buy-notice-cooldown').show();
         }
-        else if (needFotoID) {
+        else if (needPhotoID) {
             $('#buy-notice-need-fotoid').show();
         }
-    }
-
-    function updateAmountRange() {
-        updateAmountLimitText();
     }
 
     function updateAmountLimitText() {
         var content = "min: " + minAmount + " max: " + maxAmount;
         $("#curAmountLimit").html(content);
-    }
-
-    function setAmountRanges() {
-        var paymentMethodCode = $('select[name=PaymentMethodCode] :selected').val();
-        updateAmountLimitText();
     }
 
     // Update account input field according to web response
@@ -366,19 +361,12 @@ $(function () {
         $.each(PaymentMethods, function (index, paymethod) {
 
             if (index === 0) {
-                paymethComboBox.append($('<option></option>').val(paymethod.paymentMethodCode).html(paymethod.paymentTypeName).prop('selected', 'selected'));
-
-                minAmount = paymethod.minAmount;
-                maxAmount = paymethod.maxAmount;
-                setAmountRanges();
-                $('input[name=Amount]').val(minAmount);
+                paymethComboBox.append($('<option></option>').val(paymethod.paymentMethodCode).html(paymethod.paymentTypeDisplay).prop('selected', 'selected'));
             }
             else {
-                paymethComboBox.append($('<option></option>').val(paymethod.paymentMethodCode).html(paymethod.paymentTypeName));
+                paymethComboBox.append($('<option></option>').val(paymethod.paymentMethodCode).html(paymethod.paymentTypeDisplay));
             }
         });
-
-        // jcf.refresh($('select[name=PaymentMethodCode]'));
         $('select[name=PaymentMethodCode]').selectric('refresh');
 
 
@@ -398,6 +386,10 @@ $(function () {
         }
     });
 
+    $('select[name=PaymentMethodCode]').on('change', function () {
+        firePaymentMethodEvent();
+    });
+
     function refreshFormData() {
         var accountCode = getAccountCode();
         jsonRequest({
@@ -407,7 +399,6 @@ $(function () {
         }).done(function (data) {
             refreshingForm = true;
             currentDCCode = data.dcCode;
-            updatePayMethods(data.paymentMethods);
             updateForm();
             refreshingForm = false;
         });

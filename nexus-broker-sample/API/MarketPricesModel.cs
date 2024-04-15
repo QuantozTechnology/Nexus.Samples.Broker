@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Nexus.Samples.Sdk.Models.Response;
+using System.Collections.Generic;
 using System.Linq;
-using Nexus.Samples.Sdk.Models.Response;
 
 namespace Nexus.Samples.Broker.API
 {

@@ -19,14 +19,14 @@ The sample application has a very simplified model for account management. Custo
 The Quantoz Nexus team can help you with advice and support.
 
 ### Customer communication
-To support customer communication Nexus offers a Mail entity that stores information related to the Broker processes. This entity is either created manually via Nexus API or automatically by processes within Nexus. The sending of Mails as e-mail is handle by the Mail Service implemented as an [Azure Function](https://azure.microsoft.com/en-us/services/functions/?&ef_id=Cj0KCQjwqrb7BRDlARIsACwGad4pSj4Y3octbqqli5iLIAAlGZ5yBQpLnRs7j2vmvX4xwJuRfN25l28aArEOEALw_wcB:G:s&OCID=AID2100079_SEM_Cj0KCQjwqrb7BRDlARIsACwGad4pSj4Y3octbqqli5iLIAAlGZ5yBQpLnRs7j2vmvX4xwJuRfN25l28aArEOEALw_wcB:G:s) in this project. The subject and content of the e-mail is set by the Mail Service and an overview of the supported types along with their subject and content is described [here](/mail-examples.md).
+To support customer communication Nexus offers a Mail entity that stores information related to the Broker processes. This entity is either created manually via Nexus API or automatically by processes within Nexus. The sending of Mails as e-mail is handle by the Mail Service implemented as an [Azure Function](https://azure.microsoft.com/en-us/products/functions#overview) in this project. The subject and content of the e-mail is set by the Mail Service and an overview of the supported types along with their subject and content is described [here](/mail-examples.md).
 
 
 ## Configuration
 The `appsettings.json` file contains the settings and client credentials that you need to run the app, contact Quantoz Nexus support to obtain the needed configuration to connect to your Nexus Tenant.
 
 ## Installation
-- Install .NET Core 3.1 [Download link](https://dotnet.microsoft.com/download). Download and install the SDK as per your operating system. We always recommend to use LTS version.
-- Windows users can install Visual Studio 2019 to build and run the project. Linux or Mac operating system users can use Visual Studio Code to build and run the project.
+- Install .NET 8.0 [Download link](https://dotnet.microsoft.com/download). Download and install the SDK as per your operating system. We always recommend to use LTS version.
+- Windows users can install Visual Studio 2022 to build and run the project. Linux or Mac operating system users can use Visual Studio Code to build and run the project.
 - To run the project with Visual Studio Code you need to install C# extension.
 - Execute `dotnet run` to run the project.

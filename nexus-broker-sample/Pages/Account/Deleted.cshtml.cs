@@ -1,12 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Nexus.Samples.Sdk;
 using Nexus.Samples.Sdk.Models.Request;
 using Nexus.Samples.Sdk.Models.Response;
 using Nexus.Samples.Sdk.Models.Shared;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace Nexus.Samples.Broker.Pages.Account
 {
@@ -96,7 +96,13 @@ namespace Nexus.Samples.Broker.Pages.Account
                 {
                     switch (error)
                     {
-                        case "AccountNotFound": return NotFound();
+                        case "AccountNotFound": 
+                            return NotFound();
+                        case "AccountAlreadyDeleted":
+                            SuccessfullyProcessedRequest = true;
+                            var accountResponse = await nexusClient.GetAccount(AccountCode);
+                            Account = accountResponse.Values;
+                            return Page();
                         default:
                             break;
                     }
