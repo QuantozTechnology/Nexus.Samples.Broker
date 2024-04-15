@@ -46,7 +46,6 @@
             else
             {
                 updateAccountCode(data, data.accountValid, data.isBusiness, data.trustLevel, data.highRisk, (data.firstBuyStatus === 0));
-
                 if (data.accountValid) {
                     $('input[name=CryptoAmount]').focus();
 
@@ -55,6 +54,7 @@
                 }
 
                 $('#CryptoAmount').val(data.minBtcAmount);
+                updatePrices();
             }
         });
     }
@@ -170,10 +170,11 @@
             }
         }
         $("#btcAmountLimit").html(content);
+        $("#btcAmountLimit").show();
     }
 
-    function updateSellActivateComment(type, highrisk, isbusiness) {
-        if (type !== undefined && type !== null && isbusiness && highrisk) {
+    function updateSellActivateComment(type) {
+        if (type !== undefined && type !== null) {
             if (type === 1) $('#sell-notice-needsuccessfulbuytransaction-beforefirstsell').show();
             if (type === 2) $('#sell-notice-successfulbuytransaction-pending').show();
             if (type === 3) $('#sell-notice-need-fotoid').show();

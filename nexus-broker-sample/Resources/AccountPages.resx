@@ -689,7 +689,7 @@ such as &lt;a href="http://www.theswiftcodes.com/"&gt;The SWIFT Codes &lt;/a&gt;
     <value>You can create additional accounts with the same bank account and trust status as an existing active account. This enables you to use multiple digital currency wallet addresses.</value>
   </data>
   <data name="AccountAsideDesc" xml:space="preserve">
-    <value>You can buy crypto and sell crypto directly after creating a Account. You can link multiple crypto addresses to one account.</value>
+    <value>You can buy crypto and sell crypto directly after creating an account. You can link multiple crypto addresses to one account.</value>
   </data>
   <data name="AccountAsideTitle" xml:space="preserve">
     <value>Add a new address to your existing account</value>
@@ -708,5 +708,14 @@ such as &lt;a href="http://www.theswiftcodes.com/"&gt;The SWIFT Codes &lt;/a&gt;
   </data>
   <data name="CustomerExists" xml:space="preserve">
     <value>IBAN already in use</value>
+  </data>
+  <data name="AccountAsideNonNativeDesc" xml:space="preserve">
+    <value>Please note that for {0} you need an already existing {1} account.</value>
+  </data>
+  <data name="AccountAdditionalAccountLabelNonNative" xml:space="preserve">
+    <value>Your {0} account code</value>
+  </data>
+  <data name="AccountAdditionalPlaceholderNonNativeAccount" xml:space="preserve">
+    <value>Your existing active {0} account code</value>
   </data>
 </root>
