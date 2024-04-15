@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Nexus.Samples.Broker.Extensions;
 using Nexus.Samples.Sdk;
 using Nexus.Samples.Sdk.Models.Request;
 using Nexus.Samples.Sdk.Models.Shared;
@@ -12,8 +13,9 @@ namespace Nexus.Samples.Broker.Pages.Account
     [BindProperties]
     public class ExtraModel : PageModel
     {
-        private readonly NexusClient nexusClient;
-        private readonly ILogger<ExtraModel> logger;
+        private readonly NexusClient _nexusClient;
+        private readonly ILogger<ExtraModel> _logger;
+        private readonly SupportedCryptoHelper _supportedCryptoHelper;
 
         [Required]
         public string AccountCode { get; set; }
@@ -23,15 +25,15 @@ namespace Nexus.Samples.Broker.Pages.Account
 
         public string CryptoCode { get; set; }
 
-        public ExtraModel(NexusClient nexusClient, ILogger<ExtraModel> logger)
+        public ExtraModel(NexusClient nexusClient, ILogger<ExtraModel> logger, SupportedCryptoHelper supportedCryptoHelper)
         {
-            this.nexusClient = nexusClient;
-            this.logger = logger;
+            this._nexusClient = nexusClient;
+            this._logger = logger;
+            this._supportedCryptoHelper = supportedCryptoHelper;
         }
 
         public void OnGet()
         {
-
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -41,13 +43,13 @@ namespace Nexus.Samples.Broker.Pages.Account
                 return Page();
             }
 
-            var getAccountResponse = await nexusClient.GetAccount(AccountCode);
+            var getAccountResponse = await _nexusClient.GetAccount(AccountCode);
 
             if (!getAccountResponse.IsSuccess)
             {
                 foreach (var error in getAccountResponse.Errors)
                 {
-                    logger.LogInformation(error);
+                    _logger.LogInformation(error);
                     switch (error)
                     {
                         case "AccountNotFound": ModelState.AddModelError(nameof(AccountCode), "Account not found."); break;
@@ -59,7 +61,18 @@ namespace Nexus.Samples.Broker.Pages.Account
                 return Page();
             }
 
-            var response = await nexusClient.CreateAccount(getAccountResponse.Values.CustomerCode, new CreateAccountRequest
+            var supportedCrypto = _supportedCryptoHelper.GetSupportedCrypto(CryptoCode);
+            if (!supportedCrypto.IsNative)
+            {
+                // Do extra validation for non native cryptos
+                if (!string.Equals(supportedCrypto.DependendNativeCrypto.ToLower(), getAccountResponse.Values.DcCode.ToLower())) {
+                    var dependendCrypto = _supportedCryptoHelper.GetSupportedCrypto(supportedCrypto.DependendNativeCrypto);
+                    ModelState.AddModelError(nameof(AccountCode), $"Account not a valid {dependendCrypto.Name} account");
+                    return Page();
+                }
+            }
+
+            var response = await _nexusClient.CreateAccount(getAccountResponse.Values.CustomerCode, new CreateAccountRequest
             {
                 AccountType = CreateAccountRequestAccountType.BROKER,
                 CryptoCode = CryptoCode,
@@ -69,7 +82,7 @@ namespace Nexus.Samples.Broker.Pages.Account
 
             if (response.IsSuccess)
             {
-                var customerResponse = await nexusClient.GetCustomer(getAccountResponse.Values.CustomerCode);
+                var customerResponse = await _nexusClient.GetCustomer(getAccountResponse.Values.CustomerCode);
 
                 if (customerResponse.IsSuccess)
                 {
@@ -86,7 +99,7 @@ namespace Nexus.Samples.Broker.Pages.Account
                         }
                     };
 
-                    await nexusClient.CreateMail(createAccountMail);
+                    await _nexusClient.CreateMail(createAccountMail);
                 }
 
                 return RedirectToPage("/Account/Created", new { response.Values.AccountCode});
@@ -95,7 +108,7 @@ namespace Nexus.Samples.Broker.Pages.Account
             {
                 foreach (var error in response.Errors)
                 {
-                    logger.LogInformation(error);
+                    _logger.LogInformation(error);
                     switch (error)
                     {
                         case "ERRORMESSAGE007": ModelState.AddModelError(nameof(CustomerCryptoAddress), "Invalid address."); break;
