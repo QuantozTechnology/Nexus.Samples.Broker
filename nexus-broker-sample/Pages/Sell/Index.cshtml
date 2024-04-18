@@ -1,8 +1,12 @@
 ﻿@page "{crypto}"
 @model Nexus.Samples.Broker.Pages.Sell.IndexModel
+@inject SupportedCryptoHelper SupportCryptoHelper
 
 @{
-    string dcCode = Html.GetActiveCryptoName();
+    string route = Html.GetActiveCrypto();
+    var supportedCrypto = SupportCryptoHelper.GetSupportedCryptoFromRoute(route);
+    string dc = supportedCrypto.Crypto;
+    string dcCode = supportedCrypto.Name;
     ViewData["Title"] = @String.Format(Resources.SellPages.SellPageTabTitle, dcCode);
     string language = Html.GetLanguage()?.ToLower();
     var cryptoSelectorModel = new CryptoSelectorViewModel(Model.Currency, "/Sell/Index", RouteData.Values["crypto"].ToString());
@@ -71,7 +75,7 @@ else
 
                                 <div class="form__group">
                                     <label class="form__label" for="CryptoAmount">@Resources.SellPages.SellFormAmountLabel</label>
-                                    <div class="form__info">@Html.GetActiveCryptoCode()</div>
+                                    <div class="form__info">@dc</div>
 
                                     @Html.TextBoxFor(model => model.CryptoAmount, new { @class = "form__control required-number updateEur", disabled = "disabled" })
 
@@ -124,6 +128,6 @@ else
 @section scripts {
     <script src="~/js/sell.js"></script>
     <script>
-        var cryptoCode = "@Html.GetActiveCryptoCode()";
+        var cryptoCode = "@dc";
     </script>
 }

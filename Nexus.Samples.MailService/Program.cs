@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Nexus.Samples.MailClient;
 using Nexus.Samples.Sdk;
+using Nexus.Samples.Sdk.Models.Shared;
 
 var config = new ConfigurationBuilder()
               .SetBasePath(Environment.CurrentDirectory)
@@ -17,8 +18,9 @@ var host = new HostBuilder()
     {
         services.AddApplicationInsightsTelemetryWorkerService();
         services.ConfigureFunctionsApplicationInsights();
+        services.Configure<NexusConnectionOptions>(config.GetSection("nexusConnection"));
         services.Configure<AuthMessageSenderOptions>(config.GetSection("mailClientConfiguration"));
-        services.AddSingleton(new NexusClient(config));
+        services.AddSingleton<NexusClient>();
         services.AddSingleton<NexusMailClient>();
     })
     .Build();

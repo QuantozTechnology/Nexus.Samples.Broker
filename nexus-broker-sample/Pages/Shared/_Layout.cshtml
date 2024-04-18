@@ -1,4 +1,12 @@
 ﻿@using Newtonsoft.Json
+@inject SupportedCryptoHelper SupportCryptoHelper
+
+@{
+    string route = Html.GetActiveCrypto();
+    var supportedCrypto = SupportCryptoHelper.GetSupportedCryptoFromRoute(route);
+    string dc = supportedCrypto.Crypto;
+}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +24,6 @@
     <meta name="description" content="@Html.GetPageDescription()">
 
     <!-- include the site stylesheet -->
-    @*@Styles.Render("~/bundles/css")*@
     <link rel="stylesheet" href="~/css/site.min.css">
     @RenderSection("styles", required: false)
 
@@ -37,11 +44,8 @@
     <partial name="_Footer" />
 
     <script>
-        var cryptoCode = '@Html.GetActiveCryptoCode()';
+        var cryptoCode = '@dc';
     </script>
-
-    @*@Scripts.Render("~/bundles/js")
-        @Scripts.Render("~/bundles/template")*@
 
     <script src="~/js/jquery-2.1.4.min.js"></script>
     <script src="~/js/jquery.selectric.js"></script>
@@ -68,8 +72,6 @@
 
                 console.log("Redirecting: " + newUrl);
                 window.location.href = newUrl;
-
-                //$(this).closest('form').trigger('submit');
             });
         })();
     </script>

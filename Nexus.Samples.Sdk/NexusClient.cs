@@ -1,8 +1,9 @@
 ﻿using IdentityModel.Client;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Nexus.Samples.Sdk.Models.Request;
 using Nexus.Samples.Sdk.Models.Response;
+using Nexus.Samples.Sdk.Models.Shared;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
@@ -10,43 +11,20 @@ using System.Threading.Tasks;
 
 namespace Nexus.Samples.Sdk
 {
-    public class ConnectionConfiguration
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string URL { get; set; }
-        public string IdentityUrl { get; set; }
-        public static ConnectionConfiguration GetAPIConnectionSettings(IConfiguration configuration)
-        {
-            var username = configuration["dcpartnerapi_username"];
-            var password = configuration["dcpartnerapi_password"];
-            var url = configuration["dcpartnerapi_url"];
-            var identity = configuration["dcpartnerapi_identity_url"];
-
-            return new ConnectionConfiguration()
-            {
-                Username = username,
-                Password = password,
-                URL = url,
-                IdentityUrl = identity
-            };
-        }
-    }
-
     public class NexusClient
     {
-        private readonly HttpClient client;
-        private readonly ConnectionConfiguration config;
+        private readonly HttpClient _client;
+        private readonly NexusConnectionOptions _nexusConnectionConfig;
         private DateTime refreshTime = DateTime.MinValue;
         private string token;
 
-        public NexusClient(IConfiguration configuration)
+        public NexusClient(IOptions<NexusConnectionOptions> nexusConnectionConfiguration)
         {
-            config = ConnectionConfiguration.GetAPIConnectionSettings(configuration);
+            _nexusConnectionConfig = nexusConnectionConfiguration.Value;
 
-            client = new HttpClient();
-            client.BaseAddress = new Uri(config.URL);
-            client.DefaultRequestHeaders.Add("api_version", "1.2");
+            _client = new HttpClient();
+            _client.BaseAddress = new Uri(_nexusConnectionConfig.ApiUrl);
+            _client.DefaultRequestHeaders.Add("api_version", "1.2");
         }
 
         private async Task PotentialTokenRefresh()
@@ -60,7 +38,7 @@ namespace Nexus.Samples.Sdk
                 {
                     Trace.WriteLine("Updated Token");
 
-                    client.SetBearerToken(token);
+                    _client.SetBearerToken(token);
                     refreshTime = DateTime.UtcNow;
                 }
             }
@@ -69,7 +47,7 @@ namespace Nexus.Samples.Sdk
         private async Task<string> GetNewToken()
         {
             // discover endpoints from metadata
-            var disco = await client.GetDiscoveryDocumentAsync(config.IdentityUrl);
+            var disco = await _client.GetDiscoveryDocumentAsync(_nexusConnectionConfig.IdentityUrl);
 
             if (disco.IsError)
             {
@@ -78,11 +56,11 @@ namespace Nexus.Samples.Sdk
             }
 
             // request token
-            var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+            var tokenResponse = await _client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
             {
                 Address = disco.TokenEndpoint,
-                ClientId = config.Username,
-                ClientSecret = config.Password,
+                ClientId = _nexusConnectionConfig.Username,
+                ClientSecret = _nexusConnectionConfig.Password,
                 Scope = "api1"
             });
 
@@ -277,21 +255,21 @@ namespace Nexus.Samples.Sdk
         {
             await PotentialTokenRefresh();
 
-            return await client.GetAsync(url);
+            return await _client.GetAsync(url);
         }
 
         public async Task<HttpResponseMessage> DeleteRequestAsync(string url)
         {
             await PotentialTokenRefresh();
 
-            return await client.DeleteAsync(url);
+            return await _client.DeleteAsync(url);
         }
 
         public async Task<T> GetRequest<T>(string url)
         {
             await PotentialTokenRefresh();
 
-            var response = await client.GetAsync(url);
+            var response = await _client.GetAsync(url);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -307,14 +285,14 @@ namespace Nexus.Samples.Sdk
         {
             await PotentialTokenRefresh();
 
-            return await client.PostAsJsonAsync(url, postData);
+            return await _client.PostAsJsonAsync(url, postData);
         }
 
         public async Task<HttpResponseMessage> PutRequest<T>(string url, T msg)
         {
             await PotentialTokenRefresh();
 
-            var response = await client.PutAsJsonAsync(url, msg);
+            var response = await _client.PutAsJsonAsync(url, msg);
 
             return response;
         }
@@ -323,7 +301,7 @@ namespace Nexus.Samples.Sdk
         {
             await PotentialTokenRefresh();
 
-            var response = await client.PutAsync(url, null);
+            var response = await _client.PutAsync(url, null);
 
             return response;
         }

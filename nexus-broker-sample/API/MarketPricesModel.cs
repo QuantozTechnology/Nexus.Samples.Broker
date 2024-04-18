@@ -41,6 +41,12 @@ namespace Nexus.Samples.Broker.API
                 case "XLM":
                     dcText = "lumen";
                     break;
+                case "USDT":
+                    dcText = "usdt";
+                    break;
+                case "USDT-ERC20":
+                    dcText = "usdt";
+                    break;
             }
 
             // always use decimal point and two digits, independent of regional settings => 0.00

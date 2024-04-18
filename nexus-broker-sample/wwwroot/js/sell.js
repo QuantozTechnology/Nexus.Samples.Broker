@@ -22,42 +22,30 @@
 
             if (data.dcCode !== cryptoCode) {
 
-                const cryptoNames = {
-                    BTC: 'bitcoin',
-                    BCH: 'bitcoincash',
-                    ETH: 'ethereum',
-                    LTC: 'litecoin',
-                    XLM: 'lumen'
-                }
+                jsonRequest({
+                    url: "/api/ajax/getsupportedcrypto/" + data.dcCode,
+                    type: "get",
+                    data: {}
+                }).done(function (supportedCrypto) {
+                    const prettyCrypto = supportedCrypto.name
 
-                const cryptoPrettyNames = {
-                    BTC: 'Bitcoin',
-                    BCH: 'Bitcoin Cash',
-                    ETH: 'Ethereum',
-                    LTC: 'Litecoin',
-                    XLM: 'Lumen'
-                }
-
-                const crypto = cryptoNames[data.dcCode]
-                const prettyCrypto = cryptoPrettyNames[data.dcCode]
-
-                if (!redirecting) {
-                    if (confirm(`This appears to be a ${prettyCrypto} account code, do you want to switch the form to ${prettyCrypto}?`)) {
-                        window.location.href = "/sell/" + crypto + "?id=" + getAccountCode();
-                        redirecting = true;
-                    } else {
-                        $('#wrong-coin').prop('visible', 'block').show();
-                        submit.prop('disabled', true);
-                        $('input[name=AccountCode]').removeProp('disabled').removeAttr('disabled');
-                        accountValid = false;
-                        return;
+                    if (!redirecting) {
+                        if (confirm(`This appears to be a ${prettyCrypto} account code, do you want to switch the form to ${prettyCrypto}?`)) {
+                            window.location.href = "/sell/" + supportedCrypto.route + "?id=" + getAccountCode();
+                            redirecting = true;
+                        } else {
+                            $('#wrong-coin').prop('visible', 'block').show();
+                            submit.prop('disabled', true);
+                            $('input[name=AccountCode]').removeProp('disabled').removeAttr('disabled');
+                            accountValid = false;
+                            return;
+                        }
                     }
-                }
+                });
             }
             else
             {
                 updateAccountCode(data, data.accountValid, data.isBusiness, data.trustLevel, data.highRisk, (data.firstBuyStatus === 0));
-
                 if (data.accountValid) {
                     $('input[name=CryptoAmount]').focus();
 
@@ -66,6 +54,7 @@
                 }
 
                 $('#CryptoAmount').val(data.minBtcAmount);
+                updatePrices();
             }
         });
     }
@@ -181,10 +170,11 @@
             }
         }
         $("#btcAmountLimit").html(content);
+        $("#btcAmountLimit").show();
     }
 
-    function updateSellActivateComment(type, highrisk, isbusiness) {
-        if (type !== undefined && type !== null && isbusiness && highrisk) {
+    function updateSellActivateComment(type) {
+        if (type !== undefined && type !== null) {
             if (type === 1) $('#sell-notice-needsuccessfulbuytransaction-beforefirstsell').show();
             if (type === 2) $('#sell-notice-successfulbuytransaction-pending').show();
             if (type === 3) $('#sell-notice-need-fotoid').show();

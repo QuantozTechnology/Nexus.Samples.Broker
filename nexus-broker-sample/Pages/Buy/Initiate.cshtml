@@ -1,9 +1,11 @@
 ﻿@page
 @model Nexus.Samples.Broker.Pages.Buy.InitiateModel
-
+@inject SupportedCryptoHelper SupportCryptoHelper
 @{
     ViewBag.Title = Resources.BuyPages.InitiatePageTabTitle;
-    string dcCode = Html.GetActiveCryptoName();
+    string route = Html.GetActiveCrypto();
+    var supportedCrypto = SupportCryptoHelper.GetSupportedCryptoFromRoute(route);
+    string dcCode = supportedCrypto.Name;
 }
 
 <div class="page">
