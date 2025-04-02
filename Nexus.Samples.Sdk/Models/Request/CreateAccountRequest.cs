@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text.Json.Serialization;
 
 namespace Nexus.Samples.Sdk.Models.Request
 {
@@ -12,13 +10,12 @@ namespace Nexus.Samples.Sdk.Models.Request
         public string IP { get; set; }
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum CreateAccountRequestAccountType
     {
         BROKER,
         BROKERBUYONLY,
-        CUSTODIAN,
-        TOKEN,
-        TOKENSHARED
+        CUSTODIAN
     }
 }

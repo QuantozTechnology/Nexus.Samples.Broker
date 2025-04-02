@@ -2,8 +2,8 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Duende.IdentityModel.Client;
 using Microsoft.Extensions.Configuration;
-using IdentityModel.Client;
 using Newtonsoft.Json;
 using Nexus.Samples.Sdk.Models.Request;
 using Nexus.Samples.Sdk.Models.Response;

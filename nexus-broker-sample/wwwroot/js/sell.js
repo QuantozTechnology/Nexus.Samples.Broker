@@ -56,15 +56,13 @@
                     }
                 }
             }
-            else
-            {
-                updateAccountCode(data, data.accountValid, data.isBusiness, data.accountType, data.highRisk, (data.firstBuyStatus == 0));
+            else {
+                updateAccountCode(data.accountValid, data.isBusiness, data.accountType);
 
                 if (data.accountValid) {
                     $('input[name=BTCstr]').focus();
 
-                    setAmountRanges(data.minBtcAmount, data.maxBtcAmount, (data.highRisk || (data.firstBuyStatus > 0)));
-                    updateSellActivateComment(data.firstBuyStatus, data.HighRisk, data.isBusiness);
+                    setAmountRanges(data.minBtcAmount, data.maxBtcAmount);
                 }
 
                 $('#BTCstr').val(data.minBtcAmount);
@@ -75,7 +73,7 @@
     var redirecting = false;
 
     /// Update account input field according to web response
-    function updateAccountCode(data, valid, business, type, highrisk, hasfirstbuy) {
+    function updateAccountCode(valid, business, type) {
         // true/false
         var submit = $('.btn.btn-send');
         var updateprices = false;
@@ -98,62 +96,34 @@
             if (business == true) {
                 if (type == "Identified") {
                     $('#verified-business').show();
-                    if (highrisk == true) {
-                        $('#business-limited').show();
-                        submit.prop('disabled', true);
-                    }
-                    else {
-                        $('#BTCstr').removeProp('disabled').removeAttr('disabled');
-                        updateprices = true;
-                        //submit.removeProp('disabled').removeAttr('disabled');
-                    }
+                    $('#BTCstr').removeProp('disabled').removeAttr('disabled');
+                    updateprices = true;
+                    //submit.removeProp('disabled').removeAttr('disabled');
                 }
                 else if (type == "New") {
                     $('#new-business').show();
-                    if (hasfirstbuy == true) {
-                        $('#new-business-verification').show();
-                    }
                     submit.prop('disabled', true);
                 }
             }
             else {
                 if (type == "Identified") {
                     $('#verified-personal').show();
-                    if (highrisk == true) {
-                        $('#personal-limited').show();
-                        submit.prop('disabled', true);
-                    }
-                    else {
-                        $('#BTCstr').removeProp('disabled').removeAttr('disabled');
-                        updateprices = true;
-                        //submit.removeProp('disabled').removeAttr('disabled');
-                    }
+                    $('#BTCstr').removeProp('disabled').removeAttr('disabled');
+                    updateprices = true;
+                    //submit.removeProp('disabled').removeAttr('disabled');
                 }
                 else if (type == "TRUSTED") {
                     $('#trusted-personal').show();
-                    if (highrisk == true) {
-                        $('#personal-limited').show();
-                        submit.prop('disabled', true);
-                    }
-                    else {
-                        $('#trusted-accounts-verification').show();
-                        $('#BTCstr').removeProp('disabled').removeAttr('disabled');
-                        updateprices = true;
-                        //submit.removeProp('disabled').removeAttr('disabled');
-                    }
+                    $('#trusted-accounts-verification').show();
+                    $('#BTCstr').removeProp('disabled').removeAttr('disabled');
+                    updateprices = true;
+                    //submit.removeProp('disabled').removeAttr('disabled');
                 }
                 else if (type == "NEW") {
                     $('#new-personal').show();
-                    if (highrisk == true) {
-                        $('#personal-limited').show();
-                        submit.prop('disabled', true);
-                    }
-                    else {
-                        console.log('hello4');
-                        $('#BTCstr').removeProp('disabled').removeAttr('disabled');
-                        updateprices = true;
-                        //submit.removeProp('disabled').removeAttr('disabled');
-                    }
+                    $('#BTCstr').removeProp('disabled').removeAttr('disabled');
+                    updateprices = true;
+                    //submit.removeProp('disabled').removeAttr('disabled');
                 }
             }
 
@@ -172,33 +142,19 @@
         }
     }
 
-    function setAmountRanges(min, max, notallowed) {
+    function setAmountRanges(min, max) {
         var content = "";
-        if (notallowed == true) {
-            minBTC = 0.0;
-            maxBTC = 0.0;
+        minBTC = min;
+        maxBTC = max;
+        if (max == 0) {
+            content = "day or month limit reached";
         }
         else {
-            minBTC = min;
-            maxBTC = max;
-            if (max == 0) {
-                content = "day or month limit reached";
-            }
-            else {
-                console.log('hello3');
-                content = "min: " + minBTC + " max: " + maxBTC;
-            }
+            console.log('hello3');
+            content = "min: " + minBTC + " max: " + maxBTC;
         }
-        console.log(content);
-        $("#btcAmountLimit").html(content);
-    }
 
-    function updateSellActivateComment(type, highrisk, isbusiness) {
-        if (type !== undefined && type !== null && isbusiness == false && highrisk == false) {
-            if (type == 1) $('#sell-notice-needsuccessfulbuytransaction-beforefirstsell').show();
-            if (type == 2) $('#sell-notice-successfulbuytransaction-pending').show();
-            if (type == 3) $('#sell-notice-need-fotoid').show();
-        }
+        $("#btcAmountLimit").html(content);
     }
 
     $('#BTCstr').on("input keyup change", function () { updatePrices(); });

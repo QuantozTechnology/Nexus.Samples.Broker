@@ -12,14 +12,10 @@ namespace Nexus.Samples.Sdk.Models
     {
         public bool AccountValid { get; set; }
         public bool IsBusiness { get; set; }
-        public bool HighRisk { get; set; }
         public string AccountType { get; set; }
         public double MinBtcAmount { get; set; }
         public double MaxBtcAmount { get; set; }
-        public int FirstBuyStatus { get; set; }
         public string Currency { get; set; }
-        public bool NeedFotoID { get; set; }
-        public bool IsIdentifiedFullCompliant { get; set; }
         public bool SellServiceAvailable { get; set; }
         public string DCCode { get; set; } = "BTC";
     }
