@@ -1,8 +1,11 @@
 ﻿@model Nexus.Samples.Broker.Pages.Account.IndexModel
+@inject SupportedCryptoHelper SupportCryptoHelper
 
 @{
-    string dcCode = Html.GetActiveCryptoName();
-    string dc = Html.GetActiveCryptoCode();
+    string route = Html.GetActiveCrypto();
+    var supportedCrypto = SupportCryptoHelper.GetSupportedCryptoFromRoute(route);
+    string dcCode = supportedCrypto.Name;
+    string dc = supportedCrypto.Crypto;
     string language = Html.GetLanguage()?.ToLower();
 }
 

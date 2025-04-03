@@ -1,5 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
+using System.Text;
+
 namespace Nexus.Samples.Sdk.Models.Request
 {
     public class CreateAccountRequest

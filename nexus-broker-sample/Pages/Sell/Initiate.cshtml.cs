@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Nexus.Samples.Broker.Extensions;
 using Nexus.Samples.Sdk;
 using Nexus.Samples.Sdk.Models;
+using Nexus.Samples.Sdk.Models.Request;
 using QRCoder;
+using System.Threading.Tasks;
 
 namespace Nexus.Samples.Broker.Pages.Sell
 {
     public class InitiateModel : PageModel
     {
-        private readonly NexusClient nexusClient;
+        private readonly NexusClient _nexusClient;
+        private readonly SupportedCryptoHelper _supportedCryptoHelper;
 
         public AccountSellResponsePT InitiateSellModel { get; set; }
 
         [BindProperty]
         public AccountSellPT SellModel { get; set; }
 
-        public InitiateModel(NexusClient nexusClient)
+        public InitiateModel(NexusClient nexusClient, SupportedCryptoHelper supportedCryptoHelper)
         {
-            this.nexusClient = nexusClient;
+            this._nexusClient = nexusClient;
+            this._supportedCryptoHelper = supportedCryptoHelper;
         }
 
         public async Task<IActionResult> OnPost()
@@ -32,49 +32,45 @@ namespace Nexus.Samples.Broker.Pages.Sell
                 return RedirectToAction("Index", "Sell");
             }
 
-            SellModel.AccountCode = SellModel.AccountCode.Trim().ToUpper();
-            //SellModel.IP = Request.UserHostAddress;
-            SellModel.Ip = "::1";
-            SellModel.Currency = SellModel.Currency?.Trim().ToUpper();
-
-            var response = await nexusClient.PostRequestAsync("api/Sell/Post", SellModel);
-
-            if (!response.IsSuccessStatusCode)
+            var accountResponse = await this._nexusClient.GetAccount(SellModel.AccountCode.Trim().ToUpper());
+            if (!accountResponse.IsSuccess)
             {
-                string message = await response.Content.ReadAsStringAsync();
-
-                //HttpError responseContent = JsonConvert.DeserializeObject<HttpError>(message);
-
-                //ExtractModelState(responseContent, "SELLERROR");
-
-                //SellInfoRequestPT req = new SellInfoRequestPT()
-                //{
-                //    AccountCode = model.AccountCode,
-                //    IP = model.IP
-                //};
-
-                //SellInfoPT sellInfo = await nexusClient.PostAndGetRequestAsync<SellInfoPT, SellInfoRequestPT>("api/Sell/PostProcessInformation/", req);
-
-                //model.BTCstr = "0";
-                //model.Currency = sellInfo.Currency;
-
-                //ViewBag.SellServiceAvailable = sellInfo.SellServiceAvailable;
-
-                //ViewBag.PromoSettings = await PassthroughClient.GetRequestAsync<PromoSettingsPT>("api/Account/GetPromoSettings");
-                //ViewBag.Currency = model.Currency;
-
-                //return View("Index", model);
+                return BadRequest(accountResponse.Errors);
             }
+            var account = accountResponse.Values;
 
-            InitiateSellModel = await response.Content.ReadAsAsync<AccountSellResponsePT>();
-
-            if (InitiateSellModel.NeedAddressDetails)
+            var customerResponse = await this._nexusClient.GetCustomer(account.CustomerCode);
+            if (!customerResponse.IsSuccess)
             {
-                return RedirectToAction("UpdateAddress", "Account", new { id = SellModel.AccountCode });
+                return BadRequest(customerResponse.Errors);
             }
+            var customer = customerResponse.Values;
+
+            var paymentMethodCode = _supportedCryptoHelper.GetSupportedCrypto(account.DcCode).SellPaymentMethodCode;
+
+            var initiateBrokerSellRequest = new InitiateBrokerSellRequest()
+            {
+                AccountCode = account.AccountCode,
+                CryptoAmount = SellModel.CryptoAmount,
+                IP = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                PaymentMethodCode = paymentMethodCode
+            };
+
+            var initiateBrokerSellResponse = await this._nexusClient.InitiateBrokerSell(initiateBrokerSellRequest);
+            if (!initiateBrokerSellResponse.IsSuccess)
+            {
+                return BadRequest(initiateBrokerSellResponse.Errors);
+            }
+            var initiatedBrokerSell = initiateBrokerSellResponse.Values;
+
+            var transactionResponse = await this._nexusClient.GetTransaction(initiatedBrokerSell.TransactionCode);
+            if (!transactionResponse.IsSuccess)
+            {
+                return BadRequest(transactionResponse.Errors);
+            }
+            var transaction = transactionResponse.Values;
 
             var qrGenerator = new QRCodeGenerator();
-
             string Generate(string value)
             {
                 var qrCodeData = qrGenerator.CreateQrCode(value, QRCodeGenerator.ECCLevel.Q);
@@ -82,15 +78,14 @@ namespace Nexus.Samples.Broker.Pages.Sell
                 return qrCode.GetGraphic(10);
             }
 
-            var qrCode = InitiateSellModel.BtcAddress.Trim();
+            var qrCode = initiatedBrokerSell.CryptoAddress.Trim();
 
-            if (SellModel.CryptoCode != "XLM" && SellModel.CryptoCode != "ETH")
+            if (account.DcCode != "XLM" && account.DcCode != "ETH")
             {
-                string amount = InitiateSellModel.BtcAmount.ToString().Replace(",", ".");
+                string amount = SellModel.CryptoAmount.ToString().Replace(",", ".");
 
-                qrCode += "?amount=" + amount + "%26label=" + InitiateSellModel.TransactionCode.Trim();
-
-                if (SellModel.CryptoCode == "BTC")
+                qrCode += "?amount=" + amount + "%26label=" + transaction.TransactionCode;
+                if (account.DcCode == "BTC")
                 {
                     qrCode = "bitcoin:" + qrCode;
                 }
@@ -98,8 +93,27 @@ namespace Nexus.Samples.Broker.Pages.Sell
 
             ViewData["QRCode"] = Generate(qrCode);
             ViewData["QRCodeData"] = qrCode;
+            ViewData["CryptoName"] = GetCryptoName(account.DcCode);
+
+            InitiateSellModel = new AccountSellResponsePT()
+            {
+                AccountCode = account.AccountCode,
+                AfterFee = initiatedBrokerSell.ValueInFiatAfterFees,
+                BankAccountNumber = customer.BankAccount,
+                BtcAddress = initiatedBrokerSell.CryptoAddress,
+                BtcAmount = SellModel.CryptoAmount,
+                Currency = initiatedBrokerSell.CurrencyCode,
+                Email = customer.Email,
+                TransactionCode = initiatedBrokerSell.TransactionCode,
+                TransactionTimestamp = transaction.Created
+            };
 
             return Page();
+        }
+
+        private string GetCryptoName(string cryptoCode)
+        {
+            return _supportedCryptoHelper.GetSupportedCrypto(cryptoCode).Name;
         }
     }
 }

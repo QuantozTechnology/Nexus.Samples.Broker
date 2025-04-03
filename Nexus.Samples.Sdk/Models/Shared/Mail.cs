@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Nexus.Samples.Sdk.Models.Shared
+﻿namespace Nexus.Samples.Sdk.Models.Shared
 {
     public class MailEntityCodes
     {

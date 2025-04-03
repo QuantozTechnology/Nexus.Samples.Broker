@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Nexus.Samples.Broker.Configuration;
+using Nexus.Samples.Broker.Extensions;
 using Nexus.Samples.Sdk;
+using Nexus.Samples.Sdk.Models.Shared;
 
 namespace Nexus.Samples.Broker
 {
@@ -21,7 +25,10 @@ namespace Nexus.Samples.Broker
         {
             services.AddControllers();
             services.AddRazorPages();
+            services.Configure<NexusConnectionOptions>(Configuration.GetSection("nexusConnection"));
+            services.Configure<SupportedCryptoOption>(Configuration.GetSection("supportedCryptos"));
             services.AddSingleton<NexusClient>();
+            services.AddSingleton<SupportedCryptoHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +56,11 @@ namespace Nexus.Samples.Broker
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
+            });
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
         }
     }

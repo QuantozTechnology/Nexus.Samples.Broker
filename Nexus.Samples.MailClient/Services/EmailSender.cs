@@ -59,8 +59,7 @@ namespace Nexus.Samples.MailClient
                 }
             }
 
-            var sender = _client.Credentials.GetCredential(_client.Host, _client.Port, "Plain").UserName;
-            mailMessage.From = new MailAddress(sender, "Broker Sample Application");
+            mailMessage.From = new MailAddress("brokersample@no-reply.com", "Broker Sample Application");
 
             return _client.SendMailAsync(mailMessage);
         }

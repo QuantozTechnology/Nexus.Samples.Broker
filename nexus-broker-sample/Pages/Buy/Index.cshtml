@@ -1,8 +1,13 @@
 ﻿@page "{crypto}"
 @model Nexus.Samples.Broker.Pages.Buy.BuySimulateModel
+@inject SupportedCryptoHelper SupportCryptoHelper
 
 @{
-    string dcCode = Html.GetActiveCryptoName();
+    string route = Html.GetActiveCrypto();
+    var supportedCrypto = SupportCryptoHelper.GetSupportedCryptoFromRoute(route);
+    string dc = supportedCrypto.Crypto;
+    string dcCode = supportedCrypto.Name;
+
     ViewBag.Title = @String.Format(Resources.BuyPages.BuyPageTabTitle, dcCode);
     string language = Html.GetLanguage()?.ToLower();
 
@@ -138,18 +143,9 @@ else
 
                                     <div class="form__item form__item--alt">
                                         <div>@Resources.BuyPages.BuyFormPurchaseLabel</div>
-                                        <div><span id="BTCAmount">@((0).ToString("F8"))</span>&nbsp;@(Html.GetActiveCryptoCode())</div>
+                                        <div><span id="BTCAmount">@((0).ToString("F8"))</span>&nbsp;@(dc)</div>
                                     </div>
                                 </div>
-
-                                @*<div class="form__footer">
-                                        <div class="hide message" id="new-accounts-fasttrack">@Resources.BuyPages.BuyFormNewPersonalMessage - @(Html.ActionLink<AccountVerificationController>(@Resources.BuyPages.BuyFormNeedFastTrackLink, c => c.Index()))</div>
-                                        <div class="hide message" id="new-business-verification">@Resources.BuyPages.BuyFormNewBusinessMessage - @(Html.ActionLink<AccountVerificationController>(@Resources.BuyPages.BuyFormNeedVerificationLink, c => c.Index()))</div>
-                                        <div class="hide message" id="personal-limited">@Resources.BuyPages.BuyFormLimitedPersonalMessage - @(Html.ActionLink<AccountVerificationController>(@Resources.BuyPages.BuyFormLimitedInfoLink, c => c.Limited()))</div>
-                                        <div class="hide message" id="business-limited">@Resources.BuyPages.BuyFormLimitedBusinessMessage - @(Html.ActionLink<AccountVerificationController>(@Resources.BuyPages.BuyFormLimitedInfoLink, c => c.Limited()))</div>
-
-                                        <div class="hide message" id="buy-notice-germany">@Resources.BuyPages.BuyFormGermanyNotice</div>
-                                    </div>*@
 
                                 @Html.HiddenFor(model => model.Currency)
                                 <button class="form__submit btn btn-brand-color submit btn-send" disabled>@String.Format(Resources.BuyPages.BuyFormReviewButton, dcCode)</button>

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Nexus.Samples.Broker.API;
 using Nexus.Samples.Sdk;
 using Nexus.Samples.Sdk.Models;
+using Nexus.Samples.Sdk.Models.Request;
+using System;
+using System.Threading.Tasks;
 
 namespace Nexus.Samples.Broker.Pages.Buy
 {
@@ -32,36 +31,6 @@ namespace Nexus.Samples.Broker.Pages.Buy
 
             BuyModel.AccountCode = BuyModel.AccountCode.Trim().ToUpper();
 
-            var req = new
-            {
-                AccountCode = BuyModel.AccountCode,
-                //IP = Request.UserHostAddress,
-                IP = "::1",
-                Currency = BuyModel.Currency
-            };
-
-            HttpResponseMessage createResponse = await nexusClient.PostRequestAsync("api/Buy/Check/", req);
-
-            if (!createResponse.IsSuccessStatusCode)
-            {
-                //HttpError responseContent = await createResponse.Content.ReadAsAsync<HttpError>();
-
-                //ExtractModelState(responseContent, "BUYERROR");
-
-                //return await Index(model);
-                return BadRequest();
-            }
-
-            BuyInfoPT buyInfo = await createResponse.Content.ReadAsAsync<BuyInfoPT>();
-
-            // Check if bank is still unknown, if so: open Bank Information Form ...
-            //if (buyInfo.AccountValid && buyInfo.IsUnknownBank)
-            //{
-            //    return RedirectToAction("BankInfo", new { id = req.AccountCode });
-            //}
-
-            //AccountInfo account = await nexusClient.GetRequestAsync<AccountInfo>("api/Account/Get/", BuyModel.AccountCode);
-
             var accountResult = await nexusClient.GetAccount(BuyModel.AccountCode);
 
             if (!accountResult.IsSuccess)
@@ -80,34 +49,24 @@ namespace Nexus.Samples.Broker.Pages.Buy
 
             var customer = customerResult.Values;
 
-            var accountBuyPT = new
+            var ipAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+
+            var initiateBrokerBuyRequest = new InitiateBrokerBuyRequest()
             {
                 AccountCode = BuyModel.AccountCode,
-                Amount = BuyModel.Amount,
+                Amount = (decimal) BuyModel.Amount,
                 Currency = BuyModel.Currency,
-                //IP = Request.UserHostAddress,
-                IP = "::1",
-
-                PaymentMethodCode = BuyModel.PaymentMethodCode
+                PaymentMethodCode = BuyModel.PaymentMethodCode,
+                IP = ipAddress
             };
-
-            HttpResponseMessage response = await nexusClient.PostRequestAsync("api/Buy/Create", accountBuyPT);
-
-            if (!response.IsSuccessStatusCode)
+            var initiateBuyResponse = await nexusClient.InitiateBrokerBuy(initiateBrokerBuyRequest);
+            if (!initiateBuyResponse.IsSuccess)
             {
-                //HttpError responseContent = await response.Content.ReadAsAsync<HttpError>();
-
-                //ExtractModelState(responseContent, "BUYERROR");
-
-                //return await Index(model);
-                return BadRequest();
+                return BadRequest(initiateBuyResponse.Errors);
             }
+            var initiateBuyTransaction = initiateBuyResponse.Values;
 
-            string transactionCode = await response.Content.ReadAsAsync<string>();
-
-            PSPInfoPT pspinfo = await nexusClient.GetRequestAsync<PSPInfoPT>($"transaction/{transactionCode}/pspinfo");
-
-            var priceSummaryResponse = await nexusClient.SimulateBuyBroker(new Sdk.Models.Request.SimulateBuyBrokerRequest
+            var priceSummaryResponse = await nexusClient.SimulateBuyBroker(new SimulateBuyBrokerRequest
             {
                 AccountCode = BuyModel.AccountCode,
                 Amount = (decimal)BuyModel.Amount,
@@ -117,42 +76,82 @@ namespace Nexus.Samples.Broker.Pages.Buy
 
             if (!priceSummaryResponse.IsSuccess)
             {
-                return BadRequest();
+                return BadRequest(priceSummaryResponse.Errors);
             }
 
+            var transactionResponse = await nexusClient.GetTransaction(initiateBuyTransaction.TransactionCode);
+            if (!transactionResponse.IsSuccess)
+            {
+                return BadRequest(transactionResponse.Errors);
+            }
+            var transaction = transactionResponse.Values;
+            var imageBaseUrl = GetImageBaseURL(initiateBuyTransaction.PaymentMethodInfo.PaymentMethodCode.ToUpper());
             InitiateBuyModel = new InitiateBuyModel()
             {
-                PaymentMethodName = pspinfo.PayMethodName,
-                PaymentMethodCode = pspinfo.PayMethodCode,
+                PaymentMethodName = initiateBuyTransaction.PaymentMethodInfo.PaymentMethodName,
+                PaymentMethodCode = initiateBuyTransaction.PaymentMethodInfo.PaymentMethodCode,
                 AccountCode = BuyModel.AccountCode,
-                TransactionCode = transactionCode,
-                TransactionTimestamp = pspinfo.TransactionTimestamp,
-                TransactionFixedMinutes = pspinfo.TransactionFixedMinutes,
+                TransactionCode = initiateBuyTransaction.TransactionCode,
+                TransactionTimestamp = DateTime.Parse(initiateBuyTransaction.Created),
+                TransactionFixedMinutes = initiateBuyTransaction.PaymentMethodInfo.TransactionFixedInMinutes,
                 Email = customer.Email, // obfuscate
                 BtcAddress = account.CustomerCryptoAddress,
-                //IBAN = customer.IBAN, // obfuscate
-                IBAN = customer.CustomerCode, // obfuscate
+                IBAN = customer.BankAccount, // obfuscate
                 Amount = BuyModel.Amount.ToString("F2"),
                 EstimateBTC = priceSummaryResponse.Values.CryptoAmount.ToString("F8"),
-                PaymentMethodLogoURL = "/img/psp/" + pspinfo.PayMethodCode.Trim() + "_BIG.jpg",
-                PaymentMethodIconURL = "/img/psp/" + pspinfo.PayMethodCode.Trim() + ".png",
-                ActionUrl = pspinfo.URLPSPInitiateFull.Trim(),
+                PaymentMethodLogoURL = imageBaseUrl + "_BIG.jpg",
+                PaymentMethodIconURL = imageBaseUrl + ".png",
                 Currency = priceSummaryResponse.Values.CurrencyCode,
-                SendDelayHours = pspinfo.SendDelayHours,
-                DCCode = buyInfo.DCCode
+                DCCode = transaction.CryptoCurrencyCode
             };
 
-            // Special SEPA method info ...
-            if ((pspinfo.PayMethodCode.Trim().ToUpper() == "SEPA")
-                || (pspinfo.PayMethodCode.Trim().ToUpper() == "SWISS_BANK"))
-            {
-                InitiateBuyModel.BankName = pspinfo.SEPAName;
-                InitiateBuyModel.BankIBAN = pspinfo.SEPAIBAN;
-                InitiateBuyModel.BankBIC = pspinfo.SEPABIC;
-                InitiateBuyModel.BankAddress = pspinfo.SEPAAddress;
-            }
-
             return Page();
+        }
+
+        private string GetImageBaseURL(string paymentMethodCode)
+        {
+            var imageUrl = "/img/psp/";
+            if (paymentMethodCode.Contains("SEPA"))
+            {
+                imageUrl += "SEPA";
+            }
+            else if (paymentMethodCode.Contains("SOFORT"))
+            {
+                imageUrl += "SOFORT_SOFORT";
+            }
+            else if (paymentMethodCode.Contains("IDEAL"))
+            {
+                imageUrl += "IDEAL_PAYNL";
+            }
+            else if (paymentMethodCode.Contains("GIROPAY"))
+            {
+                imageUrl += "GIROPAY_PAYNL";
+            }
+            else if (paymentMethodCode.Contains("INTERAC"))
+            {
+                imageUrl += "INTERAC_SALT";
+            }
+            else if (paymentMethodCode.Contains("MRCASH"))
+            {
+                imageUrl += "MRCASH_PAYNL";
+            }
+            else if (paymentMethodCode.Contains("MYBANK"))
+            {
+                imageUrl += "MYBANK_PAYNL";
+            }
+            else if (paymentMethodCode.Contains("SKRILL"))
+            {
+                imageUrl += "SKRILL_SKRILL";
+            }
+            else if (paymentMethodCode.Contains("SWISS_BANK"))
+            {
+                imageUrl += "SWISS_BANK";
+            }
+            else
+            {
+                imageUrl += "NOT_SUPPORTED";
+            }
+            return imageUrl;
         }
     }
 
@@ -176,8 +175,6 @@ namespace Nexus.Samples.Broker.Pages.Buy
 
         public string IBAN { get; set; }
 
-        public string BicCode { get; set; }
-
         public string Amount { get; set; }
 
         public string EstimateBTC { get; set; }
@@ -186,45 +183,8 @@ namespace Nexus.Samples.Broker.Pages.Buy
 
         public string PaymentMethodIconURL { get; set; }
 
-        public string ActionUrl { get; set; }
-
         public string Currency { get; set; }
 
-        public int SendDelayHours { get; set; }
-
         public string DCCode { get; set; }
-
-
-        public string BankName { get; set; }
-        public string BankIBAN { get; set; }
-        public string BankBIC { get; set; }
-        public string BankAddress { get; set; }
-    }
-
-    public class PSPInfoPT
-    {
-        public string PayMethodName { get; set; }
-        public string PayMethodCode { get; set; }
-        public string URLPostResult { get; set; }
-        public string URLReturnSuccess { get; set; }
-        public string URLReturnCancel { get; set; }
-        public string URLReturnFailure { get; set; }
-        public string URLReturnPending { get; set; }
-        public string URLPSPInitiateFull { get; set; }
-        public string InfoData { get; set; }
-        public string SealData { get; set; }
-
-        public string TransactionCode { get; set; }
-        public DateTime TransactionTimestamp { get; set; }
-        public int TransactionFixedMinutes { get; set; }
-        public int SendDelayHours { get; set; }
-
-        #region SEPAinfo
-        public string SEPAName { get; set; }
-        public string SEPAIBAN { get; set; }
-        public string SEPABIC { get; set; }
-        public string SEPAAddress { get; set; }
-        #endregion
-
     }
 }

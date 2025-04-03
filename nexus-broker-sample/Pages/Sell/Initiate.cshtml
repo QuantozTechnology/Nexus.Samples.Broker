@@ -1,8 +1,9 @@
 ﻿@page
+@using System.Globalization
 @model Nexus.Samples.Broker.Pages.Sell.InitiateModel
 
 @{
-    string cryptoName = Html.GetActiveCryptoName();
+    string cryptoName = ViewData["CryptoName"].ToString();
     ViewData["Title"] = @String.Format(Resources.SellPages.SellInitiateTabTitle, cryptoName);
 }
 
@@ -26,19 +27,19 @@
                         {
                             @:@Resources.SellPages.SellInitiateTransactionTimestamp <span class="localtimeShort">@Model.InitiateSellModel.TransactionTimestamp.ToString("u")</span> <br />
                             @:@Resources.SellPages.SellInitiateTransactionCode @Model.InitiateSellModel.TransactionCode<br />
-                            @:@Resources.SellPages.SellInitiateTransactionAmount @Model.InitiateSellModel.BtcAmount.ToString("F8") @cryptoName<br />
-                            @:@Resources.SellPages.SellInitiateTransactionPayout @Model.InitiateSellModel.AfterFee.ToString("F2") @Model.InitiateSellModel.Currency<br />
+                            @:@Resources.SellPages.SellInitiateTransactionAmount @Model.InitiateSellModel.BtcAmount.ToString("F8", new CultureInfo("en-US")) @cryptoName<br />
+                            @:@Resources.SellPages.SellInitiateTransactionPayout @Model.InitiateSellModel.AfterFee.ToString("F2", new CultureInfo("en-US")) @Model.InitiateSellModel.Currency<br />
                         }
                         else
                         {
-                            @:@Resources.SellPages.SellInitiateTransactionAmount @Model.InitiateSellModel.BtcAmount.ToString("F8") @cryptoName<br />
-                            @:@Resources.SellPages.SellInitiateTransactionEstimate @Model.InitiateSellModel.AfterFee.ToString("F2") @Model.InitiateSellModel.Currency<br />
+                            @:@Resources.SellPages.SellInitiateTransactionAmount @Model.InitiateSellModel.BtcAmount.ToString("F8", new CultureInfo("en-US")) @cryptoName<br />
+                            @:@Resources.SellPages.SellInitiateTransactionEstimate @Model.InitiateSellModel.AfterFee.ToString("F2", new CultureInfo("en-US")) @Model.InitiateSellModel.Currency<br />
                         }
                     </p>
 
                     <fieldset class="buyinitiated-form mb-5">
                         <div class="display-label">
-                            @Resources.SellPages.SellInitiateSendTextA @Model.InitiateSellModel.BtcAmount.ToString("F8") @String.Format(Resources.SellPages.SellInitiateSendTextB, cryptoName)
+                            @Resources.SellPages.SellInitiateSendTextA @Model.InitiateSellModel.BtcAmount.ToString("F8", new CultureInfo("en-US")) @String.Format(Resources.SellPages.SellInitiateSendTextB, cryptoName)
                         </div>
                         <strong>@Model.InitiateSellModel.BtcAddress</strong>
                         @if (cryptoName.ToUpper() == "LUMEN")

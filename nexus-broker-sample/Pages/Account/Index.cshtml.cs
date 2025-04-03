@@ -1,18 +1,20 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Nexus.Samples.Broker.Extensions;
 using Nexus.Samples.Sdk;
 using Nexus.Samples.Sdk.Models.Request;
 using Nexus.Samples.Sdk.Models.Shared;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace Nexus.Samples.Broker.Pages.Account
 {
     public class IndexModel : PageModel
     {
-        private readonly NexusClient nexusClient;
+        private readonly NexusClient _nexusClient;
+        private readonly SupportedCryptoHelper _supportedCryptoHelper;
 
         [Required]
         [BindProperty]
@@ -51,21 +53,33 @@ namespace Nexus.Samples.Broker.Pages.Account
 
         public SelectList Countries { get; set; }
 
-        public IndexModel(NexusClient nexusClient)
+        public IndexModel(NexusClient nexusClient, SupportedCryptoHelper supportedCryptoHelper)
         {
-            this.nexusClient = nexusClient;
+            this._nexusClient = nexusClient;
+            this._supportedCryptoHelper = supportedCryptoHelper;
         }
 
-        public void OnGet()
+        public IActionResult OnGet(string crypto)
         {
             Countries = GetCountries();
+
+            if (crypto != null)
+            {
+                var supportedCrypto = _supportedCryptoHelper.GetSupportedCryptoFromRoute(crypto);
+                if (!supportedCrypto.IsNative)
+                {
+                    return Redirect($"/Account/Extra/{ supportedCrypto.Route }");
+                }
+            }
+            
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             Countries = GetCountries();
 
-            var response = await nexusClient.CreateCustomer(new CreateCustomerRequest
+            var response = await _nexusClient.CreateCustomer(new CreateCustomerRequest
             {
                 CustomerCode = BankAccountNumber,
                 TrustLevel = "New",
@@ -112,7 +126,7 @@ namespace Nexus.Samples.Broker.Pages.Account
                     }
                 };
 
-                var createCustomerMailResponse = await nexusClient.CreateMail(createCustomerMail);
+                var createCustomerMailResponse = await _nexusClient.CreateMail(createCustomerMail);
 
                 var accountCode = response.Values.Accounts[0].AccountCode;
 
@@ -129,7 +143,7 @@ namespace Nexus.Samples.Broker.Pages.Account
                     }
                 };
 
-                var createAccountMailResponse = await nexusClient.CreateMail(createAccountMail);
+                var createAccountMailResponse = await _nexusClient.CreateMail(createAccountMail);
 
                 return RedirectToPage("/Account/Created", new { accountCode });
             }
