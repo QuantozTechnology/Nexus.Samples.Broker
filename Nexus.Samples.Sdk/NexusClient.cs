@@ -1,13 +1,13 @@
-﻿using IdentityModel.Client;
+﻿using System;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Duende.IdentityModel.Client;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Nexus.Samples.Sdk.Models.Request;
 using Nexus.Samples.Sdk.Models.Response;
 using Nexus.Samples.Sdk.Models.Shared;
-using System;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Nexus.Samples.Sdk
 {
@@ -72,7 +72,7 @@ namespace Nexus.Samples.Sdk
 
             return tokenResponse.AccessToken;
         }
-        
+
         public async Task<DefaultResponseTemplate<CreateCustomerResponse>> CreateCustomer(CreateCustomerRequest request)
         {
             var response = await PostRequestAsync("customer", request);

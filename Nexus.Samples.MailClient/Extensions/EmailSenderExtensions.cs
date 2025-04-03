@@ -146,7 +146,7 @@ namespace Nexus.Samples.MailClient
             string body = @$"Dear {email},<br><br>
                  {BaseModel.ApplicationName} <b>updated</b> your {BaseModel.ApplicationName} account(s):<br>
                  <ul>EmailAddress: {email} <br>
-                 Your trust level is: <b>{customer.Trustlevel}</b> {(customer.IsHighRisk ? "(currently limited)" : "")} <br>
+                 Your trust level is: <b>{customer.Trustlevel}</b><br>
                  (this trust level applies to all your {BaseModel.ApplicationName} accounts sharing the same IBAN bank account)<br>";
 
             await emailSender.SendEmailAsync(email, CC, BCC, subject, body);
@@ -244,7 +244,7 @@ namespace Nexus.Samples.MailClient
             return (subject, body);
         }
 
-        public static async Task<(string, string)> SendTransactionBuySendDelayAsync(this IEmailSender emailSender, string email, List<string> CC, List<string> BCC, GetAccountResponse account, 
+        public static async Task<(string, string)> SendTransactionBuySendDelayAsync(this IEmailSender emailSender, string email, List<string> CC, List<string> BCC, GetAccountResponse account,
             GetBrokerTransactionResponse transaction)
         {
             string subject = $"{BaseModel.ApplicationName}: Starting holding period for {transaction.CryptoSent.GetValueOrDefault().ToString("F8")} {transaction.CryptoCurrencyCode}";
@@ -256,10 +256,10 @@ namespace Nexus.Samples.MailClient
              PaymentAmount: {transaction.TradeValue.GetValueOrDefault(0).ToString("F2")} {transaction.CurrencyCode}<br>
              CreateTimestamp: {transaction.Created.ToString("yyyy-MM-dd|HH:mm:ss")} UTC<br>
              {transaction.CryptoCurrencyCode}Address: {account.CustomerCryptoAddress} (the address where your {transaction.CryptoCurrencyCode} will be sent to)</ul><br>
-             Our payment processor requires a <b>holding period</b> before we can send the {transaction.CryptoCurrencyCode} to you. The {transaction.CryptoCurrencyCode} 
+             Our payment processor requires a <b>holding period</b> before we can send the {transaction.CryptoCurrencyCode} to you. The {transaction.CryptoCurrencyCode}
              will therefor be sent to your above mentioned {transaction.CryptoCurrencyCode}Address after a delay.
              You will receive an email immediately after we have sent the {transaction.CryptoCurrencyCode} to you.<br>";
-  
+
             await emailSender.SendEmailAsync(email, CC, BCC, subject, body);
 
             return (subject, body);

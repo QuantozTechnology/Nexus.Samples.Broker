@@ -4,11 +4,9 @@
     {
         public string DCCode { get; set; }
         public bool AccountValid { get; set; }
-        public int FirstBuyStatus { get; set; }
         public PaymentMethod[] PaymentMethods { get; set; }
         public bool PaymentPending { get; set; }
         public bool CoolingDown { get; set; }
-        public bool NeedPhotoID { get; set; }
         public string Currency { get; set; }
         public LimitInfoModel Limits { get; set; }
     }

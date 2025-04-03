@@ -7,16 +7,12 @@ namespace Nexus.Samples.Sdk.Models
         public bool BuyServiceAvailable { get; set; }
         public bool AccountValid { get; set; }
         public bool IsBusiness { get; set; }
-        public bool HighRisk { get; set; }
         public bool IsUnknownBank { get; set; }
         public string AccountType { get; set; }
         public string Currency { get; set; }
         public bool PaymentPending { get; set; }
         public bool CoolingDown { get; set; }
         public string CountryCode { get; set; }
-        public int FirstBuyStatus { get; set; }
-        public bool NeedFotoID { get; set; }
-        public bool IsIdentifiedFullCompliant { get; set; }
         public CheckResponsePaymentMethods[] PaymentMethods { get; set; }
         public string DCCode { get; set; }
         public double MaxBuyAmount { get; set; }

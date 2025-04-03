@@ -17,10 +17,8 @@ $(function () {
         NoReferencePrice: "NoReferencePrice",
         NoBalance: "NoBalance",
         UnidentifiedBusiness: "UnidentifiedBusiness",
-        NewCustomerNoFotoID: "NewCustomerNoFotoID",
         NewUnsettled: "NewUnsettled",
         Incasso: "Incasso",
-        HighRisk: "HighRisk",
         MissingBuyTransaction: "MissingBuyTransaction",
         RequestedHigherThanMaximum: "RequestedHigherThanMaximum",
         RequestedLowerThanMinimum: "RequestedLowerThanMinimum",
@@ -175,13 +173,9 @@ $(function () {
                 currentDCCode = data.dcCode;
 
                 if (data.accountValid) {
-                    if (data.firstBuyStatus === 1) {
-                        $('#sell-notice-needsuccessfulbuytransaction-beforefirstsell').show();
-                    }
-
                     $('input[name=Amount]').focus();
                     updatePayMethods(data.paymentMethods);
-                    updateWarningHeaders(data.paymentPending, data.coolingDown, data.needFotoID);
+                    updateWarningHeaders(data.paymentPending, data.coolingDown);
                     minAmount = data.limits.minimumAmount;
                     maxAmount = data.limits.remainingDailyLimit;
                     updateAmountLimitText();
@@ -217,17 +211,11 @@ $(function () {
             if (limitReasons.includes(LimitReasonEnum.UnidentifiedBusiness)) {
                 $('#unidentified-business').prop('visible', 'block').show();
             }
-            if (limitReasons.includes(LimitReasonEnum.NewCustomerNoFotoID)) {
-                $('#new-customer-no-foto').prop('visible', 'block').show();
-            }
             if (limitReasons.includes(LimitReasonEnum.NewUnsettled)) {
                 $('#new-unsettled').prop('visible', 'block').show();
             }
             if (limitReasons.includes(LimitReasonEnum.Incasso)) {
                 $('#incasso').prop('visible', 'block').show();
-            }
-            if (limitReasons.includes(LimitReasonEnum.HighRisk)) {
-                $('#high-risk').prop('visible', 'block').show();
             }
             if (limitReasons.includes(LimitReasonEnum.MissingBuyTransaction)) {
                 $('#missing-buy').prop('visible', 'block').show();
@@ -244,15 +232,12 @@ $(function () {
         };
     };
 
-    function updateWarningHeaders(paymentPending, coolingDown, needPhotoID) {
+    function updateWarningHeaders(paymentPending, coolingDown) {
         if (paymentPending) {
             $('#buy-notice-payment-pending').show();
         }
         else if (coolingDown) {
             $('#buy-notice-cooldown').show();
-        }
-        else if (needPhotoID) {
-            $('#buy-notice-need-fotoid').show();
         }
     }
 
@@ -278,49 +263,23 @@ $(function () {
             $('#new-accounts-fasttrack').prop('visible', 'none').hide();
             $('#new-business-verification').prop('visible', 'none').hide();
 
-            if (data.isPromoCodeAllowed === true) {
-                $('.promocode-disallowed').show();
-            }
-            else {
-                $('.promocode-disallowed').hide();
-            }
             if (data.isBusiness === true) {
                 if (data.accountType === "Identified") {
                     $('#verified-business').prop('visible', 'block').show();
-                    if (data.highRisk === true) {
-                        $('#business-limited').show();
-                    }
                 }
                 else if (data.accountType === "New") {
                     $('#new-business').prop('visible', 'block').show();
-                    if (data.firstBuyStatus === 0) {
-                        $('#new-business-verification').show();
-                    }
                 }
             }
             else {
                 if (data.accountType === "Identified") {
                     $('#verified-personal').prop('visible', 'block').show();
-                    if (data.highRisk === true) {
-                        $('#personal-limited').show();
-                    }
                 }
                 else if (data.accountType === "Trusted") {
                     $('#trusted-personal').prop('visible', 'block').show();
-                    if (data.highRisk === true) {
-                        $('#personal-limited').show();
-                    }
                 }
                 else if (data.accountType === "New") {
                     $('#new-personal').prop('visible', 'block').show();
-                    if (data.highRisk === true) {
-                        $('#personal-limited').show();
-                    }
-                    else {
-                        if (data.firstBuyStatus === 0) {
-                            $('#new-accounts-fasttrack').show();
-                        }
-                    }
                 }
             }
             $('input[name=AccountCode]').prop('readonly', 'readonly');

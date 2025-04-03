@@ -48,7 +48,7 @@ namespace Nexus.Samples.Broker.Pages.Sell
 
             var paymentMethodCode = _supportedCryptoHelper.GetSupportedCrypto(account.DcCode).SellPaymentMethodCode;
 
-            var initiateBrokerSellRequest = new InitiateBrokerSellRequest() 
+            var initiateBrokerSellRequest = new InitiateBrokerSellRequest()
             {
                 AccountCode = account.AccountCode,
                 CryptoAmount = SellModel.CryptoAmount,
@@ -77,7 +77,7 @@ namespace Nexus.Samples.Broker.Pages.Sell
                 var qrCode = new SvgQRCode(qrCodeData);
                 return qrCode.GetGraphic(10);
             }
-            
+
             var qrCode = initiatedBrokerSell.CryptoAddress.Trim();
 
             if (account.DcCode != "XLM" && account.DcCode != "ETH")

@@ -11,9 +11,7 @@ namespace Nexus.Samples.Sdk.Models.Response
         public string Status { get; set; }
         public string Trustlevel { get; set; }
         public string PortFolioCode { get; set; }
-        public bool IsHighRisk { get; set; }
-        public bool HasPhotoId { get; set; }
-        public string FirstTransaction { get; set; }
         public bool IsBusiness { get; set; }
+        public string FirstTransaction { get; set; }
     }
 }

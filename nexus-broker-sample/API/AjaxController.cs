@@ -94,8 +94,6 @@ namespace Nexus.Samples.Broker.API
                 DCCode = account.DcCode,
                 Currency = CurrencyCode,
                 CoolingDown = false,
-                FirstBuyStatus = string.IsNullOrEmpty(customer.FirstTransaction) ? 1 : 0,
-                NeedPhotoID = !customer.HasPhotoId,
                 PaymentMethods = availablePaymentMethods,
                 PaymentPending = paymentPending,
                 Limits = limits
@@ -227,12 +225,9 @@ namespace Nexus.Samples.Broker.API
                 Currency = CurrencyCode,
                 DCCode = account.DcCode,
                 IsBusiness = customer.IsBusiness,
-                HighRisk = customer.IsHighRisk,
-                NeedPhotoID = !customer.HasPhotoId,
                 MinBtcAmount = brokerSellLimits.Remaining.DailyLimit / 2,//TODO: If new API available rather call API
                 MaxBtcAmount = brokerSellLimits.Remaining.DailyLimit,
                 SellServiceAvailable = cryptoPrices != null && cryptoPrices.Sell > 0 && ((DateTime.UtcNow - cryptoPrices.Updated).TotalMinutes < 30),
-                FirstBuyStatus = brokerBuyTransactions.Total
             };
 
             return Ok(response);
