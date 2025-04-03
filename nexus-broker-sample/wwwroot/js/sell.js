@@ -86,7 +86,6 @@
                     $('#verified-business').show();
                     $('#CryptoAmount').removeProp('disabled').removeAttr('disabled');
                     updateprices = true;
-                    //submit.removeProp('disabled').removeAttr('disabled');
                 }
                 else if (type == "NEW") {
                     $('#new-business').show();

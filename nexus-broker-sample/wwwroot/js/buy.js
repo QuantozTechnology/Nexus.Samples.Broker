@@ -175,9 +175,10 @@ $(function () {
                 if (data.accountValid) {
                     $('input[name=Amount]').focus();
                     updatePayMethods(data.paymentMethods);
+                    updateWarningHeaders(data.paymentPending, data.coolingDown);
                     minAmount = data.limits.minimumAmount;
                     maxAmount = data.limits.remainingDailyLimit;
-                    updateWarningHeaders(data.paymentPending, data.coolingDown);
+                    updateAmountLimitText();
                     updateLimitReasonHeaders(data.limitReasons);
                     updateForm();
 
@@ -238,10 +239,6 @@ $(function () {
         else if (coolingDown) {
             $('#buy-notice-cooldown').show();
         }
-    }
-
-    function updateAmountRange() {
-        updateAmountLimitText();
     }
 
     function updateAmountLimitText() {
