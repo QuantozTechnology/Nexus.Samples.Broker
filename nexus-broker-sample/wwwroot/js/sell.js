@@ -87,7 +87,7 @@
                     $('#CryptoAmount').removeProp('disabled').removeAttr('disabled');
                     updateprices = true;
                 }
-                else if (trustLevel == "NEW") {
+                else if (trustLevel === "NEW") {
                     $('#new-business').show();
                     submit.prop('disabled', true);
                 }
@@ -98,13 +98,13 @@
                     $('#CryptoAmount').removeProp('disabled').removeAttr('disabled');
                     updateprices = true;
                 }
-                else if (trustLevel == "TRUSTED") {
+                else if (trustLevel === "TRUSTED") {
                     $('#trusted-personal').show();
                     $('#trusted-accounts-verification').show();
                     $('#CryptoAmount').removeProp('disabled').removeAttr('disabled');
                     updateprices = true;
                 }
-                else if (trustLevel == "NEW") {
+                else if (trustLevel === "NEW") {
                     $('#new-personal').show();
                     $('#CryptoAmount').removeProp('disabled').removeAttr('disabled');
                     updateprices = true;
