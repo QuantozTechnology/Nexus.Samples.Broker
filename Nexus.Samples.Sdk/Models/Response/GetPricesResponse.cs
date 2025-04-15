@@ -13,10 +13,10 @@ namespace Nexus.Samples.Sdk.Models.Response
 
     public class GetPricesResponseItem
     {
-        public decimal Buy { get; set; }
-        public decimal Sell { get; set; }
+        public decimal? Buy { get; set; }
+        public decimal? Sell { get; set; }
         public decimal? EstimatedNetworkSlowFee { get; set; }
         public decimal? EstimatedNetworkFastFee { get; set; }
-        public DateTime Updated { get; set; }
+        public DateTime? Updated { get; set; }
     }
 }

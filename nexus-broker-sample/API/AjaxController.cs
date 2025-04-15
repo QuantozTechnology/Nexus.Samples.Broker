@@ -227,7 +227,7 @@ namespace Nexus.Samples.Broker.API
                 IsBusiness = customer.IsBusiness,
                 MinBtcAmount = brokerSellLimits.Remaining.DailyLimit / 2,//TODO: If new API available rather call API
                 MaxBtcAmount = brokerSellLimits.Remaining.DailyLimit,
-                SellServiceAvailable = cryptoPrices != null && cryptoPrices.Sell > 0 && ((DateTime.UtcNow - cryptoPrices.Updated).TotalMinutes < 30),
+                SellServiceAvailable = cryptoPrices != null && cryptoPrices.Sell > 0 && ((DateTime.UtcNow - cryptoPrices.Updated.GetValueOrDefault(DateTime.UtcNow)).TotalMinutes < 30),
             };
 
             return Ok(response);
